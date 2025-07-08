@@ -1,0 +1,466 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Aurella Care Luxury Design System - Purple & Gold Theme */
+
+@layer base {
+  :root {
+    /* Luxury Purple & Gold Palette */
+    --background: 249 248% 99%;
+    --foreground: 260 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 260 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 260 15% 15%;
+
+    /* Aurella Purple - Main Brand Color */
+    --primary: 260 45% 35%;
+    --primary-foreground: 43 74% 88%;
+    --primary-light: 260 35% 45%;
+    --primary-glow: 260 55% 55%;
+
+    /* Champagne Gold */
+    --gold: 43 74% 66%;
+    --gold-light: 43 74% 78%;
+    --gold-dark: 43 74% 54%;
+
+    /* Rose Tones */
+    --rose: 340 82% 75%;
+    --rose-light: 340 82% 85%;
+    --rose-muted: 340 35% 85%;
+
+    /* Vanilla Cream */
+    --cream: 43 45% 92%;
+    --cream-dark: 43 35% 88%;
+
+    --secondary: 43 35% 88%;
+    --secondary-foreground: 260 15% 15%;
+
+    --muted: 43 25% 95%;
+    --muted-foreground: 260 8% 45%;
+
+    --accent: 260 45% 35%;
+    --accent-foreground: 43 74% 88%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 43 25% 90%;
+    --input: 43 25% 95%;
+    --ring: 260 45% 35%;
+
+    --radius: 1rem;
+
+    /* Luxury Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-gold: linear-gradient(135deg, hsl(var(--gold-dark)), hsl(var(--gold)));
+    --gradient-rose: linear-gradient(135deg, hsl(var(--rose)), hsl(var(--rose-light)));
+    --gradient-luxury: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--gold)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-light)) 50%, hsl(var(--gold)) 100%);
+
+    /* Shadows */
+    --shadow-luxury: 0 25px 50px -12px hsl(var(--primary) / 0.25);
+    --shadow-gold: 0 10px 40px -10px hsl(var(--gold) / 0.3);
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.4);
+    --shadow-soft: 0 4px 20px hsl(var(--primary) / 0.1);
+
+    /* Animation Variables */
+    --transition-luxury: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+/* Luxury Animation Classes */
+@layer components {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  .hover-lift {
+    transition: var(--transition-luxury);
+    transform-style: preserve-3d;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-12px) translateZ(20px) rotateX(5deg) scale(1.02);
+    box-shadow: var(--shadow-luxury), 0 0 60px rgba(260, 45%, 35%, 0.3);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-luxury);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .glass-effect {
+    backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .zoom-hover {
+    transition: var(--transition-smooth);
+    overflow: hidden;
+  }
+  
+  .zoom-hover:hover img {
+    transform: scale(1.15);
+  }
+  
+  .luxury-border {
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                var(--gradient-luxury) border-box;
+    transition: all 0.5s ease;
+  }
+  
+  .luxury-border:hover {
+    border: 3px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                var(--gradient-hero) border-box;
+    transform: perspective(1000px) rotateX(-2deg) rotateY(2deg);
+  }
+  
+  .animate-3d-spin {
+    animation: spin3d 20s linear infinite;
+  }
+  
+  .animate-tilt {
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .animate-tilt:hover {
+    transform: perspective(1000px) rotateX(10deg) rotateY(-10deg) translateZ(20px);
+  }
+  
+  .animate-bounce-3d {
+    animation: bounce3d 2s infinite;
+  }
+  
+  .parallax-layer {
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 20px hsl(var(--primary-glow) / 0.3); }
+  to { box-shadow: 0 0 40px hsl(var(--primary-glow) / 0.6), 0 0 60px hsl(var(--gold) / 0.4); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--gold) / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--gold) / 0.8), 0 0 60px hsl(var(--primary) / 0.4);
+  }
+}
+
+@keyframes spin3d {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  25% { transform: rotateX(90deg) rotateY(0deg); }
+  50% { transform: rotateX(180deg) rotateY(180deg); }
+  75% { transform: rotateX(270deg) rotateY(180deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+@keyframes bounce3d {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0) rotateX(0deg);
+  }
+  40%, 43% {
+    transform: translate3d(0, -30px, 0) rotateX(-10deg);
+  }
+  70% {
+    transform: translate3d(0, -15px, 0) rotateX(-5deg);
+  }
+  90% {
+    transform: translate3d(0, -4px, 0) rotateX(-2deg);
+  }
+}
+
+@keyframes cardFloat {
+  0%, 100% { 
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg); 
+  }
+  50% { 
+    transform: translateY(-10px) rotateX(2deg) rotateY(1deg); 
+  }
+}
+
+@keyframes rotateGlow {
+  0% { 
+    transform: rotate(0deg); 
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+  50% { 
+    transform: rotate(180deg); 
+    box-shadow: 0 0 40px hsl(var(--gold) / 0.5), 0 0 60px hsl(var(--primary) / 0.4);
+  }
+  100% { 
+    transform: rotate(360deg); 
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  .animate-fade-in-down {
+    animation: fadeInDown 0.8s ease-out forwards;
+  }
+  
+  .animate-fade-in-left {
+    animation: fadeInLeft 0.8s ease-out forwards;
+  }
+  
+  .animate-fade-in-right {
+    animation: fadeInRight 0.8s ease-out forwards;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-card-float {
+    animation: cardFloat 4s ease-in-out infinite;
+  }
+  
+  .animate-rotate-glow {
+    animation: rotateGlow 8s linear infinite;
+  }
+  
+  /* Scroll-triggered animations */
+  .scroll-fade-in {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .scroll-fade-in.visible {
+    opacity: 1;
+  }
+  
+  .scroll-slide-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .scroll-slide-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .scroll-slide-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .scroll-slide-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .scroll-slide-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .scroll-slide-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .scroll-scale {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .scroll-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .transform-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .perspective-500 {
+    perspective: 500px;
+  }
+}
