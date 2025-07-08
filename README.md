@@ -1,4 +1,9 @@
-# Welcome to your Lovable project
+# Aurella Care - E-commerce Website
+
+A modern e-commerce website for Aurella Care skincare products built with React, TypeScript, and Supabase.
+
+## Deployment Status
+✅ Latest build fixes applied - Netlify deployment optimized
 
 ## Project info
 
