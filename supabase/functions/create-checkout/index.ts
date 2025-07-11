@@ -148,7 +148,7 @@ serve(async (req) => {
         is_guest: isGuest.toString(),
       },
       shipping_address_collection: {
-        allowed_countries: ['US', 'CA', 'GB', 'DE', 'FR', 'IT', 'ES', 'AU', 'NZ', 'NL', 'BE', 'CH', 'AT', 'DK', 'FI', 'IE', 'LU', 'NO', 'PL', 'PT', 'SE'],
+        allowed_countries: ['US', 'CA', 'GB', 'DE', 'FR', 'IT', 'ES', 'AU', 'NZ', 'NL', 'BE', 'CH', 'AT', 'DK', 'FI', 'IE', 'LU', 'NO', 'PL', 'PT', 'SE', 'AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'JO', 'LB', 'EG', 'MA', 'TN', 'DZ', 'IQ', 'LY', 'SY', 'YE', 'SD', 'PS'],
       },
       billing_address_collection: 'required',
       phone_number_collection: {
