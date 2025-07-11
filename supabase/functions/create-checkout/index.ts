@@ -155,9 +155,6 @@ serve(async (req) => {
         enabled: true,
       },
       customer_creation: 'always',
-      consent_collection: {
-        terms_of_service: 'required',
-      },
     };
 
     // Add customer email if available (for logged-in users)
