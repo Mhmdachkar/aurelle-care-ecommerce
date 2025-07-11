@@ -3,7 +3,6 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Package, ArrowRight, Download, Mail } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 
 interface Order {
   id: string;
@@ -28,34 +27,48 @@ const Success = () => {
   const [searchParams] = useSearchParams();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
     const fetchOrder = async () => {
       if (!sessionId) {
         setLoading(false);
+        setError('No session ID provided');
         return;
       }
 
       try {
-        // For guest orders, we don't need authentication
-        // We can fetch orders directly using the stripe_session_id
-        const { data: orderData, error } = await supabase
-          .from('orders')
-          .select(`
-            *,
-            order_items (*)
-          `)
-          .eq('stripe_session_id', sessionId)
-          .single();
+        console.log('Fetching order for session:', sessionId);
+        
+        // Try the Edge Function to get order details
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/get-order-details?session_id=${sessionId}`,
+          {
+            headers: {
+              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
-        if (error) {
-          console.error('Error fetching order:', error);
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Order data received:', data);
+          if (data.order) {
+            setOrder(data.order);
+          } else {
+            setError('Order not found. Please check your email for confirmation.');
+          }
         } else {
-          setOrder(orderData);
+          const errorData = await response.json();
+          console.error('Error fetching order:', errorData);
+          setError('Unable to retrieve order details. Please check your email for confirmation.');
         }
+
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error fetching order:', error);
+        setError('An unexpected error occurred. Please check your email for order confirmation.');
       } finally {
         setLoading(false);
       }
@@ -79,24 +92,45 @@ const Success = () => {
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading your order details...</p>
+          <p className="text-sm text-muted-foreground/70 mt-2">Please wait while we retrieve your purchase information...</p>
         </div>
       </div>
     );
   }
 
-  if (!sessionId || !order) {
+  if (!sessionId || !order || error) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-cream to-rose-muted flex items-center justify-center">
         <Card className="max-w-md mx-auto p-6 text-center">
-          <h1 className="text-2xl font-bold text-destructive mb-4">Order Not Found</h1>
-          <p className="text-muted-foreground mb-6">
-            We couldn't find your order details. Please check your email for confirmation.
-          </p>
-          <Link to="/">
-            <Button className="bg-gradient-luxury hover:bg-gradient-hero">
-              Return to Store
-            </Button>
-          </Link>
+          <h1 className="text-2xl font-bold text-destructive mb-4">Order Information</h1>
+          <div className="mb-6">
+            {error ? (
+              <div className="space-y-2">
+                <p className="text-muted-foreground">{error}</p>
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-sm text-blue-800">
+                    <strong>Your payment was successful!</strong> We've sent order details to your email. 
+                    If you don't see it, please check your spam folder.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p className="text-muted-foreground">
+                We couldn't find your order details, but your payment was processed successfully. 
+                Please check your email for confirmation.
+              </p>
+            )}
+          </div>
+          <div className="space-y-3">
+            <Link to="/">
+              <Button className="w-full bg-gradient-luxury hover:bg-gradient-hero">
+                Return to Store
+              </Button>
+            </Link>
+            <p className="text-xs text-muted-foreground">
+              Need help? Contact us at Aurellecare28@gmail.com
+            </p>
+          </div>
         </Card>
       </div>
     );
@@ -141,7 +175,7 @@ const Success = () => {
           </div>
 
           {/* Order Summary */}
-          <Card className="mb-8 overflow-hidden luxury-border">
+          <Card className="mb-8">
             <div className="bg-gradient-to-r from-cream to-gold-light p-6 border-b border-gold/30">
               <div className="flex justify-between items-start">
                 <div>
@@ -205,7 +239,7 @@ const Success = () => {
           </Card>
 
           {/* Next Steps */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Card className="p-6 text-center hover-lift">
               <Mail className="h-12 w-12 mx-auto mb-4 text-gold" />
               <h3 className="text-lg font-bold text-primary mb-2">Confirmation Email</h3>
@@ -235,7 +269,7 @@ const Success = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex gap-4 justify-center">
             <Link to="/">
               <Button className="bg-gradient-luxury hover:bg-gradient-hero">
                 <ArrowRight className="mr-2 h-4 w-4" />
