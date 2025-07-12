@@ -35,9 +35,9 @@ const ProductPage = () => {
   const { ref: statsRef, visibleItems: statsVisible } = useStaggeredAnimation(2, 200);
 
   const basePrices = {
-    USD: { current: '0.50', original: '39.90' },
-    GBP: { current: '0.50', original: '31.70' },
-    EUR: { current: '0.50', original: '37.40' }
+    USD: { current: '22.99', original: '39.90' },
+    GBP: { current: '18.49', original: '31.70' },
+    EUR: { current: '21.59', original: '37.40' }
   };
 
   // Calculate prices with actual discounts from gift system
