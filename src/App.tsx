@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useVisitorTracking } from "./hooks/useVisitorTracking";
+import { MetaPixelProvider } from "./hooks/MetaPixelProvider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Success from "./pages/Success";
@@ -32,9 +33,11 @@ const AppContent = () => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <AppContent />
+      <MetaPixelProvider>
+        <Toaster />
+        <Sonner />
+        <AppContent />
+      </MetaPixelProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

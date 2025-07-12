@@ -3,13 +3,14 @@ import { Button } from '@/components/ui/button';
 import { CreditCard, Loader2 } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
-import { toast } from '@/hooks/use-toast';
+import { useMetaPixel } from '@/hooks/useMetaPixel';
 import { supabase } from '@/integrations/supabase/client';
+import { toast } from '@/hooks/use-toast';
 
 interface CheckoutButtonProps {
   currency?: string;
   className?: string;
-  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
+  variant?: 'default' | 'secondary' | 'outline' | 'ghost' | 'link' | 'destructive';
 }
 
 export const CheckoutButton = ({ 
@@ -20,6 +21,7 @@ export const CheckoutButton = ({
   const [loading, setLoading] = useState(false);
   const { cartItems, cartCount, updateTrigger } = useCart();
   const { user } = useAuth();
+  const { trackInitiateCheckout } = useMetaPixel();
 
   console.log('💳 CheckoutButton render:', { cartCount, updateTrigger });
 
@@ -36,6 +38,15 @@ export const CheckoutButton = ({
     setLoading(true);
 
     try {
+      // Calculate total value for Meta Pixel tracking
+      const totalValue = cartItems.reduce((total, item) => 
+        total + (parseFloat(item.price) * item.quantity), 0
+      );
+      const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+      // Track Meta Pixel InitiateCheckout event
+      trackInitiateCheckout(totalValue, currency, totalItems);
+
       let authHeaders = {};
       
       if (user) {

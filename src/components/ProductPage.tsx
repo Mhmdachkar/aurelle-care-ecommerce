@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -14,6 +14,7 @@ import { Heart, ShoppingCart as CartIcon, Eye, Star, Shield, Truck, RotateCcw, C
 import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { useDiscounts } from '@/hooks/useDiscounts';
+import { useMetaPixel } from '@/hooks/useMetaPixel';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
 
 const ProductPage = () => {
@@ -24,6 +25,16 @@ const ProductPage = () => {
   const { addToCart } = useCart();
   const { user } = useAuth();
   const { getTotalDiscount } = useDiscounts();
+  const { trackViewContent } = useMetaPixel();
+
+  // Track ViewContent event when component mounts
+  useEffect(() => {
+    trackViewContent(
+      'Champagne Beaute Lift Firming Body Crème',
+      'Skincare',
+      22.99
+    );
+  }, [trackViewContent]);
 
   // Scroll animations
   const productGallery = useScrollAnimation({ threshold: 0.2 });

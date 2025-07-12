@@ -3,6 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Package, ArrowRight, Download, Mail } from 'lucide-react';
+import { useMetaPixel } from '@/hooks/useMetaPixel';
 
 interface Order {
   id: string;
@@ -28,6 +29,7 @@ const Success = () => {
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { trackPurchase } = useMetaPixel();
   const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
@@ -57,6 +59,13 @@ const Success = () => {
           console.log('Order data received:', data);
           if (data.order) {
             setOrder(data.order);
+            
+            // Track Meta Pixel Purchase event
+            trackPurchase(
+              data.order.total_amount,
+              data.order.currency,
+              data.order.order_number
+            );
           } else {
             setError('Order not found. Please check your email for confirmation.');
           }
@@ -75,7 +84,7 @@ const Success = () => {
     };
 
     fetchOrder();
-  }, [sessionId]);
+  }, [sessionId, trackPurchase]);
 
   const getCurrencySymbol = (currency: string) => {
     switch (currency.toUpperCase()) {

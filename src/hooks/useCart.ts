@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { useMetaPixel } from './useMetaPixel';
 import { toast } from '@/hooks/use-toast';
 
 export interface CartItem {
@@ -27,6 +28,7 @@ const notifyCartChange = () => {
 
 export const useCart = () => {
   const { user } = useAuth();
+  const { trackAddToCart } = useMetaPixel();
   const [cartItems, setCartItems] = useState<CartItem[]>(globalCartItems);
   const [loading, setLoading] = useState(false);
   const [cartCount, setCartCount] = useState(globalCartCount);
@@ -297,6 +299,14 @@ export const useCart = () => {
         isUpdatingRef.current = false;
       }, 100);
       
+      // Track Meta Pixel AddToCart event for guest users
+      trackAddToCart(
+        parseFloat(item.price) * item.quantity,
+        item.currency,
+        `${item.product_name}_${item.variant}`,
+        item.quantity
+      );
+
       toast({
         title: "Success",
         description: "Item added to cart successfully"
@@ -391,6 +401,14 @@ export const useCart = () => {
         });
     }
     
+    // Track Meta Pixel AddToCart event for logged-in users
+    trackAddToCart(
+      parseFloat(item.price) * item.quantity,
+      item.currency,
+      `${item.product_name}_${item.variant}`,
+      item.quantity
+    );
+
     // Show success toast immediately
     toast({
       title: "Success",
