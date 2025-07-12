@@ -134,43 +134,9 @@ serve(async (req) => {
     }));
     console.log('Line items created:', lineItems.length);
 
-    // Create Stripe checkout session
-    console.log('Creating Stripe checkout session...');
-    const sessionConfig: any = {
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      mode: 'payment',
-      success_url: successUrl || `${req.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: cancelUrl || `${req.headers.get('origin')}/`,
-      metadata: {
-        cart_items: JSON.stringify(cartItems),
-        currency: currency,
-        is_guest: isGuest.toString(),
-      },
-      shipping_address_collection: {
-        allowed_countries: ['US', 'CA', 'GB', 'DE', 'FR', 'IT', 'ES', 'AU', 'NZ', 'NL', 'BE', 'CH', 'AT', 'DK', 'FI', 'IE', 'LU', 'NO', 'PL', 'PT', 'SE', 'AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'JO', 'LB', 'EG', 'MA', 'TN', 'DZ', 'IQ', 'LY', 'YE', 'SD', 'PS'],
-      },
-      billing_address_collection: 'required',
-      phone_number_collection: {
-        enabled: true,
-      },
-      customer_creation: 'always',
-    };
-
-    // Add customer email if available (for logged-in users)
-    if (customerEmail && user) {
-      console.log('Adding customer email to session...');
-      sessionConfig.customer_email = customerEmail;
-      sessionConfig.metadata.user_id = user.id;
-    }
-
-    const session = await stripe.checkout.sessions.create(sessionConfig);
-    console.log('Stripe session created:', session.id);
-
-    // Store order in database (pending status)
+    // Store order in database first (pending status) so we can reference it in metadata
     console.log('Creating order in database...');
     const orderData: any = {
-      stripe_session_id: session.id,
       total_amount: totalAmount,
       currency: currency,
       status: 'pending',
@@ -218,6 +184,53 @@ serve(async (req) => {
       throw new Error(`Failed to create order items: ${itemsError.message}`);
     }
     console.log('Order items created successfully');
+
+    // Create Stripe checkout session
+    console.log('Creating Stripe checkout session...');
+    const sessionConfig: any = {
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: 'payment',
+      success_url: successUrl || `${req.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${req.headers.get('origin')}/`,
+      metadata: {
+        order_id: order.id,
+        currency: currency,
+        is_guest: isGuest.toString(),
+        total_amount: totalAmount.toString(),
+        items_count: cartItems.length.toString(),
+      },
+      shipping_address_collection: {
+        allowed_countries: ['US', 'CA', 'GB', 'DE', 'FR', 'IT', 'ES', 'AU', 'NZ', 'NL', 'BE', 'CH', 'AT', 'DK', 'FI', 'IE', 'LU', 'NO', 'PL', 'PT', 'SE', 'AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'JO', 'LB', 'EG', 'MA', 'TN', 'DZ', 'IQ', 'LY', 'YE', 'SD', 'PS'],
+      },
+      billing_address_collection: 'required',
+      phone_number_collection: {
+        enabled: true,
+      },
+      customer_creation: 'always',
+    };
+
+    // Add customer email if available (for logged-in users)
+    if (customerEmail && user) {
+      console.log('Adding customer email to session...');
+      sessionConfig.customer_email = customerEmail;
+      sessionConfig.metadata.user_id = user.id;
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionConfig);
+    console.log('Stripe session created:', session.id);
+
+    // Update order with stripe session ID
+    console.log('Updating order with Stripe session ID...');
+    const { error: updateError } = await supabaseAdmin
+      .from('orders')
+      .update({ stripe_session_id: session.id })
+      .eq('id', order.id);
+
+    if (updateError) {
+      console.error('Error updating order with session ID:', updateError);
+      // Don't throw here as the order and session are already created
+    }
 
     console.log('Returning success response...');
     return new Response(
