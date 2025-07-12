@@ -5,12 +5,12 @@ import { Clock, Award, Sparkles, TrendingUp } from 'lucide-react';
 export const BeforeAfterResults = () => {
   const results = [
     {
-      title: "Firming & Lifting",
-      description: "Visible reduction in sagging and improved skin firmness on arms and abdomen",
-      beforeImage: "/lovable-uploads/c970e003-859b-4681-a7f6-64824cb2a3ac.png",
-      afterImage: "/lovable-uploads/8b9df9aa-660c-4e4c-9443-a322b47eae9c.png",
-      improvement: "92% Firmer",
-      timeframe: "4 weeks"
+      title: "Pink Pepperslim Application",
+      description: "Clinical application technique for optimal results and skin absorption",
+      beforeImage: "/lovable-uploads/8aaef36d-34b7-4334-b07d-511cadc8993b.png",
+      afterImage: "/lovable-uploads/2f2e0324-ddad-404f-8fb7-11c8bb7554da.png",
+      improvement: "Clinical Method",
+      timeframe: "Daily Use"
     },
     {
       title: "Skin Smoothness",
@@ -80,13 +80,35 @@ export const BeforeAfterResults = () => {
         {results.map((result, index) => (
           <Card key={index} className="overflow-hidden hover-lift animate-fade-in-up luxury-border">
             <div className="relative">
-              <img
-                src={result.beforeImage}
-                alt={result.title}
-                className="w-full h-48 sm:h-56 md:h-64 object-cover"
-              />
-              <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
-                <Badge className="bg-primary text-primary-foreground text-xs sm:text-sm">
+              <div className="grid grid-cols-2">
+                {/* Before Image */}
+                <div className="relative">
+                  <img
+                    src={result.beforeImage}
+                    alt={`Before - ${result.title}`}
+                    className="w-full h-48 sm:h-56 md:h-64 object-cover"
+                  />
+                  <div className="absolute bottom-2 left-2 bg-gradient-to-r from-rose-200/90 to-rose-300/90 text-primary px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-bold">
+                    BEFORE
+                  </div>
+                </div>
+                
+                {/* After Image */}
+                <div className="relative">
+                  <img
+                    src={result.afterImage}
+                    alt={`After - ${result.title}`}
+                    className="w-full h-48 sm:h-56 md:h-64 object-cover"
+                  />
+                  <div className="absolute bottom-2 right-2 bg-gradient-to-r from-rose-500/90 to-rose-600/90 text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-bold">
+                    AFTER 4 WEEKS
+                  </div>
+                </div>
+              </div>
+              
+              {/* Improvement Badge */}
+              <div className="absolute top-2 sm:top-4 left-1/2 transform -translate-x-1/2">
+                <Badge className="bg-gradient-luxury text-primary-foreground text-xs sm:text-sm px-2 sm:px-3 py-1 shadow-luxury">
                   {result.improvement}
                 </Badge>
               </div>

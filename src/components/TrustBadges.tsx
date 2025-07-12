@@ -119,26 +119,7 @@ export const TrustBadges = () => {
         </Card>
       </div>
 
-      {/* Payment Methods */}
-      <Card className="p-3 sm:p-4 bg-gradient-to-r from-cream to-gold-light/20">
-        <div className="text-center space-y-2 sm:space-y-3">
-          <h4 className="font-semibold text-primary text-sm sm:text-base">We Accept All Major Payment Methods</h4>
-          <div className="flex items-center justify-center space-x-2 sm:space-x-3">
-            <div className="w-6 h-4 sm:w-8 sm:h-5 bg-gradient-to-r from-blue-600 to-blue-700 rounded text-white flex items-center justify-center text-xs font-bold">
-              VISA
-            </div>
-            <div className="w-6 h-4 sm:w-8 sm:h-5 bg-gradient-to-r from-orange-500 to-red-500 rounded text-white flex items-center justify-center text-xs font-bold">
-              MC
-            </div>
-            <div className="w-6 h-4 sm:w-8 sm:h-5 bg-gradient-to-r from-blue-700 to-blue-900 rounded text-white flex items-center justify-center text-xs font-bold">
-              AMEX
-            </div>
-            <div className="w-6 h-4 sm:w-8 sm:h-5 bg-gradient-to-r from-blue-600 to-blue-800 rounded text-white flex items-center justify-center text-xs font-bold">
-              PP
-            </div>
-          </div>
-        </div>
-      </Card>
+
 
       {/* Shipping Information */}
       <div className="text-center text-xs sm:text-sm text-muted-foreground animate-float space-y-2">

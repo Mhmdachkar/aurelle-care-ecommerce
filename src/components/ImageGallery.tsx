@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 
 export const ImageGallery = ({ selectedVariant }: { selectedVariant: string }) => {
@@ -6,14 +6,27 @@ export const ImageGallery = ({ selectedVariant }: { selectedVariant: string }) =
   const [isZoomed, setIsZoomed] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
 
+  // Define variant-specific images
+  const variantImages = {
+    'Rose': '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png',
+    'Vanilla': '/lovable-uploads/cb6c6690-1cbb-4768-b0be-65ccae0fb4d6.png',
+    'Sweet Almond Coconut': '/lovable-uploads/72e5fa9a-1957-4804-aeb8-9ba74a901107.png'
+  };
+
+  // Additional product images for thumbnails
   const productImages = [
-    '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png',
-    '/lovable-uploads/cb6c6690-1cbb-4768-b0be-65ccae0fb4d6.png',
-    '/lovable-uploads/72e5fa9a-1957-4804-aeb8-9ba74a901107.png',
+    variantImages[selectedVariant as keyof typeof variantImages] || variantImages['Rose'],
     '/lovable-uploads/c970e003-859b-4681-a7f6-64824cb2a3ac.png',
     '/lovable-uploads/8b9df9aa-660c-4e4c-9443-a322b47eae9c.png',
-    '/lovable-uploads/d2ccd223-4da9-45ee-8e7e-ddcf57d99ae7.png'
+    '/lovable-uploads/d2ccd223-4da9-45ee-8e7e-ddcf57d99ae7.png',
+    '/lovable-uploads/ac6356ff-c0b3-4f9c-bbf9-c4b923551602.png',
+    '/lovable-uploads/5baa6fc4-e2cc-4680-98c5-a26581ed6e81.png'
   ];
+
+  // Update main image when variant changes
+  useEffect(() => {
+    setSelectedImage(0); // Reset to main image when variant changes
+  }, [selectedVariant]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
