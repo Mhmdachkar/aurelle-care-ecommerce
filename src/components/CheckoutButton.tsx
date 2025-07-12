@@ -23,7 +23,8 @@ export const CheckoutButton = ({
   const { user } = useAuth();
   const { trackInitiateCheckout } = useMetaPixel();
 
-  console.log('💳 CheckoutButton render:', { cartCount, updateTrigger });
+  // Reduced logging for better performance
+  // console.log('💳 CheckoutButton render:', { cartCount, updateTrigger });
 
   const handleCheckout = async () => {
     if (cartItems.length === 0) {

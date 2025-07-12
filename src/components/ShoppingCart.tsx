@@ -15,7 +15,8 @@ export const ShoppingCart = ({ isOpen, onOpenChange }: ShoppingCartProps) => {
   const { cartItems, removeFromCart, updateQuantity, loading, cartCount, updateTrigger } = useCart();
   const { user } = useAuth();
 
-  console.log('🛒 ShoppingCart render:', { cartCount, updateTrigger });
+  // Only log when cart count or update trigger actually changes (reduced logging)
+  // console.log('🛒 ShoppingCart render:', { cartCount, updateTrigger });
 
   const getCurrencySymbol = (currency: string) => {
     switch (currency) {

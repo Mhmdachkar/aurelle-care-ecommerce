@@ -19,11 +19,18 @@ const GUEST_CART_KEY = 'aurella_guest_cart';
 // Global cart state to force updates across all components
 let globalCartItems: CartItem[] = [];
 let globalCartCount = 0;
+let lastNotifiedCount = -1; // Track last notified count to prevent duplicates
 const cartListeners: (() => void)[] = [];
 
 const notifyCartChange = () => {
-  console.log('🔄 Cart changed - notifying all listeners:', globalCartCount);
-  cartListeners.forEach(listener => listener());
+  // Only notify if count actually changed
+  if (globalCartCount !== lastNotifiedCount) {
+    console.log('🔄 Cart changed - notifying all listeners:', globalCartCount);
+    lastNotifiedCount = globalCartCount;
+    cartListeners.forEach(listener => listener());
+  } else {
+    console.log('⏸️ Skipping cart notification - count unchanged:', globalCartCount);
+  }
 };
 
 export const useCart = () => {
@@ -36,6 +43,8 @@ export const useCart = () => {
   const isUpdatingRef = useRef(false);
   const lastUserStateRef = useRef<any>(null);
   const hasFetchedRef = useRef(false);
+  const lastFetchedUserIdRef = useRef<string | null>(null);
+  const fetchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Track user state changes
   useEffect(() => {
@@ -51,13 +60,17 @@ export const useCart = () => {
     if (userChanged) {
       lastUserStateRef.current = user;
       hasFetchedRef.current = false; // Reset fetch flag when user changes
+      lastFetchedUserIdRef.current = null; // Reset user-specific fetch tracking
     }
   }, [user?.id]); // Only depend on user ID, not the entire user object
 
   // Subscribe to global cart changes
   useEffect(() => {
     const updateCart = () => {
-      console.log('📦 Updating cart state:', globalCartCount);
+      // Only log if cart count actually changed
+      if (cartCount !== globalCartCount) {
+        console.log('📦 Updating cart state:', globalCartCount);
+      }
       setCartItems([...globalCartItems]);
       setCartCount(globalCartCount);
       setUpdateTrigger(prev => prev + 1);
@@ -142,13 +155,16 @@ export const useCart = () => {
       return;
     }
     
-    // Don't fetch if we already fetched for this user state
-    if (hasFetchedRef.current) {
-      console.log('⏸️ Skipping fetch - already fetched for this user state');
+    const currentUserId = user?.id || 'guest';
+    
+    // Don't fetch if we already fetched for this specific user
+    if (lastFetchedUserIdRef.current === currentUserId) {
+      console.log('⏸️ Skipping fetch - already fetched for user:', currentUserId);
       return;
     }
     
     console.log('🔄 Fetching cart items for user:', user ? 'logged-in' : 'guest');
+    lastFetchedUserIdRef.current = currentUserId;
     hasFetchedRef.current = true;
     
     if (!user) {
@@ -543,14 +559,24 @@ export const useCart = () => {
 
   // Only fetch when user state stabilizes
   useEffect(() => {
-    // Add a small delay to ensure user state is stable
-    const timer = setTimeout(() => {
-      if (!hasFetchedRef.current) {
+    // Clear any existing timeout
+    if (fetchTimeoutRef.current) {
+      clearTimeout(fetchTimeoutRef.current);
+    }
+    
+    // Add a delay to ensure user state is stable and prevent rapid fetches
+    fetchTimeoutRef.current = setTimeout(() => {
+      const currentUserId = user?.id || 'guest';
+      if (lastFetchedUserIdRef.current !== currentUserId) {
         fetchCartItems();
       }
-    }, 50);
+    }, 100);
     
-    return () => clearTimeout(timer);
+    return () => {
+      if (fetchTimeoutRef.current) {
+        clearTimeout(fetchTimeoutRef.current);
+      }
+    };
   }, [user?.id]); // Depend on user ID, not the entire user object
 
   // Note: Removed real-time subscriptions to prevent conflicts with optimistic updates

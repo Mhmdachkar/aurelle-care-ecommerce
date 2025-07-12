@@ -29,12 +29,23 @@ const ProductPage = () => {
 
   // Track ViewContent event when component mounts
   useEffect(() => {
-    trackViewContent(
-      'Champagne Beaute Lift Firming Body Crème',
-      'Skincare',
-      22.99
-    );
-  }, [trackViewContent]);
+    // Delay ViewContent tracking to ensure Meta Pixel is loaded
+    const trackViewContentWithDelay = () => {
+      if (typeof window !== 'undefined' && window.fbq) {
+        trackViewContent(
+          'Champagne Beaute Lift Firming Body Crème',
+          'Skincare',
+          22.99
+        );
+      } else {
+        // Retry after 1 second if pixel not loaded yet
+        setTimeout(trackViewContentWithDelay, 1000);
+      }
+    };
+
+    // Initial delay to allow pixel to load
+    setTimeout(trackViewContentWithDelay, 500);
+  }, []); // Remove trackViewContent dependency to prevent re-tracking
 
   // Scroll animations
   const productGallery = useScrollAnimation({ threshold: 0.2 });
