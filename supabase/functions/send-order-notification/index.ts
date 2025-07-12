@@ -196,7 +196,7 @@ serve(async (req) => {
         order_items (*)
       `)
       .eq('id', orderId)
-      .single();
+      .maybeSingle();
 
     if (orderError || !order) {
       throw new Error(`Failed to fetch order: ${orderError?.message}`);
