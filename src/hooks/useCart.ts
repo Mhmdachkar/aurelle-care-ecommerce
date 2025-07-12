@@ -39,18 +39,20 @@ export const useCart = () => {
 
   // Track user state changes
   useEffect(() => {
-    const userChanged = lastUserStateRef.current !== user;
+    const userChanged = lastUserStateRef.current?.id !== user?.id;
     console.log('👤 User state change:', { 
       from: lastUserStateRef.current ? 'logged-in' : 'guest', 
       to: user ? 'logged-in' : 'guest',
-      changed: userChanged 
+      changed: userChanged,
+      previousUserId: lastUserStateRef.current?.id,
+      currentUserId: user?.id
     });
     
     if (userChanged) {
       lastUserStateRef.current = user;
       hasFetchedRef.current = false; // Reset fetch flag when user changes
     }
-  }, [user]);
+  }, [user?.id]); // Only depend on user ID, not the entire user object
 
   // Subscribe to global cart changes
   useEffect(() => {
@@ -537,17 +539,19 @@ export const useCart = () => {
       // User just logged in, migrate guest cart
       migrateGuestCart();
     }
-  }, [user]);
+  }, [user?.id]);
 
   // Only fetch when user state stabilizes
   useEffect(() => {
     // Add a small delay to ensure user state is stable
     const timer = setTimeout(() => {
-      fetchCartItems();
+      if (!hasFetchedRef.current) {
+        fetchCartItems();
+      }
     }, 50);
     
     return () => clearTimeout(timer);
-  }, [user]); // Depend on user directly, not fetchCartItems
+  }, [user?.id]); // Depend on user ID, not the entire user object
 
   // Note: Removed real-time subscriptions to prevent conflicts with optimistic updates
   // The cart will sync when the page loads and when operations complete

@@ -10,13 +10,23 @@ const PIXEL_ID = '757479653472403'; // Your Meta Pixel ID
 
 export const useMetaPixel = () => {
   const trackEvent = useCallback((eventName: string, parameters?: any) => {
-    if (typeof window !== 'undefined' && window.fbq) {
-      try {
-        window.fbq('track', eventName, parameters);
-        console.log(`Meta Pixel event tracked: ${eventName}`, parameters);
-      } catch (error) {
-        console.error('Error tracking Meta Pixel event:', error);
-      }
+    console.log(`🎯 Attempting to track Meta Pixel event: ${eventName}`, parameters);
+    
+    if (typeof window === 'undefined') {
+      console.warn('❌ Meta Pixel: Window object not available');
+      return;
+    }
+    
+    if (!window.fbq) {
+      console.warn('❌ Meta Pixel: fbq function not available. Pixel may not be loaded yet.');
+      return;
+    }
+    
+    try {
+      window.fbq('track', eventName, parameters);
+      console.log(`✅ Meta Pixel event tracked successfully: ${eventName}`, parameters);
+    } catch (error) {
+      console.error('❌ Error tracking Meta Pixel event:', error);
     }
   }, []);
 
@@ -74,13 +84,23 @@ export const useMetaPixel = () => {
   }, [trackEvent]);
 
   const trackCustomEvent = useCallback((eventName: string, parameters?: any) => {
-    if (typeof window !== 'undefined' && window.fbq) {
-      try {
-        window.fbq('trackCustom', eventName, parameters);
-        console.log(`Meta Pixel custom event tracked: ${eventName}`, parameters);
-      } catch (error) {
-        console.error('Error tracking Meta Pixel custom event:', error);
-      }
+    console.log(`🎯 Attempting to track Meta Pixel custom event: ${eventName}`, parameters);
+    
+    if (typeof window === 'undefined') {
+      console.warn('❌ Meta Pixel: Window object not available');
+      return;
+    }
+    
+    if (!window.fbq) {
+      console.warn('❌ Meta Pixel: fbq function not available. Pixel may not be loaded yet.');
+      return;
+    }
+    
+    try {
+      window.fbq('trackCustom', eventName, parameters);
+      console.log(`✅ Meta Pixel custom event tracked successfully: ${eventName}`, parameters);
+    } catch (error) {
+      console.error('❌ Error tracking Meta Pixel custom event:', error);
     }
   }, []);
 

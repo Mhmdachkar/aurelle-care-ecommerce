@@ -10,9 +10,14 @@ export const MetaPixelProvider: React.FC<MetaPixelProviderProps> = ({ children }
   useEffect(() => {
     // Initialize Meta Pixel
     if (typeof window !== 'undefined') {
+      console.log('🎯 Initializing Meta Pixel...');
+      
       // Meta Pixel Code
       (function(f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
-        if (f.fbq) return;
+        if (f.fbq) {
+          console.log('⚠️ Meta Pixel already initialized');
+          return;
+        }
         n = f.fbq = function() {
           n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
         };
@@ -34,7 +39,18 @@ export const MetaPixelProvider: React.FC<MetaPixelProviderProps> = ({ children }
       // Track initial page view
       window.fbq('track', 'PageView');
 
-      console.log('Meta Pixel initialized with ID:', PIXEL_ID);
+      console.log('✅ Meta Pixel initialized with ID:', PIXEL_ID);
+      
+      // Verify pixel is available
+      setTimeout(() => {
+        if (window.fbq) {
+          console.log('✅ Meta Pixel fbq function is available');
+        } else {
+          console.error('❌ Meta Pixel fbq function is NOT available');
+        }
+      }, 1000);
+    } else {
+      console.error('❌ Window object not available for Meta Pixel initialization');
     }
   }, []);
 
