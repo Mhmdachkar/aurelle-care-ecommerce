@@ -132,74 +132,74 @@ export const GiftSystem = () => {
     <>
       {/* Floating Gift Icon */}
       <div 
-        className={`fixed left-4 top-1/2 z-50 transition-all duration-500 ${
+        className={`fixed left-2 sm:left-4 top-1/2 z-50 transition-all duration-500 ${
           showGift ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
         }`}
       >
         <Button
           onClick={handleGiftClick}
-          className="bg-gradient-rose hover:bg-gradient-hero text-white rounded-full p-4 shadow-luxury animate-bounce hover:scale-110 transition-all"
+          className="bg-gradient-rose hover:bg-gradient-hero text-white rounded-full p-2 sm:p-4 shadow-luxury animate-bounce hover:scale-110 transition-all"
         >
-          <Gift className="h-8 w-8 animate-spin" />
+          <Gift className="h-6 w-6 sm:h-8 sm:w-8 animate-spin" />
         </Button>
       </div>
 
       {/* Gift Dialog */}
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent className="sm:max-w-md bg-background border-gold">
+        <DialogContent className="sm:max-w-md max-w-[95vw] bg-background border-gold">
           <DialogHeader>
-            <DialogTitle className="text-center text-2xl font-bold gradient-text flex items-center justify-center gap-2">
-              <Gift className="h-6 w-6 text-gold animate-pulse" />
+            <DialogTitle className="text-center text-xl sm:text-2xl font-bold gradient-text flex items-center justify-center gap-2">
+              <Gift className="h-5 w-5 sm:h-6 sm:w-6 text-gold animate-pulse" />
               Special Rewards!
             </DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-6 py-4">
+          <div className="space-y-4 sm:space-y-6 py-4">
             {/* Current Discount Display */}
             {discountData && discountData.total_discount > 0 && (
-              <div className="text-center p-4 bg-gradient-gold rounded-lg border border-gold">
-                <p className="text-lg font-bold text-primary">
+              <div className="text-center p-3 sm:p-4 bg-gradient-gold rounded-lg border border-gold">
+                <p className="text-base sm:text-lg font-bold text-primary">
                   Current Discount: {discountData.total_discount}% OFF
                 </p>
               </div>
             )}
 
             {/* Gift Discount */}
-            <div className="space-y-3">
-              <h3 className="font-semibold text-primary">🎁 Free Gift Discount</h3>
-              <p className="text-sm text-muted-foreground">
+            <div className="space-y-2 sm:space-y-3">
+              <h3 className="font-semibold text-primary text-sm sm:text-base">🎁 Free Gift Discount</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 Claim your 10% discount just for being logged in!
               </p>
               <Button
                 onClick={handleClaimGiftDiscount}
                 disabled={discountData?.gift_discount_used}
-                className="w-full bg-gradient-luxury hover:bg-gradient-hero"
+                className="w-full bg-gradient-luxury hover:bg-gradient-hero text-sm sm:text-base"
               >
                 {discountData?.gift_discount_used ? '✅ Already Claimed' : '🎁 Claim 10% OFF'}
               </Button>
             </div>
 
             {/* Promo Code */}
-            <div className="space-y-3">
-              <h3 className="font-semibold text-primary">🎯 Promo Code</h3>
-              <p className="text-sm text-muted-foreground">
+            <div className="space-y-2 sm:space-y-3">
+              <h3 className="font-semibold text-primary text-sm sm:text-base">🎯 Promo Code</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 Enter our page name for an additional 10% discount!
               </p>
               <div className="space-y-2">
-                <Label htmlFor="promoCode">Promo Code</Label>
+                <Label htmlFor="promoCode" className="text-xs sm:text-sm">Promo Code</Label>
                 <Input
                   id="promoCode"
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
                   placeholder="Enter promo code..."
-                  className="border-gold focus:border-primary"
+                  className="border-gold focus:border-primary text-sm"
                   disabled={discountData?.code_discount_used}
                 />
               </div>
               <Button
                 onClick={handlePromoCode}
                 disabled={!promoCode || discountData?.code_discount_used}
-                className="w-full bg-gradient-rose hover:bg-gradient-hero"
+                className="w-full bg-gradient-rose hover:bg-gradient-hero text-sm sm:text-base"
               >
                 {discountData?.code_discount_used ? '✅ Code Used' : '🎯 Apply Code'}
               </Button>

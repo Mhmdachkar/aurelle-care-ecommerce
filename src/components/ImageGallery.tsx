@@ -1,37 +1,21 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 
-interface ImageGalleryProps {
-  selectedVariant: string;
-}
-
-export const ImageGallery = ({ selectedVariant }: ImageGalleryProps) => {
+export const ImageGallery = ({ selectedVariant }: { selectedVariant: string }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
 
-  // Product images using direct links
-  const variantImages = {
-    'Rose': [
-      '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png',
-      '/lovable-uploads/5baa6fc4-e2cc-4680-98c5-a26581ed6e81.png',
-      '/lovable-uploads/c970e003-859b-4681-a7f6-64824cb2a3ac.png',
-    ],
-    'Vanilla': [
-      '/lovable-uploads/cb6c6690-1cbb-4768-b0be-65ccae0fb4d6.png',
-      '/lovable-uploads/81e2f348-0374-4440-9196-e9fc43dcd6b6.png',
-      '/lovable-uploads/8aaef36d-34b7-4334-b07d-511cadc8993b.png',
-    ],
-    'Sweet Almond Coconut': [
-      '/lovable-uploads/72e5fa9a-1957-4804-aeb8-9ba74a901107.png',
-      '/lovable-uploads/2f612191-917f-4ada-921e-fe4f6cab4b30.png',
-      '/lovable-uploads/81e2f348-0374-4440-9196-e9fc43dcd6b6.png',
-    ]
-  };
-  
-  const productImages = variantImages[selectedVariant as keyof typeof variantImages] || variantImages['Rose'];
+  const productImages = [
+    '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png',
+    '/lovable-uploads/cb6c6690-1cbb-4768-b0be-65ccae0fb4d6.png',
+    '/lovable-uploads/72e5fa9a-1957-4804-aeb8-9ba74a901107.png',
+    '/lovable-uploads/c970e003-859b-4681-a7f6-64824cb2a3ac.png',
+    '/lovable-uploads/8b9df9aa-660c-4e4c-9443-a322b47eae9c.png',
+    '/lovable-uploads/d2ccd223-4da9-45ee-8e7e-ddcf57d99ae7.png'
+  ];
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
@@ -39,9 +23,9 @@ export const ImageGallery = ({ selectedVariant }: ImageGalleryProps) => {
   };
 
   return (
-    <div className="space-y-4">
-      {/* Main Image Display - Smaller Size */}
-      <Card className="relative overflow-hidden luxury-border animate-fade-in-up group hover-lift max-w-md mx-auto">
+    <div className="space-y-3 sm:space-y-4">
+      {/* Main Image Display */}
+      <Card className="relative overflow-hidden luxury-border animate-fade-in-up group hover-lift max-w-sm sm:max-w-md mx-auto">
         <div 
           className="relative aspect-square cursor-zoom-in transform-gpu"
           onMouseEnter={() => setIsZoomed(true)}
@@ -69,29 +53,31 @@ export const ImageGallery = ({ selectedVariant }: ImageGalleryProps) => {
           
           {/* Floating Zoom Indicator */}
           {isZoomed && (
-            <div className="absolute top-4 right-4 bg-gradient-luxury text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold animate-float shadow-luxury">
+            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-gradient-luxury text-primary-foreground px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold animate-float shadow-luxury">
               ✨ Zoomed
             </div>
           )}
           
           {/* Enhanced Shimmer Effect */}
-          <div className="absolute inset-0 animate-shimmer opacity-20 group-hover:opacity-50 transition-opacity duration-700" 
-               style={{
-                 background: 'linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.6) 50%, transparent 60%)',
-                 backgroundSize: '200% 200%'
-               }}
+          <div 
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"
+            style={{
+              background: 'linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.6) 50%, transparent 60%)',
+              backgroundSize: '200% 200%',
+              animation: 'shimmer 2s infinite'
+            }}
           />
         </div>
       </Card>
 
-      {/* Thumbnail Gallery - Smaller Size */}
-      <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
+      {/* Thumbnail Gallery */}
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 max-w-sm sm:max-w-md mx-auto">
         {productImages.map((image, index) => (
           <Card
             key={index}
             className={`relative aspect-square cursor-pointer overflow-hidden transition-all duration-500 transform-gpu ${
               selectedImage === index 
-                ? 'ring-4 ring-gold shadow-luxury animate-glow scale-105' 
+                ? 'ring-2 sm:ring-4 ring-gold shadow-luxury animate-glow scale-105' 
                 : 'hover:ring-2 hover:ring-primary hover:scale-110'
             }`}
             onClick={() => setSelectedImage(index)}
@@ -118,16 +104,16 @@ export const ImageGallery = ({ selectedVariant }: ImageGalleryProps) => {
         ))}
       </div>
 
-      {/* 3D Animation Hint */}
-      <div className="text-center animate-float">
-        <p className="text-sm text-muted-foreground mb-2">
-          ✨ Hover over main image to zoom • Click thumbnails to switch views
-        </p>
-        <div className="inline-flex items-center space-x-2 text-gold">
-          <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
-          <span className="text-xs font-semibold">LUXURY EXPERIENCE</span>
-          <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
-        </div>
+      {/* Product Features */}
+      <div className="grid grid-cols-2 gap-2 sm:gap-3 max-w-sm sm:max-w-md mx-auto">
+        <Card className="p-2 sm:p-3 text-center bg-gradient-to-r from-gold/10 to-transparent border-gold/30">
+          <div className="text-xs sm:text-sm font-semibold text-gold mb-1">Premium Quality</div>
+          <div className="text-xs text-muted-foreground">Luxury ingredients</div>
+        </Card>
+        <Card className="p-2 sm:p-3 text-center bg-gradient-to-r from-rose/10 to-transparent border-rose/30">
+          <div className="text-xs sm:text-sm font-semibold text-rose mb-1">Fast Results</div>
+          <div className="text-xs text-muted-foreground">In just 4 weeks</div>
+        </Card>
       </div>
     </div>
   );
