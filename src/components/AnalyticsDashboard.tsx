@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Calendar, Users, ShoppingCart, DollarSign, TrendingUp, Eye } from 'lucide-react';
+import VisitorAnalytics from './VisitorAnalytics';
 
 // This component shows what analytics data you would have access to
 const AnalyticsDashboard = () => {
@@ -101,13 +102,18 @@ const AnalyticsDashboard = () => {
       </div>
 
       {/* Detailed Analytics */}
-      <Tabs defaultValue="overview" className="space-y-4">
+      <Tabs defaultValue="visitors" className="space-y-4">
         <TabsList>
+          <TabsTrigger value="visitors">Visitor Analytics</TabsTrigger>
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="pages">Top Pages</TabsTrigger>
           <TabsTrigger value="sessions">Live Sessions</TabsTrigger>
           <TabsTrigger value="sales">Sales Data</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="visitors" className="space-y-4">
+          <VisitorAnalytics />
+        </TabsContent>
 
         <TabsContent value="overview" className="space-y-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
