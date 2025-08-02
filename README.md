@@ -1,78 +1,164 @@
-# Aurella Care - E-commerce Website
+# Aurelle Care - Luxury Skincare E-commerce Platform
 
-A modern e-commerce website for Aurella Care skincare products built with React, TypeScript, and Supabase.
+A modern, full-featured e-commerce website for Aurelle Care luxury skincare products. Built with React, TypeScript, Supabase, and Stripe for seamless online shopping experience.
 
-## Deployment Status
-✅ Latest build fixes applied - Netlify deployment optimized
+## 🌐 **Live Website**
+**URL**: https://aurelle-care.com
 
-## Project info
+## 🚀 **Deployment Status**
+✅ **Production Ready** - Fully deployed on Netlify with optimized performance
 
-**URL**: https://lovable.dev/projects/bbc6986c-048c-499a-9b84-37843103664f
+## 📋 **Project Overview**
 
-## How can I edit this code?
+Aurelle Care is a premium skincare e-commerce platform featuring:
 
-There are several ways of editing your application.
+### **Core Features**
+- **Secure Authentication** - User registration/login with Supabase Auth
+- **Shopping Cart** - Guest and authenticated user cart management
+- **Payment Processing** - Stripe integration with secure checkout
+- **Order Management** - Complete order tracking and management
+- **Analytics Dashboard** - Real-time sales and visitor analytics
+- **Meta Pixel Integration** - Advanced e-commerce tracking
+- **Responsive Design** - Mobile-first, modern UI with shadcn/ui
+- **Performance Optimized** - Fast loading with Vite and optimized assets
 
-**Use Lovable**
+### **Advanced Features**
+- **Guest Checkout** - No registration required for purchases
+- **Customer Segmentation** - Automated customer lifecycle management
+- **Visitor Tracking** - Comprehensive analytics and conversion tracking
+- **Email Notifications** - Automated order confirmations and updates
+- **Security Headers** - Enterprise-grade security configuration
+- **SEO Optimized** - Meta tags, Open Graph, and structured data
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/bbc6986c-048c-499a-9b84-37843103664f) and start prompting.
+## 🛠 **Technology Stack**
 
-Changes made via Lovable will be committed automatically to this repo.
+### **Frontend**
+- **React 18** - Modern UI framework
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool and dev server
+- **Tailwind CSS** - Utility-first styling
+- **shadcn/ui** - Beautiful, accessible components
+- **React Router** - Client-side routing
+- **React Hook Form** - Form management
+- **React Query** - Server state management
 
-**Use your preferred IDE**
+### **Backend & Database**
+- **Supabase** - Backend-as-a-Service
+  - PostgreSQL database
+  - Real-time subscriptions
+  - Row Level Security (RLS)
+  - Edge Functions
+- **Stripe** - Payment processing
+- **Meta Pixel** - Analytics and conversion tracking
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### **Deployment & Infrastructure**
+- **Netlify** - Hosting and CDN
+- **GitHub** - Version control
+- **Environment Variables** - Secure configuration management
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 📊 **Database Schema**
 
-Follow these steps:
+The platform includes a comprehensive database with:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+- **User Management** - Profiles, authentication, preferences
+- **Order System** - Orders, items, payments, shipping
+- **Analytics** - Events, page views, conversions, sessions
+- **Customer Data** - Segmentation, lifetime value, preferences
+- **Performance Monitoring** - Metrics, health checks, audits
+
+## 🚀 **Getting Started**
+
+### **Prerequisites**
+- Node.js 20+ and npm
+- Git
+
+### **Local Development**
+
+```bash
+# Clone the repository
 git clone <YOUR_GIT_URL>
+cd aurella-luxe-reveal-main
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### **Environment Variables**
 
-**Use GitHub Codespaces**
+Create a `.env` file with the following variables:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+```
 
-## What technologies are used for this project?
+## 🏗 **Build & Deployment**
 
-This project is built with:
+### **Build Commands**
+```bash
+# Development build
+npm run build:dev
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+# Production build
+npm run build
 
-## How can I deploy this project?
+# Preview build
+npm run preview
+```
 
-Simply open [Lovable](https://lovable.dev/projects/bbc6986c-048c-499a-9b84-37843103664f) and click on Share -> Publish.
+### **Netlify Deployment**
+The project is configured for automatic deployment on Netlify with:
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Node version: `20`
+- Security headers and caching optimized
 
-## Can I connect a custom domain to my Lovable project?
+## 📈 **Analytics & Tracking**
 
-Yes, you can!
+- **Meta Pixel Integration** - E-commerce event tracking
+- **Visitor Analytics** - Page views, session tracking
+- **Conversion Funnel** - Purchase path analysis
+- **Performance Monitoring** - Core Web Vitals tracking
+- **Customer Segmentation** - Automated lifecycle management
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🔒 **Security Features**
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- **HTTPS Enforcement** - Secure connections only
+- **Security Headers** - XSS protection, content type validation
+- **Row Level Security** - Database-level access control
+- **Environment Variables** - Secure credential management
+- **Input Validation** - Form and data validation
+- **CORS Configuration** - Cross-origin request protection
+
+## 📱 **Mobile Optimization**
+
+- **Responsive Design** - Mobile-first approach
+- **Touch-Friendly** - Optimized for mobile interaction
+- **Fast Loading** - Optimized images and assets
+- **PWA Ready** - Progressive Web App capabilities
+
+## 🤝 **Contributing**
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 **License**
+
+This project is proprietary software for Aurelle Care.
+
+## 📞 **Support**
+
+For technical support or questions about the platform, please contact the development team.
+
+---
+
+**Built with ❤️ for Aurelle Care**
