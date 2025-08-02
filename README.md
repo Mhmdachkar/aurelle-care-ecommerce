@@ -3,7 +3,7 @@
 A modern, full-featured e-commerce website for Aurelle Care luxury skincare products. Built with React, TypeScript, Supabase, and Stripe for seamless online shopping experience.
 
 ## 🌐 **Live Website**
-**URL**: https://aurelle-care.com
+**URL**: https://aurelle-care.netlify.app/
 
 ## 🚀 **Deployment Status**
 ✅ **Production Ready** - Fully deployed on Netlify with optimized performance
