@@ -50,7 +50,7 @@ All Supabase database migrations, Edge Functions, and configuration files have b
 ### **Analytics & Tracking Tables**
 
 #### **6. `analytics_events` Table**
-- **Purpose**: Meta Pixel tracking (ID: 757479653472403)
+- **Purpose**: Meta Pixel tracking (ID: [CONFIGURED])
 - **Events**: Purchase, add_to_cart, view_content, initiate_checkout
 - **Meta Pixel Integration**: Full e-commerce event tracking
 
@@ -153,7 +153,7 @@ All Supabase database migrations, Edge Functions, and configuration files have b
 
 ## 📈 **META PIXEL INTEGRATION**
 
-### **Pixel ID**: `757479653472403` ✅
+### **Pixel ID**: `[CONFIGURED]` ✅
 ### **E-commerce Events**:
 - `PageView` - All page visits
 - `ViewContent` - Product page views
@@ -228,7 +228,7 @@ All Supabase database migrations, Edge Functions, and configuration files have b
 
 1. **✅ $0.50 Minimum**: Enforced at all levels (DB, App, API)
 2. **✅ Guest Checkout**: Fully functional without authentication
-3. **✅ Meta Pixel**: Complete e-commerce tracking (757479653472403)
+3. **✅ Meta Pixel**: Complete e-commerce tracking ([CONFIGURED])
 4. **✅ Stripe Integration**: Payment processing with webhooks
 5. **✅ Email Notifications**: Order confirmations via Resend
 6. **✅ Performance Monitoring**: Real-time metrics collection

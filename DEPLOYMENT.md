@@ -6,8 +6,8 @@ Set these in your Netlify dashboard under Site Settings > Environment Variables:
 
 ### Frontend Variables (Required)
 ```
-VITE_SUPABASE_URL=https://orawqdebazuhqpkzufxy.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yYXdxZGViYXp1aHFwa3p1Znh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE4NDQwNzEsImV4cCI6MjA2NzQyMDA3MX0.inPG4j47vN8438er8urENCFT62Nm4-RmlTk8xEAjEoE
+VITE_SUPABASE_URL=your_supabase_url_here
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 VITE_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key_here
 ```
 
