@@ -3,7 +3,7 @@
 A modern, full-featured e-commerce website built with React, TypeScript, Supabase, and Stripe. This project demonstrates advanced frontend development, backend integration, and e-commerce functionality.
 
 ## 🌐 **Live Demo**
-**URL**: https://aurelle-care.com
+**URL**: https://aurelle-care.netlify.app/
 
 ## 🚀 **Project Highlights**
 
