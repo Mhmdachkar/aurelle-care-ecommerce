@@ -229,12 +229,12 @@ const DynamicProductPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FFDFB9] via-white to-[#FFDFB9]/30">
       {/* Header with Back Button */}
-      <div className="bg-white shadow-sm">
+      <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-4">
           <Button 
             variant="ghost" 
             onClick={() => navigate('/')}
-            className="text-[#A4193D] hover:bg-[#A4193D]/10"
+            className="text-[#A4193D] hover:bg-[#A4193D]/10 font-medium"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Collection
@@ -242,26 +242,26 @@ const DynamicProductPage = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Product Gallery */}
           <div ref={productGallery} className="space-y-6">
             <ImageGallery images={product.images} />
           </div>
 
           {/* Product Details */}
-          <div ref={productDetails} className="space-y-6">
+          <div ref={productDetails} className="space-y-8">
             {product.badge && (
-              <Badge className="bg-[#A4193D] text-white">
+              <Badge className="bg-[#A4193D] text-white font-medium">
                 {product.badge}
               </Badge>
             )}
             
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-[#A4193D] mb-4">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#A4193D] mb-6 leading-tight">
                 {product.name}
               </h1>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 {product.description}
               </p>
               
@@ -274,14 +274,14 @@ const DynamicProductPage = () => {
                     />
                   ))}
                 </div>
-                <span className="text-gray-600">({product.reviews} reviews)</span>
+                <span className="text-gray-600 font-medium">({product.reviews} reviews)</span>
               </div>
             </div>
 
             {/* Pricing */}
-            <div ref={pricingSection} className="space-y-4">
-              <div className="flex items-center gap-4">
-                <span className="text-3xl font-bold text-[#A4193D]">
+            <div ref={pricingSection} className="space-y-6">
+              <div className="flex items-center gap-6">
+                <span className="text-4xl font-bold text-[#A4193D]">
                   ${prices[selectedCurrency as keyof typeof prices].current}
                 </span>
                 {product.originalPrice > product.price && (
@@ -314,7 +314,7 @@ const DynamicProductPage = () => {
                       key={variant}
                       variant={selectedVariant === variant ? "default" : "outline"}
                       onClick={() => setSelectedVariant(variant)}
-                      className={selectedVariant === variant ? "bg-[#A4193D] text-white" : ""}
+                      className={selectedVariant === variant ? "bg-[#A4193D] text-white" : "border-[#A4193D] text-[#A4193D] hover:bg-[#A4193D]/10"}
                     >
                       {variant}
                     </Button>
@@ -324,7 +324,7 @@ const DynamicProductPage = () => {
             )}
 
             {/* Quantity and Add to Cart */}
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <label className="text-lg font-semibold text-gray-800">Quantity:</label>
                 <div className="flex items-center border rounded-lg">
@@ -332,16 +332,16 @@ const DynamicProductPage = () => {
                     variant="ghost"
                     size="sm"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="px-3"
+                    className="px-4 py-2 hover:bg-gray-100"
                   >
                     -
                   </Button>
-                  <span className="px-4 py-2">{quantity}</span>
+                  <span className="px-6 py-2 font-medium">{quantity}</span>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setQuantity(Math.min(10, quantity + 1))}
-                    className="px-3"
+                    className="px-4 py-2 hover:bg-gray-100"
                   >
                     +
                   </Button>
@@ -350,7 +350,7 @@ const DynamicProductPage = () => {
               
               <Button 
                 size="lg" 
-                className="w-full bg-[#A4193D] hover:bg-[#A4193D]/90 text-white"
+                className="w-full bg-[#A4193D] hover:bg-[#A4193D]/90 text-white font-semibold text-lg py-4"
                 onClick={handleAddToCart}
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
@@ -364,22 +364,22 @@ const DynamicProductPage = () => {
         </div>
 
         {/* Product Description */}
-        <div className="mt-16 space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="mt-20 space-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-2xl font-bold text-[#A4193D] mb-4">Description</h2>
-              <p className="text-gray-600 leading-relaxed">
+              <h2 className="text-2xl font-bold text-[#A4193D] mb-6">Description</h2>
+              <p className="text-gray-600 leading-relaxed text-lg">
                 {product.longDescription}
               </p>
             </div>
             
             <div>
-              <h2 className="text-2xl font-bold text-[#A4193D] mb-4">Key Benefits</h2>
-              <ul className="space-y-2">
+              <h2 className="text-2xl font-bold text-[#A4193D] mb-6">Key Benefits</h2>
+              <ul className="space-y-3">
                 {product.benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <div className="w-2 h-2 bg-[#A4193D] rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="text-gray-600">{benefit}</span>
+                  <li key={index} className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#A4193D] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-gray-600 text-lg">{benefit}</span>
                   </li>
                 ))}
               </ul>
@@ -388,14 +388,14 @@ const DynamicProductPage = () => {
 
           {/* Features */}
           <div ref={featuresSection} className="bg-white rounded-2xl p-8 shadow-lg">
-            <h2 className="text-2xl font-bold text-[#A4193D] mb-6 text-center">Product Features</h2>
+            <h2 className="text-2xl font-bold text-[#A4193D] mb-8 text-center">Product Features</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {product.features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-[#FFDFB9] rounded-full flex items-center justify-center flex-shrink-0">
-                    <Award className="w-4 h-4 text-[#A4193D]" />
+                <div key={index} className="flex items-center gap-4 p-4 rounded-lg hover:bg-[#FFDFB9]/20 transition-colors">
+                  <div className="w-10 h-10 bg-[#FFDFB9] rounded-full flex items-center justify-center flex-shrink-0">
+                    <Award className="w-5 h-5 text-[#A4193D]" />
                   </div>
-                  <span className="text-gray-700">{feature}</span>
+                  <span className="text-gray-700 font-medium">{feature}</span>
                 </div>
               ))}
             </div>

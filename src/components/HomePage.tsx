@@ -150,9 +150,9 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FFDFB9] via-white to-[#FFDFB9]/30">
-      {/* Hero Section with Video */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#A4193D]/80 to-[#A4193D]/60 z-10"></div>
+      {/* Hero Section with Video - Reduced Height */}
+      <section className="relative h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#A4193D]/85 to-[#A4193D]/70 z-10"></div>
         <video 
           autoPlay 
           muted 
@@ -164,21 +164,21 @@ const HomePage = () => {
         </video>
         
         <div className="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
-          <Badge className="mb-4 bg-white/20 text-white border-white/30">
+          <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">
             <Sparkles className="w-4 h-4 mr-2" />
             Luxury Beauty Collection
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
             Discover Your
-            <span className="block text-[#FFDFB9]">Natural Radiance</span>
+            <span className="block text-[#FFDFB9] mt-2">Natural Radiance</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white/90 max-w-2xl mx-auto leading-relaxed">
             Premium skincare products crafted with natural ingredients for your most beautiful self
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
-              className="bg-[#FFDFB9] text-[#A4193D] hover:bg-[#FFDFB9]/90 font-semibold"
+              className="bg-[#FFDFB9] text-[#A4193D] hover:bg-[#FFDFB9]/90 font-semibold text-lg px-8 py-3"
               onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Shop Collection
@@ -187,7 +187,7 @@ const HomePage = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-white text-white hover:bg-white/10"
+              className="border-white text-white hover:bg-white/10 text-lg px-8 py-3"
             >
               <Play className="mr-2 w-5 h-5" />
               Watch Story
@@ -196,42 +196,50 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Trust Badges */}
-      <section className="py-12 bg-white">
+      {/* Trust Badges - Improved Layout */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="flex flex-col items-center">
-              <Award className="w-8 h-8 text-[#A4193D] mb-2" />
-              <h3 className="font-semibold text-gray-800">Premium Quality</h3>
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-[#FFDFB9]/20 transition-colors">
+              <div className="w-12 h-12 bg-[#A4193D]/10 rounded-full flex items-center justify-center mb-3">
+                <Award className="w-6 h-6 text-[#A4193D]" />
+              </div>
+              <h3 className="font-semibold text-gray-800 mb-1">Premium Quality</h3>
               <p className="text-sm text-gray-600">Luxury ingredients</p>
             </div>
-            <div className="flex flex-col items-center">
-              <Shield className="w-8 h-8 text-[#A4193D] mb-2" />
-              <h3 className="font-semibold text-gray-800">Safe & Natural</h3>
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-[#FFDFB9]/20 transition-colors">
+              <div className="w-12 h-12 bg-[#A4193D]/10 rounded-full flex items-center justify-center mb-3">
+                <Shield className="w-6 h-6 text-[#A4193D]" />
+              </div>
+              <h3 className="font-semibold text-gray-800 mb-1">Safe & Natural</h3>
               <p className="text-sm text-gray-600">Cruelty-free</p>
             </div>
-            <div className="flex flex-col items-center">
-              <Truck className="w-8 h-8 text-[#A4193D] mb-2" />
-              <h3 className="font-semibold text-gray-800">Free Shipping</h3>
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-[#FFDFB9]/20 transition-colors">
+              <div className="w-12 h-12 bg-[#A4193D]/10 rounded-full flex items-center justify-center mb-3">
+                <Truck className="w-6 h-6 text-[#A4193D]" />
+              </div>
+              <h3 className="font-semibold text-gray-800 mb-1">Free Shipping</h3>
               <p className="text-sm text-gray-600">On orders $50+</p>
             </div>
-            <div className="flex flex-col items-center">
-              <Star className="w-8 h-8 text-[#A4193D] mb-2" />
-              <h3 className="font-semibold text-gray-800">4.8/5 Rating</h3>
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-[#FFDFB9]/20 transition-colors">
+              <div className="w-12 h-12 bg-[#A4193D]/10 rounded-full flex items-center justify-center mb-3">
+                <Star className="w-6 h-6 text-[#A4193D]" />
+              </div>
+              <h3 className="font-semibold text-gray-800 mb-1">4.8/5 Rating</h3>
               <p className="text-sm text-gray-600">From 10k+ reviews</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Products Grid */}
-      <section id="products" className="py-16 bg-gradient-to-b from-white to-[#FFDFB9]/20">
+      {/* Products Grid - Improved Layout */}
+      <section id="products" className="py-20 bg-gradient-to-b from-white to-[#FFDFB9]/20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#A4193D] mb-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#A4193D] mb-6">
               Our Beauty Collection
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Discover our curated selection of premium beauty products designed to enhance your natural beauty
             </p>
           </div>
@@ -240,25 +248,25 @@ const HomePage = () => {
             {products.map((product) => (
               <Card 
                 key={product.id}
-                className="group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-0 bg-white/80 backdrop-blur-sm"
+                className="group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-0 bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden"
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
                 onClick={() => handleProductClick(product)}
               >
                 <CardHeader className="relative p-0">
-                  <div className="relative overflow-hidden rounded-t-lg">
+                  <div className="relative overflow-hidden">
                     <img 
                       src={product.image} 
                       alt={product.name}
-                      className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-64 md:h-72 object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     {product.badge && (
-                      <Badge className="absolute top-4 left-4 bg-[#A4193D] text-white">
+                      <Badge className="absolute top-4 left-4 bg-[#A4193D] text-white font-medium">
                         {product.badge}
                       </Badge>
                     )}
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button size="sm" variant="ghost" className="bg-white/90 hover:bg-white">
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Button size="sm" variant="ghost" className="bg-white/90 hover:bg-white rounded-full">
                         <Heart className="w-4 h-4" />
                       </Button>
                     </div>
@@ -267,17 +275,17 @@ const HomePage = () => {
                 </CardHeader>
                 
                 <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Badge variant="secondary" className="text-xs bg-[#FFDFB9] text-[#A4193D]">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Badge variant="secondary" className="text-xs bg-[#FFDFB9] text-[#A4193D] font-medium">
                       {product.category}
                     </Badge>
                   </div>
                   
-                  <CardTitle className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+                  <CardTitle className="text-lg font-semibold text-gray-800 mb-3 line-clamp-2 leading-tight">
                     {product.name}
                   </CardTitle>
                   
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
                     {product.description}
                   </p>
                   
@@ -307,7 +315,7 @@ const HomePage = () => {
                   </div>
                   
                   <Button 
-                    className="w-full bg-[#A4193D] hover:bg-[#A4193D]/90 text-white"
+                    className="w-full bg-[#A4193D] hover:bg-[#A4193D]/90 text-white font-medium py-3"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleAddToCart(product);
@@ -323,18 +331,18 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-[#A4193D] text-white">
+      {/* CTA Section - Improved Design */}
+      <section className="py-20 bg-[#A4193D] text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
             Ready to Transform Your Beauty Routine?
           </h2>
-          <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl mb-10 text-white/90 max-w-3xl mx-auto leading-relaxed">
             Join thousands of customers who have discovered their natural radiance with our premium beauty collection
           </p>
           <Button 
             size="lg" 
-            className="bg-[#FFDFB9] text-[#A4193D] hover:bg-[#FFDFB9]/90 font-semibold"
+            className="bg-[#FFDFB9] text-[#A4193D] hover:bg-[#FFDFB9]/90 font-semibold text-lg px-8 py-3"
             onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Start Your Journey
