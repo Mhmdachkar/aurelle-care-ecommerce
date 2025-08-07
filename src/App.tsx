@@ -8,6 +8,7 @@ import { MetaPixelProvider } from "./hooks/MetaPixelProvider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Success from "./pages/Success";
+import DynamicProductPage from "./components/DynamicProductPage";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const AppContent = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/product/:productId" element={<DynamicProductPage />} />
         <Route path="/success" element={<Success />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
