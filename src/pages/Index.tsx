@@ -1,7 +1,7 @@
-import HomePage from '@/components/HomePage';
+import ProductPage from '@/components/ProductPage';
 
 const Index = () => {
-  return <HomePage />;
+  return <ProductPage />;
 };
 
 export default Index;
