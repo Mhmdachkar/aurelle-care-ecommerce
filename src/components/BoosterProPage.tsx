@@ -19,12 +19,12 @@ const ACCENT = '#FFDFB9';
 // Black variant -> Screenshot 041939
 // Remaining screenshots become gallery images
 const boosterImages = [
-  '/products/product-2-booster-pro/Screenshot 2025-08-08 041752.png', // Pink
-  '/products/product-2-booster-pro/Screenshot 2025-08-08 041939.png', // Black
-  '/products/product-2-booster-pro/Screenshot 2025-08-08 041015.png',
-  '/products/product-2-booster-pro/Screenshot 2025-08-08 041752.png',
-  '/products/product-2-booster-pro/Screenshot 2025-08-08 042034.png',
-  '/products/product-2-booster-pro/Screenshot 2025-08-08 042049.png',
+  '/products/product-2-booster-pro/pink.png', // Pink
+  '/products/product-2-booster-pro/black.png', // Black
+  '/products/product-2-booster-pro/g1.png',
+  '/products/product-2-booster-pro/pink.png',
+  '/products/product-2-booster-pro/g2.png',
+  '/products/product-2-booster-pro/g3.png',
 ].map((src) => ({ src, fallback: '/placeholder.svg' }));
 
 export default function BoosterProPage() {
@@ -46,8 +46,8 @@ export default function BoosterProPage() {
   }, []);
 
   const imageUrlByVariant: Record<string, string> = {
-    Pink: '/products/product-2-booster-pro/Screenshot 2025-08-08 041752.png',
-    Black: '/products/product-2-booster-pro/Screenshot 2025-08-08 041939.png',
+    Pink: '/products/product-2-booster-pro/pink.png',
+    Black: '/products/product-2-booster-pro/black.png',
   };
 
   const handleAddToCart = async () => {

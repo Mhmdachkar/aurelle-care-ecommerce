@@ -19,7 +19,7 @@ const PRODUCTS: Array<{
   badge?: string;
 }> = [
   { slug: 'champagne-beaute-lift', name: 'Champagne Beaute Lift', price: '$22.99', image: '/products/product-1-champagne-beaute/rose-variant.png', badge: 'Best Seller' },
-  { slug: 'booster-pro', name: 'AGE-R Booster Pro', price: '14.799,00 TL', image: '/products/product-2-booster-pro/Screenshot 2025-08-08 041752.png', badge: 'New' },
+  { slug: 'booster-pro', name: 'AGE-R Booster Pro', price: '14.799,00 TL', image: '/products/product-2-booster-pro/pink.png', badge: 'New' },
   { slug: 'vanilla-velvet-balm', name: 'Vanilla Velvet Balm', price: '$26.50', image: '/products/product-1-champagne-beaute/almond-variant.png' },
   { slug: 'truffle-glow-serum', name: 'Truffle Glow Serum', price: '$39.00', image: '/products/before-after/after-1.png', badge: 'New' },
   { slug: 'caviar-firming-lotion', name: 'Caviar Firming Lotion', price: '$34.90', image: '/products/before-after/before-1.png' },
