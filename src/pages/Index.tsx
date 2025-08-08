@@ -1,7 +1,7 @@
 import { useMemo, useEffect, useState, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import ProductPage from '@/components/ProductPage';
-import BoosterProPage from '@/components/BoosterProPage';
+import DynamicProductPage from '@/components/DynamicProductPage';
+import { PRODUCT_DATA, type ProductId } from '@/data/productData';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -92,7 +92,23 @@ const Index = () => {
   }, [handleScroll, updateVisibleSection, handleMouseMove]);
 
   if (isViewingProduct) {
-    // For now route 'champagne-beaute-lift' to existing detailed page, and 'booster-pro' to the new page
+    // Use dynamic product page with product data
+    const productData = PRODUCT_DATA[productSlug as ProductId];
+    
+    if (!productData) {
+      // Fallback for unknown products
+      return (
+        <div className="min-h-screen bg-background flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-primary mb-4">Product Not Found</h1>
+            <Button onClick={() => navigate({ pathname: '/', search: '' })}>
+              ← Back to Home
+            </Button>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-4">
@@ -105,7 +121,7 @@ const Index = () => {
             ← Back to Home
           </Button>
         </div>
-        {productSlug === 'booster-pro' ? <BoosterProPage /> : <ProductPage />}
+        <DynamicProductPage productData={productData} />
       </div>
     );
   }

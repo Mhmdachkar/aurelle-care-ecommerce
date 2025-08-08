@@ -17,6 +17,11 @@ import { useDiscounts } from '@/hooks/useDiscounts';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
 
+// Consistent theme colors with homepage
+const THEME_PRIMARY = '#A4193D'; // deep rose
+const THEME_ACCENT = '#FFDFB9'; // peach
+const THEME_GOLD = '#D4AF37'; // luxury gold
+
 const ProductPage = () => {
   const [selectedVariant, setSelectedVariant] = useState('Rose');
   const [quantity, setQuantity] = useState(1);

@@ -11,8 +11,14 @@ import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnim
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Star, Sparkles, Heart, Cpu, ActivitySquare, Zap, Sun, AppWindow, ShieldCheck, Eye } from 'lucide-react';
 
-const PRIMARY = '#A4193D';
-const ACCENT = '#FFDFB9';
+// Consistent theme colors with homepage
+const THEME_PRIMARY = '#A4193D'; // deep rose
+const THEME_ACCENT = '#FFDFB9'; // peach
+const THEME_GOLD = '#D4AF37'; // luxury gold
+
+// Legacy constants for backward compatibility
+const PRIMARY = THEME_PRIMARY;
+const ACCENT = THEME_ACCENT;
 
 // Booster Pro images
 // Pink variant (homepage and default) -> Screenshot 041752
