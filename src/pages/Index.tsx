@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Sparkles, Heart, Award, ShieldCheck, Truck, RotateCcw } from 'lucide-react';
+import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
 
 const THEME_PRIMARY = '#A4193D'; // deep rose
 const THEME_ACCENT = '#FFDFB9'; // peach
@@ -34,6 +35,9 @@ const Index = () => {
   const location = useLocation();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const heroAnim = useScrollAnimation({ threshold: 0.1 });
+  const productsHeaderAnim = useScrollAnimation({ threshold: 0.15 });
+  const { ref: productGridRef, visibleItems: productVisible } = useStaggeredAnimation(PRODUCTS.length, 120);
 
   const productSlug = useMemo(() => new URLSearchParams(location.search).get('product'), [location.search]);
   const isViewingProduct = Boolean(productSlug);
@@ -118,8 +122,8 @@ const Index = () => {
       </nav>
 
       {/* Hero Image Header */}
-      <header className="relative w-full overflow-hidden">
-        <div className="relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[32/9]">
+      <header ref={heroAnim.ref as any} className={`relative w-full overflow-hidden ${heroAnim.isVisible ? 'visible' : ''}`}>
+        <div className="relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[32/9] animate-fade-in-up">
           <img
             className="absolute inset-0 w-full h-full object-cover"
             src="/hero-image.png"
@@ -391,7 +395,7 @@ const Index = () => {
 
       {/* Product Grid */}
       <main id="products" className="container mx-auto px-4 py-16">
-        <div className={`mb-12 text-center transition-all duration-700 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '600ms' }}>
+        <div ref={productsHeaderAnim.ref as any} className={`mb-12 text-center transition-all duration-700 ${productsHeaderAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
           <Badge className="mb-4 px-4 py-2 text-sm tracking-wider" style={{ background: `${THEME_GOLD}20`, color: THEME_PRIMARY, border: `1px solid ${THEME_GOLD}40` }}>
             ✨ SIGNATURE COLLECTION ✨
           </Badge>
@@ -406,15 +410,15 @@ const Index = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div ref={productGridRef as any} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {PRODUCTS.map((p, idx) => (
             <Card 
               key={p.slug} 
-              className={`group overflow-hidden transition-all duration-500 hover:shadow-2xl ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+              className={`group overflow-hidden transition-all duration-500 hover:shadow-2xl ${productVisible[idx] ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
               style={{ 
                 borderColor: `${THEME_PRIMARY}20`,
                 borderWidth: '2px',
-                transitionDelay: `${idx * 100 + 800}ms`,
+                transitionDelay: `${idx * 80 + 200}ms`,
                 background: hoveredCard === idx ? `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff)` : '#ffffff'
               }}
               onMouseEnter={() => setHoveredCard(idx)}

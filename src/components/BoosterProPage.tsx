@@ -187,7 +187,7 @@ export default function BoosterProPage() {
                 </div>
                 <div className="relative rounded-xl overflow-hidden border-2" style={{ borderColor: `${PRIMARY}33` }}>
                   <video controls preload="metadata" className="w-full h-auto max-h-[420px] object-cover" poster="/products/product-2-booster-pro/pink.png">
-                    <source src="/videos/Screen Recording 2025-07-07 172049.mp4" type="video/mp4" />
+                    <source src="/videos/Screen Recording 2025-08-08 042534.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 </div>
