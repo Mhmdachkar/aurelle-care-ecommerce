@@ -454,7 +454,7 @@ const Index = () => {
                 age: '34'
               },
               { 
-                beforeImg: '/products/product-1-champagne-beaute/vanilla-variant.png',
+                beforeImg: '/products/before-after/before-2.png',
                 afterImg: '/products/before-after/after-2.png',
                 concern: 'Dull & Uneven Skin',
                 timeframe: '4 weeks',
@@ -463,9 +463,9 @@ const Index = () => {
                 age: '28'
               },
               { 
-                beforeImg: '/products/product-1-champagne-beaute/almond-variant.png',
-                afterImg: '/products/before-after/after-3.png',
-                concern: 'Acne & Texture',
+                beforeImg: '/products/before-after/before-1.png',
+                afterImg: '/products/before-after/after-1.png',
+                concern: 'Firmness & Texture',
                 timeframe: '8 weeks',
                 testimonial: '"Finally found products that work! My confidence is through the roof."',
                 name: 'Jessica R.',
@@ -613,15 +613,21 @@ const Index = () => {
           {PRODUCTS.map((p, idx) => (
             <Card 
               key={p.slug} 
-              className={`group overflow-hidden transition-all duration-500 hover:shadow-2xl ${productVisible[idx] ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+              className={`group overflow-hidden transition-all duration-700 hover:shadow-2xl cursor-pointer rounded-2xl hover-lift ${productVisible[idx] ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
               style={{ 
-                borderColor: `${THEME_PRIMARY}20`,
+                borderColor: `${THEME_PRIMARY}33`,
                 borderWidth: '2px',
                 transitionDelay: `${idx * 80 + 200}ms`,
-                background: hoveredCard === idx ? `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff)` : '#ffffff'
+                background: hoveredCard === idx 
+                  ? `linear-gradient(135deg, ${THEME_ACCENT}15, #ffffff, ${THEME_PRIMARY}08)` 
+                  : `linear-gradient(135deg, #ffffff, ${THEME_ACCENT}05)`,
+                boxShadow: hoveredCard === idx 
+                  ? `0 20px 40px rgba(164, 25, 61, 0.2), 0 0 30px ${THEME_GOLD}22` 
+                  : '0 8px 32px rgba(164, 25, 61, 0.1)'
               }}
               onMouseEnter={() => setHoveredCard(idx)}
               onMouseLeave={() => setHoveredCard(null)}
+              onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
             >
               <div className="relative overflow-hidden">
                 <img
@@ -652,38 +658,49 @@ const Index = () => {
                 </div>
               </div>
               
-              <div className="p-6">
+              <div className="p-6 bg-gradient-to-t from-white via-transparent to-transparent">
                 <div className="mb-4">
-                  <h3 className="font-bold text-xl mb-2 group-hover:text-opacity-80 transition-all" style={{ color: THEME_PRIMARY }}>
+                  <h3 className="font-bold text-xl mb-2 group-hover:text-opacity-80 transition-all leading-tight" style={{ color: THEME_PRIMARY }}>
                     {p.name}
                   </h3>
                   <div className="flex items-center gap-2 mb-3">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" style={{ color: THEME_GOLD }} />
+                      <Star key={i} className="w-4 h-4 fill-current animate-pulse" style={{ color: THEME_GOLD, animationDelay: `${i * 0.1}s` }} />
                     ))}
                     <span className="text-sm opacity-70" style={{ color: THEME_PRIMARY }}>(4.9)</span>
                   </div>
-                  <p className="text-lg font-bold" style={{ color: THEME_PRIMARY }}>{p.price}</p>
+                  <div className="flex justify-between items-center">
+                    <p className="text-2xl font-bold gradient-text" style={{ color: THEME_PRIMARY }}>{p.price}</p>
+                    <span className="text-sm text-green-600 font-semibold">✨ Free shipping</span>
+                  </div>
                 </div>
                 
                 <div className="flex gap-3">
                   <Button
-                    className="flex-1 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
+                    className="flex-1 py-3 rounded-full font-semibold transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl group relative overflow-hidden"
                     style={{ 
                       background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
                       color: THEME_ACCENT 
                     }}
                     onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
                   >
-                    View Details
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      <Sparkles className="w-4 h-4" />
+                      View Details
+                    </span>
                   </Button>
                   <Button
                     variant="outline"
-                    className="w-12 h-12 rounded-full border-2 transition-all duration-300 hover:scale-110"
-                    style={{ borderColor: THEME_PRIMARY, color: THEME_PRIMARY }}
+                    className="w-12 h-12 rounded-full border-2 transition-all duration-500 hover:scale-110 hover:rotate-12 shadow-lg hover:shadow-xl"
+                    style={{ 
+                      borderColor: THEME_PRIMARY, 
+                      color: THEME_PRIMARY,
+                      background: 'rgba(255, 255, 255, 0.9)'
+                    }}
                     title="Add to favorites"
                   >
-                    <Heart className="w-5 h-5" />
+                    <Heart className="w-5 h-5 hover:fill-current transition-all duration-300" />
                   </Button>
                 </div>
               </div>
