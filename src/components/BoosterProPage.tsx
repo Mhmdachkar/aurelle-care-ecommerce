@@ -35,8 +35,13 @@ export default function BoosterProPage() {
   const [color, setColor] = useState<'Pink' | 'Black'>('Pink');
   const [qty, setQty] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
-  const stats = useStaggeredAnimation(3, 160);
-  const galleryAnim = useScrollAnimation({ threshold: 0.15 });
+  // Align animations with Product 1 page
+  const productGallery = useScrollAnimation({ threshold: 0.2 });
+  const productDetails = useScrollAnimation({ threshold: 0.1 });
+  const pricingSection = useScrollAnimation({ threshold: 0.3 });
+  const variantSection = useScrollAnimation({ threshold: 0.2 });
+  const featuresSection = useScrollAnimation({ threshold: 0.1 });
+  const videoSection = useScrollAnimation({ threshold: 0.2 });
 
   const price = useMemo(() => ({ current: '14.799,00 TL', original: '29.599,00 TL' }), []);
 
@@ -76,8 +81,8 @@ export default function BoosterProPage() {
 
       <div className="container mx-auto px-4 py-6 grid lg:grid-cols-2 gap-8 items-start">
         {/* Gallery */}
-        <div ref={galleryAnim.ref as any} className={`space-y-4 ${galleryAnim.isVisible ? 'visible' : ''}`}>
-          <Card className="overflow-hidden border-2" style={{ borderColor: `${PRIMARY}22` }}>
+        <div ref={productGallery.ref as any} className={`space-y-4 scroll-slide-left ${productGallery.isVisible ? 'visible' : ''}`}>
+          <Card className="overflow-hidden hover-lift luxury-border bg-gradient-to-br from-cream via-background to-rose-muted" style={{ borderColor: `${PRIMARY}22` }}>
             <img
               src={safeImg(boosterImages[selectedImage]?.src)}
               onError={(e) => ((e.target as HTMLImageElement).src = boosterImages[selectedImage]?.fallback || '/placeholder.svg')}
@@ -90,7 +95,8 @@ export default function BoosterProPage() {
               <Card
                 key={i}
                 onClick={() => setSelectedImage(i)}
-                className={`p-1 cursor-pointer border ${selectedImage === i ? 'ring-2 ring-rose-500' : ''}`}
+                className={`p-1 cursor-pointer border hover-lift animate-fade-in-up ${selectedImage === i ? 'ring-2 ring-rose-500' : ''}`}
+                style={{animationDelay: `${i * 0.05}s`}}
               >
                 <img
                   src={safeImg(img.src)}
@@ -104,7 +110,7 @@ export default function BoosterProPage() {
         </div>
 
         {/* Details */}
-        <div className="space-y-6">
+        <div ref={productDetails.ref as any} className={`space-y-6 scroll-slide-right ${productDetails.isVisible ? 'visible' : ''}`}>
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2">
               <Star className="h-5 w-5" style={{ color: PRIMARY }} />
@@ -117,7 +123,7 @@ export default function BoosterProPage() {
           </div>
 
           {/* Price */}
-          <Card className="p-5 border-2" style={{ borderColor: `${PRIMARY}33`, background: `linear-gradient(90deg, ${ACCENT}44, #fff)` }}>
+          <Card ref={pricingSection.ref as any} className={`p-5 border-2 animate-fade-in-up scroll-slide-up ${pricingSection.isVisible ? 'visible' : ''}`} style={{ borderColor: `${PRIMARY}33`, background: `linear-gradient(90deg, ${ACCENT}44, #fff)` }}>
             <div className="flex items-center gap-3 flex-wrap">
               <div className="text-3xl font-extrabold" style={{ color: PRIMARY }}>{price.current}</div>
               <div className="line-through opacity-70" style={{ color: '#7f2039' }}>{price.original}</div>
@@ -129,7 +135,7 @@ export default function BoosterProPage() {
           </Card>
 
           {/* Colors */}
-          <div className="space-y-2">
+          <div ref={variantSection.ref as any} className={`space-y-2 animate-fade-in-up scroll-slide-up ${variantSection.isVisible ? 'visible' : ''}`}>
             <div className="font-semibold" style={{ color: PRIMARY }}>Colour</div>
             <div className="flex gap-3">
               {(['Pink', 'Black'] as const).map((c) => (
@@ -158,18 +164,35 @@ export default function BoosterProPage() {
           </div>
 
           {/* Highlights */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div ref={featuresSection.ref as any} className={`grid grid-cols-2 md:grid-cols-4 gap-3 animate-fade-in-up scroll-slide-up ${featuresSection.isVisible ? 'visible' : ''}`}>
             {[
               { icon: Sparkles, label: 'Glass Glow' },
               { icon: ActivitySquare, label: 'Microcurrent' },
               { icon: Cpu, label: 'Electroporation' },
               { icon: Zap, label: 'EMS Lift' },
             ].map((it, i) => (
-              <Card key={i} className="p-3 text-center border" style={{ borderColor: `${PRIMARY}22` }}>
+              <Card key={i} className="p-3 text-center border hover-lift" style={{ borderColor: `${PRIMARY}22`, animationDelay: `${i * 0.1}s` }}>
                 <it.icon className="mx-auto mb-2" style={{ color: PRIMARY }} />
                 <div className="text-sm font-semibold" style={{ color: PRIMARY }}>{it.label}</div>
               </Card>
             ))}
+          </div>
+
+          {/* Video Section */}
+          <div ref={videoSection.ref as any} className={`mt-6 animate-fade-in-up scroll-slide-up ${videoSection.isVisible ? 'visible' : ''}`} style={{animationDelay: '0.3s'}}>
+            <Card className="overflow-hidden hover-lift luxury-border bg-gradient-to-br from-cream via-background to-rose-muted">
+              <div className="p-4">
+                <div className="text-center mb-2">
+                  <h3 className="text-base font-bold" style={{ color: PRIMARY }}>How It Works</h3>
+                </div>
+                <div className="relative rounded-xl overflow-hidden border-2" style={{ borderColor: `${PRIMARY}33` }}>
+                  <video controls preload="metadata" className="w-full h-auto max-h-[420px] object-cover" poster="/products/product-2-booster-pro/pink.png">
+                    <source src="/videos/Screen Recording 2025-07-07 172049.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </Card>
           </div>
 
           {/* Info Sections */}
