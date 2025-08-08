@@ -18,15 +18,15 @@ const PRODUCTS: Array<{
   image: string;
   badge?: string;
 }> = [
-  { slug: 'champagne-beaute-lift', name: 'Champagne Beaute Lift', price: '$22.99', image: '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png', badge: 'Best Seller' },
-  { slug: 'booster-pro', name: 'AGE-R Booster Pro', price: '14.799,00 TL', image: '/lovable-uploads/2f612191-917f-4ada-921e-fe4f6cab4b30.png', badge: 'New' },
-  { slug: 'vanilla-velvet-balm', name: 'Vanilla Velvet Balm', price: '$26.50', image: '/lovable-uploads/72e5fa9a-1957-4804-aeb8-9ba74a901107.png' },
-  { slug: 'truffle-glow-serum', name: 'Truffle Glow Serum', price: '$39.00', image: '/lovable-uploads/c970e003-859b-4681-a7f6-64824cb2a3ac.png', badge: 'New' },
-  { slug: 'caviar-firming-lotion', name: 'Caviar Firming Lotion', price: '$34.90', image: '/lovable-uploads/8b9df9aa-660c-4e4c-9443-a322b47eae9c.png' },
-  { slug: 'gold-peptide-elixir', name: 'Gold Peptide Elixir', price: '$49.00', image: '/lovable-uploads/d2ccd223-4da9-45ee-8e7e-ddcf57d99ae7.png' },
-  { slug: 'pink-pepper-tonic', name: 'Pink Pepper Tonic', price: '$21.99', image: '/lovable-uploads/ac6356ff-c0b3-4f9c-bbf9-c4b923551602.png' },
-  { slug: 'grape-callus-essence', name: 'Grape Callus Essence', price: '$27.50', image: '/lovable-uploads/5baa6fc4-e2cc-4680-98c5-a26581ed6e81.png' },
-  { slug: 'silk-body-butter', name: 'Silk Body Butter', price: '$24.99', image: '/lovable-uploads/06bcd4ee-4669-4a91-bc7f-1577ab0cee7d.png' },
+  { slug: 'champagne-beaute-lift', name: 'Champagne Beaute Lift', price: '$22.99', image: '/products/product-1-champagne-beaute/rose-variant.png', badge: 'Best Seller' },
+  { slug: 'booster-pro', name: 'AGE-R Booster Pro', price: '14.799,00 TL', image: '/products/product-2-booster-pro/main-product.png', badge: 'New' },
+  { slug: 'vanilla-velvet-balm', name: 'Vanilla Velvet Balm', price: '$26.50', image: '/products/product-1-champagne-beaute/almond-variant.png' },
+  { slug: 'truffle-glow-serum', name: 'Truffle Glow Serum', price: '$39.00', image: '/products/before-after/after-1.png', badge: 'New' },
+  { slug: 'caviar-firming-lotion', name: 'Caviar Firming Lotion', price: '$34.90', image: '/products/before-after/before-1.png' },
+  { slug: 'gold-peptide-elixir', name: 'Gold Peptide Elixir', price: '$49.00', image: '/products/product-2-booster-pro/gallery-4.png' },
+  { slug: 'pink-pepper-tonic', name: 'Pink Pepper Tonic', price: '$21.99', image: '/products/homepage-cards/card-3.png' },
+  { slug: 'grape-callus-essence', name: 'Grape Callus Essence', price: '$27.50', image: '/products/homepage-cards/card-4.png' },
+  { slug: 'silk-body-butter', name: 'Silk Body Butter', price: '$24.99', image: '/products/homepage-cards/card-5.png' },
 ];
 
 const Index = () => {
@@ -117,19 +117,14 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Video Header */}
+      {/* Hero Image Header */}
       <header className="relative w-full overflow-hidden">
         <div className="relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[32/9]">
-          <video
+          <img
             className="absolute inset-0 w-full h-full object-cover"
-            poster="/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png"
-            autoPlay
-            muted
-            loop
-            playsInline
-          >
-            <source src="/videos/Screen Recording 2025-07-07 172049.mp4" type="video/mp4" />
-          </video>
+            src="/hero-image.png"
+            alt="Aurelle Luxury Beauty Collection"
+          />
           {/* Enhanced Overlay */}
           <div
             className="absolute inset-0"
@@ -250,8 +245,8 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {[
               { 
-                beforeImg: '/lovable-uploads/8b9df9aa-660c-4e4c-9443-a322b47eae9c.png',
-                afterImg: '/lovable-uploads/c970e003-859b-4681-a7f6-64824cb2a3ac.png',
+                beforeImg: '/products/before-after/before-1.png',
+                afterImg: '/products/before-after/after-1.png',
                 concern: 'Fine Lines & Wrinkles',
                 timeframe: '6 weeks',
                 testimonial: '"I can\'t believe the difference! My colleagues keep asking about my skincare routine."',
@@ -259,8 +254,8 @@ const Index = () => {
                 age: '34'
               },
               { 
-                beforeImg: '/lovable-uploads/cb6c6690-1cbb-4768-b0be-65ccae0fb4d6.png',
-                afterImg: '/lovable-uploads/b00aa63d-058a-4b94-b70e-5bb11c237eb7.png',
+                beforeImg: '/products/product-1-champagne-beaute/vanilla-variant.png',
+                afterImg: '/products/before-after/after-2.png',
                 concern: 'Dull & Uneven Skin',
                 timeframe: '4 weeks',
                 testimonial: '"The glow is real! My skin has never looked this radiant and healthy."',
@@ -268,8 +263,8 @@ const Index = () => {
                 age: '28'
               },
               { 
-                beforeImg: '/lovable-uploads/72e5fa9a-1957-4804-aeb8-9ba74a901107.png',
-                afterImg: '/lovable-uploads/81e2f348-0374-4440-9196-e9fc43dcd6b6.png',
+                beforeImg: '/products/product-1-champagne-beaute/almond-variant.png',
+                afterImg: '/products/before-after/after-3.png',
                 concern: 'Acne & Texture',
                 timeframe: '8 weeks',
                 testimonial: '"Finally found products that work! My confidence is through the roof."',

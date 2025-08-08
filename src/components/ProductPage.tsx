@@ -91,9 +91,9 @@ const ProductPage = () => {
 
   const handleAddToCart = async () => {
     const variantImages = {
-      'Rose': '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png',
-      'Vanilla': '/lovable-uploads/cb6c6690-1cbb-4768-b0be-65ccae0fb4d6.png',
-      'Sweet Almond Coconut': '/lovable-uploads/72e5fa9a-1957-4804-aeb8-9ba74a901107.png'
+      'Rose': '/products/product-1-champagne-beaute/rose-variant.png',
+      'Vanilla': '/products/product-1-champagne-beaute/vanilla-variant.png',
+      'Sweet Almond Coconut': '/products/product-1-champagne-beaute/almond-variant.png'
     };
 
     await addToCart({
@@ -217,7 +217,7 @@ const ProductPage = () => {
                         controls 
                         preload="metadata"
                         className="w-full h-auto max-h-[300px] sm:max-h-[400px] lg:max-h-[500px] object-cover"
-                        poster="/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png"
+                        poster="/products/product-1-champagne-beaute/rose-variant.png"
                       >
                         <source src="/videos/Screen Recording 2025-07-07 172049.mp4" type="video/mp4" />
                         Your browser does not support the video tag.

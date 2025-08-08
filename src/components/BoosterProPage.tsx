@@ -15,11 +15,11 @@ const PRIMARY = '#A4193D';
 const ACCENT = '#FFDFB9';
 
 const boosterImages = [
-  '/lovable-uploads/2f612191-917f-4ada-921e-fe4f6cab4b30.png',
-  '/lovable-uploads/8aaef36d-34b7-4334-b07d-511cadc8993b.png',
-  '/lovable-uploads/c55c4e0c-f2aa-4b4a-9921-ebf1ae1b28a4.png',
-  '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png',
-  '/lovable-uploads/d2ccd223-4da9-45ee-8e7e-ddcf57d99ae7.png',
+  '/products/product-2-booster-pro/main-product.png',
+  '/products/product-2-booster-pro/gallery-2.png',
+  '/products/product-2-booster-pro/gallery-3.png',
+  '/products/product-1-champagne-beaute/rose-variant.png',
+  '/products/product-2-booster-pro/gallery-4.png',
 ].map((src) => ({ src, fallback: '/placeholder.svg' }));
 
 export default function BoosterProPage() {
