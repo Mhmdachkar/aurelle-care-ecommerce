@@ -210,24 +210,186 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Trust Indicators */}
-      <section className="py-16 relative">
+      {/* Before/After Results Gallery - Conversion Focused */}
+      <section className="py-20 relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff)` }}>
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          {/* Compelling Header */}
+          <div className="text-center mb-16">
+            <Badge className="mb-6 px-6 py-3 text-base tracking-wider animate-pulse" style={{ 
+              background: `${THEME_GOLD}25`, 
+              color: THEME_PRIMARY, 
+              border: `2px solid ${THEME_GOLD}60` 
+            }}>
+              🔥 REAL RESULTS FROM REAL CUSTOMERS 🔥
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight" style={{ 
+              color: THEME_PRIMARY,
+              fontFamily: '"Playfair Display", Georgia, serif'
+            }}>
+              See the <span style={{ color: THEME_GOLD }}>Transformation</span> Others Achieved
+            </h2>
+            <p className="text-xl sm:text-2xl mb-8 max-w-3xl mx-auto font-medium" style={{ color: '#7f2039' }}>
+              <strong>Join 50,000+ customers who transformed their skin in just 4 weeks.</strong><br />
+              <span className="text-lg opacity-90">Your radiant skin journey starts with one click.</span>
+            </p>
+            
+            {/* Urgency & Social Proof */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: `${THEME_PRIMARY}10` }}>
+                <Sparkles className="w-5 h-5" style={{ color: THEME_GOLD }} />
+                <span className="font-semibold text-sm" style={{ color: THEME_PRIMARY }}>2,847 sold this week</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: `${THEME_GOLD}15` }}>
+                <Star className="w-5 h-5 fill-current" style={{ color: THEME_GOLD }} />
+                <span className="font-semibold text-sm" style={{ color: THEME_PRIMARY }}>4.9/5 ★ (12,643 reviews)</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Before/After Sliders */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {[
-              { icon: Award, label: 'Award-Winning', desc: 'Recognized Excellence' },
-              { icon: ShieldCheck, label: 'Dermatologist', desc: 'Tested & Approved' },
-              { icon: Truck, label: 'Free Shipping', desc: 'On All Orders' },
-              { icon: RotateCcw, label: '30-Day Returns', desc: 'Satisfaction Guaranteed' },
-            ].map((item, i) => (
-              <div key={i} className={`text-center transition-all duration-500 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: `${i * 100 + 300}ms` }}>
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center shadow-lg" style={{ background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)` }}>
-                  <item.icon className="w-8 h-8" style={{ color: THEME_PRIMARY }} />
+              { 
+                beforeImg: '/lovable-uploads/8b9df9aa-660c-4e4c-9443-a322b47eae9c.png',
+                afterImg: '/lovable-uploads/c970e003-859b-4681-a7f6-64824cb2a3ac.png',
+                concern: 'Fine Lines & Wrinkles',
+                timeframe: '6 weeks',
+                testimonial: '"I can\'t believe the difference! My colleagues keep asking about my skincare routine."',
+                name: 'Sarah M.',
+                age: '34'
+              },
+              { 
+                beforeImg: '/lovable-uploads/cb6c6690-1cbb-4768-b0be-65ccae0fb4d6.png',
+                afterImg: '/lovable-uploads/b00aa63d-058a-4b94-b70e-5bb11c237eb7.png',
+                concern: 'Dull & Uneven Skin',
+                timeframe: '4 weeks',
+                testimonial: '"The glow is real! My skin has never looked this radiant and healthy."',
+                name: 'Emma L.',
+                age: '28'
+              },
+              { 
+                beforeImg: '/lovable-uploads/72e5fa9a-1957-4804-aeb8-9ba74a901107.png',
+                afterImg: '/lovable-uploads/81e2f348-0374-4440-9196-e9fc43dcd6b6.png',
+                concern: 'Acne & Texture',
+                timeframe: '8 weeks',
+                testimonial: '"Finally found products that work! My confidence is through the roof."',
+                name: 'Jessica R.',
+                age: '31'
+              }
+            ].map((result, i) => (
+              <div key={i} 
+                   className={`group transition-all duration-700 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+                   style={{ transitionDelay: `${i * 200 + 400}ms` }}>
+                {/* Before/After Image Container */}
+                <div className="relative overflow-hidden rounded-2xl mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-500"
+                     style={{ background: `linear-gradient(135deg, ${THEME_ACCENT}20, ${THEME_PRIMARY}10)` }}>
+                  <div className="relative aspect-square">
+                    {/* Before Image */}
+                    <div className="absolute inset-0 overflow-hidden">
+                      <img 
+                        src={result.beforeImg} 
+                        alt="Before transformation"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <Badge className="px-3 py-1 text-sm font-bold" style={{ 
+                          background: 'rgba(0,0,0,0.7)', 
+                          color: '#ffffff' 
+                        }}>
+                          BEFORE
+                        </Badge>
+                      </div>
+                    </div>
+                    
+                    {/* After Image Overlay */}
+                    <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-700"
+                         style={{ background: `linear-gradient(45deg, transparent 45%, ${THEME_GOLD}40 50%, transparent 55%)` }}>
+                      <img 
+                        src={result.afterImg} 
+                        alt="After transformation"
+                        className="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-700"
+                      />
+                      <div className="absolute top-4 right-4">
+                        <Badge className="px-3 py-1 text-sm font-bold animate-pulse" style={{ 
+                          background: `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`, 
+                          color: '#ffffff' 
+                        }}>
+                          AFTER {result.timeframe}
+                        </Badge>
+                      </div>
+                    </div>
+                    
+                    {/* Hover Instruction */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="bg-white/95 backdrop-blur-sm rounded-full px-6 py-3 shadow-xl">
+                        <p className="text-sm font-semibold" style={{ color: THEME_PRIMARY }}>
+                          Hover to see results!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <h4 className="font-bold text-sm mb-1" style={{ color: THEME_PRIMARY }}>{item.label}</h4>
-                <p className="text-xs opacity-70" style={{ color: THEME_PRIMARY }}>{item.desc}</p>
+
+                {/* Result Details */}
+                <div className="text-center">
+                  <h4 className="font-bold text-lg mb-2" style={{ color: THEME_PRIMARY }}>
+                    {result.concern}
+                  </h4>
+                  <p className="text-sm italic mb-3 opacity-90" style={{ color: '#7f2039' }}>
+                    {result.testimonial}
+                  </p>
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-sm font-medium" style={{ color: THEME_PRIMARY }}>
+                      - {result.name}, {result.age}
+                    </span>
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-3 h-3 fill-current" style={{ color: THEME_GOLD }} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
+          </div>
+
+          {/* Call-to-Action Section */}
+          <div className="text-center">
+            <div className="max-w-4xl mx-auto p-8 rounded-3xl shadow-2xl" style={{ 
+              background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)` 
+            }}>
+              <h3 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: THEME_ACCENT }}>
+                Ready for Your Transformation?
+              </h3>
+              <p className="text-lg mb-6 opacity-95" style={{ color: '#FFEED7' }}>
+                <strong>Limited Time:</strong> Get the same results with our exclusive starter kit. 
+                <br className="hidden sm:block" />
+                <span className="text-xl font-bold" style={{ color: THEME_GOLD }}>FREE shipping + 30-day money-back guarantee!</span>
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button
+                  size="lg"
+                  className="px-8 py-4 text-lg font-bold rounded-full shadow-2xl transition-all duration-300 hover:scale-105 animate-glow-pulse"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`,
+                    color: THEME_PRIMARY,
+                    border: `3px solid ${THEME_GOLD}`
+                  }}
+                  onClick={() => {
+                    const el = document.getElementById('products');
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  Start My Transformation ✨
+                </Button>
+                
+                <div className="flex items-center gap-2 text-sm" style={{ color: THEME_ACCENT }}>
+                  <ShieldCheck className="w-5 h-5" />
+                  <span>Risk-free • 30-day guarantee</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
