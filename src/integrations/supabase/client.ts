@@ -2,16 +2,44 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "";
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
-export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-  auth: {
-    storage: localStorage,
-    persistSession: true,
-    autoRefreshToken: true,
-  }
-});
+function createMockSupabase() {
+  const resolvedEmpty = Promise.resolve({ data: [], error: null as any });
+  const resolvedOk = Promise.resolve({ error: null as any });
+  const resolvedInsert = Promise.resolve({ data: { id: 'mock_id' }, error: null as any });
+
+  return {
+    from: (_table: string) => ({
+      select: (_cols?: string) => ({
+        eq: (_field: string, _value: unknown) => resolvedEmpty,
+      }),
+      eq: (_field: string, _value: unknown) => resolvedEmpty,
+      update: (_values: unknown) => ({
+        eq: (_field: string, _value: unknown) => resolvedOk,
+      }),
+      delete: () => ({
+        eq: (_field: string, _value: unknown) => resolvedOk,
+      }),
+      insert: (_values: unknown) => ({
+        select: () => ({
+          single: () => resolvedInsert,
+        }),
+      }),
+    }),
+  } as unknown as ReturnType<typeof createClient<Database>>;
+}
+
+export const supabase = (SUPABASE_URL && SUPABASE_PUBLISHABLE_KEY)
+  ? createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+      auth: {
+        storage: localStorage,
+        persistSession: true,
+        autoRefreshToken: true,
+      },
+    })
+  : (console.warn('Supabase environment not configured. Using mock client.'), createMockSupabase());
