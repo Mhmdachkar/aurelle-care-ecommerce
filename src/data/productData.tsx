@@ -1,3 +1,4 @@
+import React from 'react';
 import { Sparkles, ActivitySquare, Cpu, Zap } from 'lucide-react';
 
 // Product data configurations

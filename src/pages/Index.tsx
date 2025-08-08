@@ -1,7 +1,7 @@
 import { useMemo, useEffect, useState, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DynamicProductPage from '@/components/DynamicProductPage';
-import { PRODUCT_DATA, type ProductId } from '@/data/productData';
+import { PRODUCT_DATA, type ProductId } from '@/data/productData.tsx';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
