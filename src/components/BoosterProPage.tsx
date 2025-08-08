@@ -14,12 +14,17 @@ import { Star, Sparkles, Heart, Cpu, ActivitySquare, Zap, Sun, AppWindow, Shield
 const PRIMARY = '#A4193D';
 const ACCENT = '#FFDFB9';
 
+// Booster Pro images
+// Pink variant (homepage and default) -> Screenshot 041752
+// Black variant -> Screenshot 041939
+// Remaining screenshots become gallery images
 const boosterImages = [
-  '/products/product-2-booster-pro/main-product.png',
-  '/products/product-2-booster-pro/gallery-2.png',
-  '/products/product-2-booster-pro/gallery-3.png',
-  '/products/product-1-champagne-beaute/rose-variant.png',
-  '/products/product-2-booster-pro/gallery-4.png',
+  '/products/product-2-booster-pro/Screenshot 2025-08-08 041752.png', // Pink
+  '/products/product-2-booster-pro/Screenshot 2025-08-08 041939.png', // Black
+  '/products/product-2-booster-pro/Screenshot 2025-08-08 041015.png',
+  '/products/product-2-booster-pro/Screenshot 2025-08-08 041752.png',
+  '/products/product-2-booster-pro/Screenshot 2025-08-08 042034.png',
+  '/products/product-2-booster-pro/Screenshot 2025-08-08 042049.png',
 ].map((src) => ({ src, fallback: '/placeholder.svg' }));
 
 export default function BoosterProPage() {
@@ -41,8 +46,8 @@ export default function BoosterProPage() {
   }, []);
 
   const imageUrlByVariant: Record<string, string> = {
-    Pink: boosterImages[0]?.src,
-    Black: boosterImages[1]?.src,
+    Pink: '/products/product-2-booster-pro/Screenshot 2025-08-08 041752.png',
+    Black: '/products/product-2-booster-pro/Screenshot 2025-08-08 041939.png',
   };
 
   const handleAddToCart = async () => {
