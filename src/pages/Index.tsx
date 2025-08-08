@@ -1,12 +1,15 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProductPage from '@/components/ProductPage';
 import BoosterProPage from '@/components/BoosterProPage';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Star, Sparkles, Heart, Award, ShieldCheck, Truck, RotateCcw } from 'lucide-react';
 
 const THEME_PRIMARY = '#A4193D'; // deep rose
 const THEME_ACCENT = '#FFDFB9'; // peach
+const THEME_GOLD = '#D4AF37'; // luxury gold
 
 const PRODUCTS: Array<{
   slug: string;
@@ -16,7 +19,7 @@ const PRODUCTS: Array<{
   badge?: string;
 }> = [
   { slug: 'champagne-beaute-lift', name: 'Champagne Beaute Lift', price: '$22.99', image: '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png', badge: 'Best Seller' },
-  { slug: 'rose-silk-cream', name: 'Rose Silk Cream', price: '$29.90', image: '/lovable-uploads/cb6c6690-1cbb-4768-b0be-65ccae0fb4d6.png' },
+  { slug: 'booster-pro', name: 'AGE-R Booster Pro', price: '14.799,00 TL', image: '/lovable-uploads/2f612191-917f-4ada-921e-fe4f6cab4b30.png', badge: 'New' },
   { slug: 'vanilla-velvet-balm', name: 'Vanilla Velvet Balm', price: '$26.50', image: '/lovable-uploads/72e5fa9a-1957-4804-aeb8-9ba74a901107.png' },
   { slug: 'truffle-glow-serum', name: 'Truffle Glow Serum', price: '$39.00', image: '/lovable-uploads/c970e003-859b-4681-a7f6-64824cb2a3ac.png', badge: 'New' },
   { slug: 'caviar-firming-lotion', name: 'Caviar Firming Lotion', price: '$34.90', image: '/lovable-uploads/8b9df9aa-660c-4e4c-9443-a322b47eae9c.png' },
@@ -29,9 +32,15 @@ const PRODUCTS: Array<{
 const Index = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const productSlug = useMemo(() => new URLSearchParams(location.search).get('product'), [location.search]);
   const isViewingProduct = Boolean(productSlug);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   if (isViewingProduct) {
     // For now route 'champagne-beaute-lift' to existing detailed page, and 'booster-pro' to the new page
@@ -53,7 +62,61 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: `linear-gradient(180deg, ${THEME_ACCENT}11, #ffffff)` }}>
+    <div className="min-h-screen" style={{ 
+      background: `linear-gradient(135deg, ${THEME_ACCENT}08 0%, #ffffff 30%, ${THEME_PRIMARY}05 100%)`,
+      fontFamily: '"Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif'
+    }}>
+      {/* Floating Elements */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div 
+          className="absolute -top-32 -right-32 w-64 h-64 rounded-full opacity-10 animate-pulse"
+          style={{ background: `radial-gradient(circle, ${THEME_GOLD}, transparent)` }}
+        />
+        <div 
+          className="absolute top-1/3 -left-16 w-32 h-32 rounded-full opacity-5 animate-bounce"
+          style={{ background: `radial-gradient(circle, ${THEME_PRIMARY}, transparent)`, animationDuration: '3s' }}
+        />
+        <div 
+          className="absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full opacity-5"
+          style={{ 
+            background: `radial-gradient(circle, ${THEME_ACCENT}, transparent)`,
+            animation: 'float 6s ease-in-out infinite'
+          }}
+        />
+      </div>
+
+      {/* Navigation Bar */}
+      <nav className="relative z-20 backdrop-blur-md border-b border-white/20" style={{ background: `${THEME_ACCENT}10` }}>
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)` }}>
+              <Sparkles className="w-5 h-5" style={{ color: THEME_ACCENT }} />
+            </div>
+            <div>
+              <h2 className="font-bold text-lg tracking-wide" style={{ color: THEME_PRIMARY }}>AURELLE</h2>
+              <p className="text-xs opacity-70" style={{ color: THEME_PRIMARY }}>LUXURY BEAUTY</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" className="text-sm font-medium" style={{ color: THEME_PRIMARY }}>
+              Beauty Guide
+            </Button>
+            <Button variant="ghost" className="text-sm font-medium" style={{ color: THEME_PRIMARY }}>
+              Reviews
+            </Button>
+            <Button 
+              className="px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl" 
+              style={{ 
+                background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
+                color: THEME_ACCENT
+              }}
+            >
+              Account
+            </Button>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Video Header */}
       <header className="relative w-full overflow-hidden">
         <div className="relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[32/9]">
@@ -67,42 +130,78 @@ const Index = () => {
           >
             <source src="/videos/Screen Recording 2025-07-07 172049.mp4" type="video/mp4" />
           </video>
-          {/* Overlay */}
+          {/* Enhanced Overlay */}
           <div
             className="absolute inset-0"
             style={{
-              background: `linear-gradient(90deg, ${THEME_PRIMARY}dd 0%, ${THEME_PRIMARY}88 35%, transparent 70%)`,
+              background: `linear-gradient(135deg, ${THEME_PRIMARY}e6 0%, ${THEME_PRIMARY}aa 35%, transparent 65%), 
+                          radial-gradient(ellipse at bottom right, ${THEME_GOLD}22, transparent 50%)`,
             }}
           />
-          {/* Headline */}
+          {/* Floating Beauty Icons */}
+          <div className="absolute top-8 right-8 opacity-30">
+            <div className="flex flex-col gap-4">
+              <Sparkles className="w-8 h-8 animate-pulse" style={{ color: THEME_ACCENT }} />
+              <Heart className="w-6 h-6" style={{ color: THEME_ACCENT, animationDelay: '1s' }} />
+            </div>
+          </div>
+          {/* Enhanced Headline */}
           <div className="absolute inset-0 flex items-center">
             <div className="container mx-auto px-4">
-              <div className="max-w-xl">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3" style={{ color: THEME_ACCENT }}>
-                  Elegant Results. Visible Beauty.
+              <div className={`max-w-2xl transition-all duration-1000 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+                <div className="mb-4">
+                  <Badge 
+                    className="mb-4 px-4 py-2 text-sm font-medium tracking-wide shadow-lg backdrop-blur-sm" 
+                    style={{ 
+                      background: `${THEME_ACCENT}ee`,
+                      color: THEME_PRIMARY,
+                      border: `1px solid ${THEME_GOLD}40`
+                    }}
+                  >
+                    ✨ LUXURY BEAUTY COLLECTION ✨
+                  </Badge>
+                </div>
+                <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mb-6 tracking-tight" 
+                    style={{ 
+                      color: THEME_ACCENT,
+                      textShadow: '0 4px 20px rgba(0,0,0,0.3), 0 0 40px rgba(212,175,55,0.3)',
+                      fontFamily: '"Playfair Display", Georgia, serif'
+                    }}>
+                  Radiant Beauty.<br />
+                  <span style={{ color: THEME_GOLD }}>Visible Results.</span>
                 </h1>
-                <p className="text-sm sm:text-base lg:text-lg opacity-90 mb-6" style={{ color: '#FFEED7' }}>
-                  Discover luxury skincare crafted for confidence. Firming, hydrating, and glow-enhancing formulas designed for you.
+                <p className="text-lg sm:text-xl lg:text-2xl opacity-95 mb-8 font-light leading-relaxed" style={{ color: '#FFEED7' }}>
+                  Experience luxury skincare that transforms your confidence. Advanced formulas for firming, hydration, and that coveted glass-skin glow.
                 </p>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Button
                     size="lg"
-                    className="shadow-md"
-                    style={{ backgroundColor: THEME_ACCENT, color: THEME_PRIMARY }}
+                    className="px-8 py-4 text-lg font-semibold rounded-full shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`,
+                      color: THEME_PRIMARY,
+                      border: `2px solid ${THEME_GOLD}60`
+                    }}
                     onClick={() => {
                       const el = document.getElementById('products');
                       el?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
-                    Shop Now
+                    Discover Collection
+                    <Sparkles className="ml-2 w-5 h-5" />
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-2"
-                    style={{ borderColor: THEME_ACCENT, color: THEME_ACCENT }}
+                    className="px-8 py-4 text-lg font-semibold rounded-full border-2 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+                    style={{ 
+                      borderColor: THEME_ACCENT, 
+                      color: THEME_ACCENT,
+                      background: `${THEME_ACCENT}10`
+                    }}
                   >
-                    Watch Video
+                    Watch Results
+                    <Star className="ml-2 w-5 h-5" />
                   </Button>
                 </div>
               </div>
@@ -111,49 +210,120 @@ const Index = () => {
         </div>
       </header>
 
+      {/* Trust Indicators */}
+      <section className="py-16 relative">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+            {[
+              { icon: Award, label: 'Award-Winning', desc: 'Recognized Excellence' },
+              { icon: ShieldCheck, label: 'Dermatologist', desc: 'Tested & Approved' },
+              { icon: Truck, label: 'Free Shipping', desc: 'On All Orders' },
+              { icon: RotateCcw, label: '30-Day Returns', desc: 'Satisfaction Guaranteed' },
+            ].map((item, i) => (
+              <div key={i} className={`text-center transition-all duration-500 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: `${i * 100 + 300}ms` }}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center shadow-lg" style={{ background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)` }}>
+                  <item.icon className="w-8 h-8" style={{ color: THEME_PRIMARY }} />
+                </div>
+                <h4 className="font-bold text-sm mb-1" style={{ color: THEME_PRIMARY }}>{item.label}</h4>
+                <p className="text-xs opacity-70" style={{ color: THEME_PRIMARY }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Product Grid */}
-      <main id="products" className="container mx-auto px-4 py-12">
-        <div className="mb-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: THEME_PRIMARY }}>Featured Beauty</h2>
-          <p className="text-sm sm:text-base mt-2" style={{ color: '#7f2039' }}>Curated for radiance, firmness, and glow</p>
+      <main id="products" className="container mx-auto px-4 py-16">
+        <div className={`mb-12 text-center transition-all duration-700 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '600ms' }}>
+          <Badge className="mb-4 px-4 py-2 text-sm tracking-wider" style={{ background: `${THEME_GOLD}20`, color: THEME_PRIMARY, border: `1px solid ${THEME_GOLD}40` }}>
+            ✨ SIGNATURE COLLECTION ✨
+          </Badge>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight" style={{ 
+            color: THEME_PRIMARY,
+            fontFamily: '"Playfair Display", Georgia, serif'
+          }}>
+            Discover Your <span style={{ color: THEME_GOLD }}>Perfect Match</span>
+          </h2>
+          <p className="text-lg sm:text-xl max-w-2xl mx-auto opacity-80" style={{ color: '#7f2039' }}>
+            Curated luxury formulas for radiance, firmness, and that coveted glass-skin glow
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {PRODUCTS.map((p, idx) => (
-            <Card key={p.slug} className="overflow-hidden group border-2" style={{ borderColor: `${THEME_PRIMARY}22` }}>
-              <div className="relative">
+            <Card 
+              key={p.slug} 
+              className={`group overflow-hidden transition-all duration-500 hover:shadow-2xl ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+              style={{ 
+                borderColor: `${THEME_PRIMARY}20`,
+                borderWidth: '2px',
+                transitionDelay: `${idx * 100 + 800}ms`,
+                background: hoveredCard === idx ? `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff)` : '#ffffff'
+              }}
+              onMouseEnter={() => setHoveredCard(idx)}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
+              <div className="relative overflow-hidden">
                 <img
                   src={p.image}
                   alt={p.name}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-72 object-cover transition-all duration-700 group-hover:scale-110"
                 />
                 {p.badge && (
-                  <span
-                    className="absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-full"
-                    style={{ backgroundColor: THEME_PRIMARY, color: THEME_ACCENT }}
+                  <Badge
+                    className="absolute top-4 left-4 px-3 py-1 text-xs font-bold shadow-lg"
+                    style={{ 
+                      background: p.badge === 'Best Seller' 
+                        ? `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)` 
+                        : `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`,
+                      color: THEME_ACCENT 
+                    }}
                   >
                     {p.badge}
-                  </span>
+                  </Badge>
                 )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Hover Effects */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-full p-3 shadow-xl">
+                    <Sparkles className="w-6 h-6" style={{ color: THEME_PRIMARY }} />
+                  </div>
+                </div>
               </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-lg mb-1" style={{ color: THEME_PRIMARY }}>{p.name}</h3>
-                <p className="text-sm mb-4" style={{ color: '#7f2039' }}>{p.price}</p>
-                <div className="flex gap-2">
+              
+              <div className="p-6">
+                <div className="mb-4">
+                  <h3 className="font-bold text-xl mb-2 group-hover:text-opacity-80 transition-all" style={{ color: THEME_PRIMARY }}>
+                    {p.name}
+                  </h3>
+                  <div className="flex items-center gap-2 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-current" style={{ color: THEME_GOLD }} />
+                    ))}
+                    <span className="text-sm opacity-70" style={{ color: THEME_PRIMARY }}>(4.9)</span>
+                  </div>
+                  <p className="text-lg font-bold" style={{ color: THEME_PRIMARY }}>{p.price}</p>
+                </div>
+                
+                <div className="flex gap-3">
                   <Button
-                    className="flex-1"
-                    style={{ backgroundColor: THEME_PRIMARY, color: THEME_ACCENT }}
+                    className="flex-1 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
+                      color: THEME_ACCENT 
+                    }}
                     onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
                   >
                     View Details
                   </Button>
                   <Button
                     variant="outline"
-                    className="w-12 border-2"
+                    className="w-12 h-12 rounded-full border-2 transition-all duration-300 hover:scale-110"
                     style={{ borderColor: THEME_PRIMARY, color: THEME_PRIMARY }}
                     title="Add to favorites"
                   >
-                    ❤
+                    <Heart className="w-5 h-5" />
                   </Button>
                 </div>
               </div>
@@ -162,16 +332,79 @@ const Index = () => {
         </div>
       </main>
 
-      {/* Thematic Footer Teaser */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="rounded-2xl p-6 sm:p-8 text-center" style={{ background: `linear-gradient(90deg, ${THEME_ACCENT}, #fff)` }}>
-            <h3 className="text-xl sm:text-2xl font-bold mb-2" style={{ color: THEME_PRIMARY }}>
-              Beauty You Can Feel
+      {/* Beauty Promise Section */}
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0" style={{ 
+          background: `linear-gradient(135deg, ${THEME_ACCENT}15, ${THEME_PRIMARY}05)` 
+        }} />
+        <div className="container mx-auto px-4 relative">
+          <div className="max-w-4xl mx-auto text-center">
+            <Badge className="mb-6 px-6 py-3 text-base tracking-wider" style={{ 
+              background: `${THEME_GOLD}25`, 
+              color: THEME_PRIMARY, 
+              border: `2px solid ${THEME_GOLD}40` 
+            }}>
+              ✨ THE AURELLE PROMISE ✨
+            </Badge>
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight" style={{ 
+              color: THEME_PRIMARY,
+              fontFamily: '"Playfair Display", Georgia, serif'
+            }}>
+              Beauty You Can <span style={{ color: THEME_GOLD }}>Feel, See & Trust</span>
             </h3>
-            <p className="text-sm sm:text-base" style={{ color: '#7f2039' }}>
-              Sensory-rich textures. Visible results. Thoughtful formulas.
+            <p className="text-lg sm:text-xl mb-8 max-w-2xl mx-auto opacity-85" style={{ color: '#7f2039' }}>
+              Sensory-rich textures meet science-backed results. Every formula is thoughtfully crafted for your skin's unique journey to radiance.
             </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+              {[
+                { icon: Sparkles, title: 'Visible Results', desc: 'See the difference in just 4 weeks' },
+                { icon: Heart, title: 'Gentle Luxury', desc: 'Safe for all skin types & concerns' },
+                { icon: Award, title: 'Expert Approved', desc: 'Dermatologist tested & recommended' }
+              ].map((item, i) => (
+                <div key={i} className="text-center group">
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110" 
+                       style={{ background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)` }}>
+                    <item.icon className="w-10 h-10" style={{ color: THEME_PRIMARY }} />
+                  </div>
+                  <h4 className="font-bold text-lg mb-2" style={{ color: THEME_PRIMARY }}>{item.title}</h4>
+                  <p className="text-sm opacity-75" style={{ color: THEME_PRIMARY }}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-16" style={{ background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)` }}>
+        <div className="container mx-auto px-4 text-center">
+          <h3 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: THEME_ACCENT }}>
+            Join the Radiance Club
+          </h3>
+          <p className="text-lg mb-8 opacity-90" style={{ color: '#FFEED7' }}>
+            Get exclusive beauty tips, early access to new launches, and special member offers.
+          </p>
+          <div className="max-w-md mx-auto flex gap-3">
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              className="flex-1 px-4 py-3 rounded-full border-2 focus:outline-none focus:ring-2"
+              style={{ 
+                borderColor: THEME_ACCENT,
+                background: `${THEME_ACCENT}ee`,
+                color: THEME_PRIMARY
+              }}
+            />
+            <Button 
+              className="px-6 py-3 rounded-full font-semibold shadow-lg"
+              style={{ 
+                background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`,
+                color: THEME_PRIMARY 
+              }}
+            >
+              Join Now
+            </Button>
           </div>
         </div>
       </section>
