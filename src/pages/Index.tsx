@@ -1,6 +1,7 @@
 import { useMemo, useEffect, useState, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DynamicProductPage from '@/components/DynamicProductPage';
+import TransformationSection from '@/components/TransformationSection';
 import { PRODUCT_DATA, type ProductId } from '@/data/productData.tsx';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -64,7 +65,7 @@ const Index = () => {
 
   // Section visibility tracking
   const updateVisibleSection = useCallback(() => {
-    const sections = ['hero', 'before-after', 'products', 'promise', 'newsletter'];
+    const sections = ['hero', 'transformation', 'products', 'promise', 'newsletter'];
     const currentSection = sections.find(section => {
       const element = document.getElementById(section);
       if (element) {
@@ -220,7 +221,7 @@ const Index = () => {
           
           {/* Section Progress Indicator */}
           <div className="hidden md:flex items-center gap-2">
-            {['hero', 'before-after', 'products', 'promise', 'newsletter'].map((section, idx) => (
+            {['hero', 'transformation', 'products', 'promise', 'newsletter'].map((section, idx) => (
               <div
                 key={section}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
@@ -363,32 +364,44 @@ const Index = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
                     size="lg"
-                    className="px-8 py-4 text-lg font-semibold rounded-full shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                    className="px-10 py-5 text-xl font-bold rounded-full shadow-2xl transition-all duration-500 hover:scale-110 hover:rotate-1 animate-glow-pulse group relative overflow-hidden"
                     style={{ 
                       background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`,
                       color: THEME_PRIMARY,
-                      border: `2px solid ${THEME_GOLD}60`
+                      border: `3px solid ${THEME_GOLD}`
                     }}
                     onClick={() => {
-                      const el = document.getElementById('products');
+                      const el = document.getElementById('transformation');
                       el?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
-                    Discover Collection
-                    <Sparkles className="ml-2 w-5 h-5" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    <span className="relative z-10 flex items-center gap-3">
+                      <Crown className="w-6 h-6" />
+                      Discover Collection
+                      <Sparkles className="w-6 h-6 animate-spin" style={{ animationDuration: '3s' }} />
+                    </span>
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    className="px-8 py-4 text-lg font-semibold rounded-full border-2 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+                    className="px-10 py-5 text-xl font-bold rounded-full border-3 backdrop-blur-md transition-all duration-500 hover:scale-110 hover:shadow-2xl group"
                     style={{ 
-                      borderColor: THEME_ACCENT, 
+                      borderColor: THEME_GOLD, 
                       color: THEME_ACCENT,
-                      background: `${THEME_ACCENT}10`
+                      background: `${THEME_ACCENT}15`,
+                      boxShadow: `0 10px 30px ${THEME_GOLD}20`
+                    }}
+                    onClick={() => {
+                      const el = document.getElementById('transformation');
+                      el?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
-                    Watch Results
-                    <Star className="ml-2 w-5 h-5" />
+                    <span className="flex items-center gap-3">
+                      <Star className="w-6 h-6 fill-current group-hover:animate-pulse" />
+                      See Results
+                      <Award className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
+                    </span>
                   </Button>
                 </div>
               </div>
@@ -397,7 +410,14 @@ const Index = () => {
         </div>
       </header>
 
-
+      {/* Transformation Section */}
+      <TransformationSection 
+        scrollY={scrollY}
+        onCTAClick={() => {
+          const el = document.getElementById('products');
+          el?.scrollIntoView({ behavior: 'smooth' });
+        }}
+      />
 
       {/* Product Grid */}
       <main id="products" className="container mx-auto px-4 py-16">
@@ -420,94 +440,151 @@ const Index = () => {
           {PRODUCTS.map((p, idx) => (
             <Card 
               key={p.slug} 
-              className={`group overflow-hidden transition-all duration-700 hover:shadow-2xl cursor-pointer rounded-2xl hover-lift ${productVisible[idx] ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+              className={`group overflow-hidden transition-all duration-1000 hover:shadow-2xl cursor-pointer rounded-3xl hover-lift ${productVisible[idx] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
               style={{ 
-                borderColor: `${THEME_PRIMARY}33`,
-                borderWidth: '2px',
-                transitionDelay: `${idx * 80 + 200}ms`,
+                border: `3px solid ${hoveredCard === idx ? THEME_GOLD : `${THEME_PRIMARY}20`}`,
+                transitionDelay: `${idx * 120 + 300}ms`,
                 background: hoveredCard === idx 
-                  ? `linear-gradient(135deg, ${THEME_ACCENT}15, #ffffff, ${THEME_PRIMARY}08)` 
-                  : `linear-gradient(135deg, #ffffff, ${THEME_ACCENT}05)`,
+                  ? `linear-gradient(135deg, ${THEME_ACCENT}20, #ffffff, ${THEME_PRIMARY}12, #ffffff)` 
+                  : `linear-gradient(135deg, #ffffff, ${THEME_ACCENT}08, #ffffff)`,
                 boxShadow: hoveredCard === idx 
-                  ? `0 20px 40px rgba(164, 25, 61, 0.2), 0 0 30px ${THEME_GOLD}22` 
-                  : '0 8px 32px rgba(164, 25, 61, 0.1)'
+                  ? `0 25px 60px rgba(164, 25, 61, 0.25), 0 0 50px ${THEME_GOLD}30, inset 0 1px 0 rgba(255,255,255,0.8)` 
+                  : '0 12px 40px rgba(164, 25, 61, 0.12)',
+                transform: hoveredCard === idx ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)'
               }}
               onMouseEnter={() => setHoveredCard(idx)}
               onMouseLeave={() => setHoveredCard(null)}
               onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
             >
-              <div className="relative overflow-hidden">
+              <div className="relative overflow-hidden rounded-t-3xl">
                 <img
                   src={p.image}
                   alt={p.name}
-                  className="w-full h-72 object-cover transition-all duration-700 group-hover:scale-110"
+                  className="w-full h-80 object-cover transition-all duration-1000 group-hover:scale-115 group-hover:rotate-1"
                 />
                 {p.badge && (
                   <Badge
-                    className="absolute top-4 left-4 px-3 py-1 text-xs font-bold shadow-lg"
+                    className="absolute top-6 left-6 px-4 py-2 text-sm font-bold shadow-2xl animate-pulse border-2 border-white/30"
                     style={{ 
                       background: p.badge === 'Best Seller' 
                         ? `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)` 
                         : `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`,
-                      color: THEME_ACCENT 
+                      color: THEME_ACCENT,
+                      borderRadius: '25px',
+                      boxShadow: `0 8px 25px rgba(0,0,0,0.3)`
                     }}
                   >
                     {p.badge}
                   </Badge>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Hover Effects */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <div className="bg-white/95 backdrop-blur-sm rounded-full p-3 shadow-xl">
-                    <Sparkles className="w-6 h-6" style={{ color: THEME_PRIMARY }} />
+                {/* Enhanced Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                
+                {/* Professional Hover Icon */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-700">
+                  <div className="bg-white/95 backdrop-blur-md rounded-full p-4 shadow-2xl transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <Sparkles className="w-8 h-8 animate-spin" style={{ color: THEME_PRIMARY, animationDuration: '3s' }} />
                   </div>
                 </div>
+
+                {/* Animated Border Shine */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                     style={{
+                       background: `linear-gradient(45deg, transparent 30%, ${THEME_GOLD}40 50%, transparent 70%)`,
+                       backgroundSize: '200% 200%',
+                       animation: 'shimmer 2s ease-in-out infinite',
+                       mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                       maskComposite: 'exclude',
+                       padding: '2px'
+                     }}
+                />
               </div>
               
-              <div className="p-6 bg-gradient-to-t from-white via-transparent to-transparent">
-                <div className="mb-4">
-                  <h3 className="font-bold text-xl mb-2 group-hover:text-opacity-80 transition-all leading-tight" style={{ color: THEME_PRIMARY }}>
+              <div className="p-8 bg-gradient-to-t from-white via-white/95 to-transparent relative">
+                {/* Subtle Background Pattern */}
+                <div className="absolute inset-0 opacity-5" style={{ 
+                  backgroundImage: `radial-gradient(circle at 2px 2px, ${THEME_GOLD} 1px, transparent 0)`,
+                  backgroundSize: '20px 20px'
+                }} />
+                
+                <div className="relative z-10 mb-6">
+                  <h3 className="font-bold text-xl mb-3 group-hover:text-opacity-80 transition-all leading-tight" style={{ color: THEME_PRIMARY }}>
                     {p.name}
                   </h3>
-                  <div className="flex items-center gap-2 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current animate-pulse" style={{ color: THEME_GOLD, animationDelay: `${i * 0.1}s` }} />
-                    ))}
-                    <span className="text-sm opacity-70" style={{ color: THEME_PRIMARY }}>(4.9)</span>
+                  
+                  {/* Enhanced Rating */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 fill-current animate-pulse" style={{ 
+                          color: THEME_GOLD, 
+                          animationDelay: `${i * 0.15}s`,
+                          filter: `drop-shadow(0 2px 4px ${THEME_GOLD}40)`
+                        }} />
+                      ))}
+                    </div>
+                    <span className="text-sm font-semibold" style={{ color: THEME_PRIMARY }}>(4.9) • 2,847 reviews</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <p className="text-2xl font-bold gradient-text" style={{ color: THEME_PRIMARY }}>{p.price}</p>
-                    <span className="text-sm text-green-600 font-semibold">✨ Free shipping</span>
+                  
+                  {/* Enhanced Pricing */}
+                  <div className="flex justify-between items-center mb-4">
+                    <p className="text-3xl font-bold" style={{ 
+                      color: THEME_PRIMARY,
+                      background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }}>{p.price}</p>
+                    <div className="text-right">
+                      <span className="inline-block text-sm text-green-600 font-bold px-3 py-1 rounded-full" style={{ background: 'rgba(34, 197, 94, 0.1)' }}>
+                        ✨ Free shipping
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Trust Indicators */}
+                  <div className="flex items-center gap-4 mb-4 text-xs opacity-75" style={{ color: THEME_PRIMARY }}>
+                    <span className="flex items-center gap-1">
+                      <ShieldCheck className="w-3 h-3" />
+                      30-day guarantee
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Truck className="w-3 h-3" />
+                      Fast delivery
+                    </span>
                   </div>
                 </div>
                 
-                <div className="flex gap-3">
+                {/* Enhanced Buttons */}
+                <div className="flex gap-4 relative z-10">
                   <Button
-                    className="flex-1 py-3 rounded-full font-semibold transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl group relative overflow-hidden"
+                    className="flex-1 py-4 rounded-full font-bold text-lg transition-all duration-700 hover:scale-105 shadow-lg hover:shadow-2xl group relative overflow-hidden"
                     style={{ 
                       background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
-                      color: THEME_ACCENT 
+                      color: THEME_ACCENT,
+                      border: `2px solid ${THEME_GOLD}40`
                     }}
                     onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1200" />
                     <span className="relative z-10 flex items-center justify-center gap-2">
-                      <Sparkles className="w-4 h-4" />
+                      <Sparkles className="w-5 h-5 animate-pulse" />
                       View Details
+                      <Crown className="w-4 h-4" />
                     </span>
                   </Button>
                   <Button
                     variant="outline"
-                    className="w-12 h-12 rounded-full border-2 transition-all duration-500 hover:scale-110 hover:rotate-12 shadow-lg hover:shadow-xl"
+                    className="w-16 h-16 rounded-full border-3 transition-all duration-700 hover:scale-110 hover:rotate-12 shadow-lg hover:shadow-2xl group"
                     style={{ 
-                      borderColor: THEME_PRIMARY, 
+                      borderColor: THEME_GOLD, 
                       color: THEME_PRIMARY,
-                      background: 'rgba(255, 255, 255, 0.9)'
+                      background: `linear-gradient(135deg, rgba(255, 255, 255, 0.9), ${THEME_ACCENT}20)`
                     }}
                     title="Add to favorites"
                   >
-                    <Heart className="w-5 h-5 hover:fill-current transition-all duration-300" />
+                    <Heart className="w-6 h-6 group-hover:fill-current transition-all duration-500 group-hover:animate-pulse" style={{ color: THEME_PRIMARY }} />
                   </Button>
                 </div>
               </div>
@@ -516,200 +593,7 @@ const Index = () => {
         </div>
       </main>
 
-      {/* Enhanced Before/After Results Gallery */}
-      <section 
-        id="before-after"
-        ref={beforeAfterAnim.ref as any}
-        className={`py-20 relative overflow-hidden transition-all duration-1000 ${beforeAfterAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} 
-        style={{ 
-          background: `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff)`,
-          transform: `translateY(${scrollY * 0.1}px)`
-        }}
-      >
-        <div className="container mx-auto px-4">
-          {/* Enhanced Header with Stagger */}
-          <div className={`text-center mb-16 transition-all duration-700 ${beforeAfterAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
-            <Badge className="mb-6 px-6 py-3 text-base tracking-wider animate-pulse" style={{ 
-              background: `${THEME_GOLD}25`, 
-              color: THEME_PRIMARY, 
-              border: `2px solid ${THEME_GOLD}60` 
-            }}>
-              🔥 REAL RESULTS FROM REAL CUSTOMERS 🔥
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight" style={{ 
-              color: THEME_PRIMARY,
-              fontFamily: '"Playfair Display", Georgia, serif'
-            }}>
-              See the <span style={{ color: THEME_GOLD }}>Transformation</span> Others Achieved
-            </h2>
-            <p className="text-xl sm:text-2xl mb-8 max-w-3xl mx-auto font-medium" style={{ color: '#7f2039' }}>
-              <strong>Join 50,000+ customers who transformed their skin in just 4 weeks.</strong><br />
-              <span className="text-lg opacity-90">Your radiant skin journey starts with one click.</span>
-            </p>
-            
-            {/* Urgency & Social Proof */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: `${THEME_PRIMARY}10` }}>
-                <Sparkles className="w-5 h-5" style={{ color: THEME_GOLD }} />
-                <span className="font-semibold text-sm" style={{ color: THEME_PRIMARY }}>2,847 sold this week</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: `${THEME_GOLD}15` }}>
-                <Star className="w-5 h-5 fill-current" style={{ color: THEME_GOLD }} />
-                <span className="font-semibold text-sm" style={{ color: THEME_PRIMARY }}>4.9/5 ★ (12,643 reviews)</span>
-              </div>
-            </div>
-          </div>
 
-          {/* Enhanced Before/After Grid with Stagger */}
-          <div ref={beforeAfterGridRef as any} className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {[
-              { 
-                beforeImg: '/products/before-after/before-1.png',
-                afterImg: '/products/before-after/after-1.png',
-                concern: 'Fine Lines & Wrinkles',
-                timeframe: '6 weeks',
-                testimonial: '"I can\'t believe the difference! My colleagues keep asking about my skincare routine."',
-                name: 'Sarah M.',
-                age: '34'
-              },
-              { 
-                beforeImg: '/products/before-after/before-2.png',
-                afterImg: '/products/before-after/after-2.png',
-                concern: 'Dull & Uneven Skin',
-                timeframe: '4 weeks',
-                testimonial: '"The glow is real! My skin has never looked this radiant and healthy."',
-                name: 'Emma L.',
-                age: '28'
-              },
-              { 
-                beforeImg: '/products/before-after/before-1.png',
-                afterImg: '/products/before-after/after-1.png',
-                concern: 'Firmness & Texture',
-                timeframe: '8 weeks',
-                testimonial: '"Finally found products that work! My confidence is through the roof."',
-                name: 'Jessica R.',
-                age: '31'
-              }
-            ].map((result, i) => (
-              <div key={i} 
-                   className={`group transition-all duration-700 hover:scale-105 ${beforeAfterVisible[i] ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
-                   style={{ 
-                     transitionDelay: `${i * 200 + 400}ms`,
-                     transform: `translateY(${scrollY * 0.02}px)`
-                   }}>
-                {/* Before/After Image Container */}
-                <div className="relative overflow-hidden rounded-2xl mb-6 shadow-2xl group-hover:shadow-3xl transition-all duration-500"
-                     style={{ background: `linear-gradient(135deg, ${THEME_ACCENT}20, ${THEME_PRIMARY}10)` }}>
-                  <div className="relative aspect-square">
-                    {/* Before Image */}
-                    <div className="absolute inset-0 overflow-hidden">
-                      <img 
-                        src={result.beforeImg} 
-                        alt="Before transformation"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-4 left-4">
-                        <Badge className="px-3 py-1 text-sm font-bold" style={{ 
-                          background: 'rgba(0,0,0,0.7)', 
-                          color: '#ffffff' 
-                        }}>
-                          BEFORE
-                        </Badge>
-                      </div>
-                    </div>
-                    
-                    {/* After Image Overlay */}
-                    <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-700"
-                         style={{ background: `linear-gradient(45deg, transparent 45%, ${THEME_GOLD}40 50%, transparent 55%)` }}>
-                      <img 
-                        src={result.afterImg} 
-                        alt="After transformation"
-                        className="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-700"
-                      />
-                      <div className="absolute top-4 right-4">
-                        <Badge className="px-3 py-1 text-sm font-bold animate-pulse" style={{ 
-                          background: `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`, 
-                          color: '#ffffff' 
-                        }}>
-                          AFTER {result.timeframe}
-                        </Badge>
-                      </div>
-                    </div>
-                    
-                    {/* Hover Instruction */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <div className="bg-white/95 backdrop-blur-sm rounded-full px-6 py-3 shadow-xl">
-                        <p className="text-sm font-semibold" style={{ color: THEME_PRIMARY }}>
-                          Hover to see results!
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Result Details */}
-                <div className="text-center">
-                  <h4 className="font-bold text-lg mb-2" style={{ color: THEME_PRIMARY }}>
-                    {result.concern}
-                  </h4>
-                  <p className="text-sm italic mb-3 opacity-90" style={{ color: '#7f2039' }}>
-                    {result.testimonial}
-                  </p>
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="text-sm font-medium" style={{ color: THEME_PRIMARY }}>
-                      - {result.name}, {result.age}
-                    </span>
-                    <div className="flex">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-current" style={{ color: THEME_GOLD }} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Call-to-Action Section */}
-          <div className="text-center">
-            <div className="max-w-4xl mx-auto p-8 rounded-3xl shadow-2xl" style={{ 
-              background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)` 
-            }}>
-              <h3 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: THEME_ACCENT }}>
-                Ready for Your Transformation?
-              </h3>
-              <p className="text-lg mb-6 opacity-95" style={{ color: '#FFEED7' }}>
-                <strong>Limited Time:</strong> Get the same results with our exclusive starter kit. 
-                <br className="hidden sm:block" />
-                <span className="text-xl font-bold" style={{ color: THEME_GOLD }}>FREE shipping + 30-day money-back guarantee!</span>
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button
-                  size="lg"
-                  className="px-8 py-4 text-lg font-bold rounded-full shadow-2xl transition-all duration-300 hover:scale-105 animate-glow-pulse"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`,
-                    color: THEME_PRIMARY,
-                    border: `3px solid ${THEME_GOLD}`
-                  }}
-                  onClick={() => {
-                    const el = document.getElementById('products');
-                    el?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  Start My Transformation ✨
-                </Button>
-                
-                <div className="flex items-center gap-2 text-sm" style={{ color: THEME_ACCENT }}>
-                  <ShieldCheck className="w-5 h-5" />
-                  <span>Risk-free • 30-day guarantee</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Enhanced Beauty Promise Section */}
       <section 
