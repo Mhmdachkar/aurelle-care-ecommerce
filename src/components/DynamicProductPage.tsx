@@ -83,6 +83,17 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
   const [selectedImage, setSelectedImage] = useState(0);
   const [qty, setQty] = useState(1);
 
+  // Update main image when variant changes for products with variant-specific images
+  useEffect(() => {
+    if (productData.variants && productData.variants.length > 0) {
+      // For products like Booster Pro, set main image based on variant
+      const variantIndex = productData.variants.findIndex(v => v.name === selectedVariant);
+      if (variantIndex !== -1) {
+        setSelectedImage(variantIndex);
+      }
+    }
+  }, [selectedVariant, productData.variants]);
+
   // Animation hooks
   const productGallery = useScrollAnimation({ threshold: 0.2 });
   const productDetails = useScrollAnimation({ threshold: 0.1 });

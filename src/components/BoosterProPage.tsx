@@ -41,6 +41,12 @@ export default function BoosterProPage() {
   const [color, setColor] = useState<'Pink' | 'Black'>('Pink');
   const [qty, setQty] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+
+  // Update main image when color variant changes
+  useEffect(() => {
+    const colorIndex = color === 'Pink' ? 0 : 1;
+    setSelectedImage(colorIndex);
+  }, [color]);
   // Align animations with Product 1 page
   const productGallery = useScrollAnimation({ threshold: 0.2 });
   const productDetails = useScrollAnimation({ threshold: 0.1 });

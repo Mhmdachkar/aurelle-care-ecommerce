@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 
 export const ImageGallery = ({ selectedVariant }: { selectedVariant: string }) => {
@@ -13,15 +13,15 @@ export const ImageGallery = ({ selectedVariant }: { selectedVariant: string }) =
     'Sweet Almond Coconut': '/lovable-uploads/72e5fa9a-1957-4804-aeb8-9ba74a901107.png'
   };
 
-  // Additional product images for thumbnails
-  const productImages = [
+  // Additional product images for thumbnails - updated when variant changes
+  const productImages = useMemo(() => [
     variantImages[selectedVariant as keyof typeof variantImages] || variantImages['Rose'],
     '/lovable-uploads/c970e003-859b-4681-a7f6-64824cb2a3ac.png',
     '/lovable-uploads/8b9df9aa-660c-4e4c-9443-a322b47eae9c.png',
     '/lovable-uploads/d2ccd223-4da9-45ee-8e7e-ddcf57d99ae7.png',
     '/lovable-uploads/ac6356ff-c0b3-4f9c-bbf9-c4b923551602.png',
     '/lovable-uploads/5baa6fc4-e2cc-4680-98c5-a26581ed6e81.png'
-  ];
+  ], [selectedVariant]);
 
   // Update main image when variant changes
   useEffect(() => {

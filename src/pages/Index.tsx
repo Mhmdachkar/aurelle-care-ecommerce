@@ -2,6 +2,7 @@ import { useMemo, useEffect, useState, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DynamicProductPage from '@/components/DynamicProductPage';
 import TransformationSection from '@/components/TransformationSection';
+import ReadyForTransformationSection from '@/components/ReadyForTransformationSection';
 import { PRODUCT_DATA, type ProductId } from '@/data/productData.tsx';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -42,12 +43,12 @@ const Index = () => {
   
   // Animation refs
   const heroAnim = useScrollAnimation({ threshold: 0.1 });
-  const beforeAfterAnim = useScrollAnimation({ threshold: 0.15 });
+  const readyTransformationAnim = useScrollAnimation({ threshold: 0.15 });
   const productsHeaderAnim = useScrollAnimation({ threshold: 0.15 });
+  const transformationResultsAnim = useScrollAnimation({ threshold: 0.15 });
   const promiseAnim = useScrollAnimation({ threshold: 0.2 });
   const newsletterAnim = useScrollAnimation({ threshold: 0.3 });
   const { ref: productGridRef, visibleItems: productVisible } = useStaggeredAnimation(PRODUCTS.length, 120);
-  const { ref: beforeAfterGridRef, visibleItems: beforeAfterVisible } = useStaggeredAnimation(3, 200);
   const { ref: promiseGridRef, visibleItems: promiseVisible } = useStaggeredAnimation(3, 150);
 
   const productSlug = useMemo(() => new URLSearchParams(location.search).get('product'), [location.search]);
@@ -65,7 +66,7 @@ const Index = () => {
 
   // Section visibility tracking
   const updateVisibleSection = useCallback(() => {
-    const sections = ['hero', 'transformation', 'products', 'promise', 'newsletter'];
+    const sections = ['hero', 'ready-transformation', 'products', 'transformation-results', 'promise', 'newsletter'];
     const currentSection = sections.find(section => {
       const element = document.getElementById(section);
       if (element) {
@@ -202,26 +203,26 @@ const Index = () => {
           transform: `translateY(${scrollY > 100 ? '0' : '0'}px)`
         }}
       >
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 sm:gap-3 transform transition-all duration-300 hover:scale-105">
+        <div className="container mx-auto px-2 xs:px-3 sm:px-4 py-2 xs:py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-1 xs:gap-2 sm:gap-3 transform transition-all duration-300 hover:scale-105">
             <div 
-              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center animate-pulse"
+              className="w-7 h-7 xs:w-8 xs:h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center animate-pulse"
               style={{ 
                 background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
                 boxShadow: scrollY > 50 ? `0 0 20px ${THEME_GOLD}40` : 'none'
               }}
             >
-              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" style={{ color: THEME_ACCENT, animationDuration: '4s' }} />
+              <Sparkles className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 animate-spin" style={{ color: THEME_ACCENT, animationDuration: '4s' }} />
             </div>
             <div>
-              <h2 className="font-bold text-base sm:text-lg tracking-wide transition-all duration-300 hover:text-opacity-80" style={{ color: THEME_PRIMARY }}>AURELLE</h2>
-              <p className="text-xs opacity-70 hidden sm:block" style={{ color: THEME_PRIMARY }}>LUXURY BEAUTY</p>
+              <h2 className="font-bold text-sm xs:text-base sm:text-lg tracking-wide transition-all duration-300 hover:text-opacity-80" style={{ color: THEME_PRIMARY }}>AURELLE</h2>
+              <p className="text-xs opacity-70 hidden xs:block" style={{ color: THEME_PRIMARY }}>LUXURY BEAUTY</p>
             </div>
           </div>
           
           {/* Section Progress Indicator */}
           <div className="hidden lg:flex items-center gap-2">
-            {['hero', 'transformation', 'products', 'promise', 'newsletter'].map((section, idx) => (
+            {['hero', 'ready-transformation', 'products', 'transformation-results', 'promise', 'newsletter'].map((section, idx) => (
               <div
                 key={section}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
@@ -235,23 +236,23 @@ const Index = () => {
             ))}
           </div>
           
-          <div className="flex items-center gap-2 sm:gap-4">
-            <Button variant="ghost" className="hidden md:flex text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10 px-2 sm:px-3 py-1 sm:py-2" style={{ color: THEME_PRIMARY }}>
+          <div className="flex items-center gap-1 xs:gap-2 sm:gap-4">
+            <Button variant="ghost" className="hidden lg:flex text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10 px-2 sm:px-3 py-1 sm:py-2" style={{ color: THEME_PRIMARY }}>
               Beauty Guide
             </Button>
-            <Button variant="ghost" className="hidden md:flex text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10 px-2 sm:px-3 py-1 sm:py-2" style={{ color: THEME_PRIMARY }}>
+            <Button variant="ghost" className="hidden lg:flex text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10 px-2 sm:px-3 py-1 sm:py-2" style={{ color: THEME_PRIMARY }}>
               Reviews
             </Button>
             <Button 
-              className="px-3 sm:px-6 py-1.5 sm:py-2 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 animate-glow-pulse text-sm sm:text-base" 
+              className="px-2 xs:px-3 sm:px-6 py-1 xs:py-1.5 sm:py-2 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 animate-glow-pulse text-xs xs:text-sm sm:text-base" 
               style={{ 
                 background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
                 color: THEME_ACCENT
               }}
             >
-              <Crown className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Account</span>
-              <span className="sm:hidden">•••</span>
+              <Crown className="w-3 h-3 xs:w-3 xs:h-3 sm:w-4 sm:h-4 mr-1 xs:mr-1 sm:mr-2" />
+              <span className="hidden xs:inline">Account</span>
+              <span className="xs:hidden">•</span>
             </Button>
           </div>
         </div>
@@ -350,44 +351,45 @@ const Index = () => {
                     ✨ LUXURY BEAUTY COLLECTION ✨
                   </Badge>
                 </div>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6 tracking-tight" 
+                <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-3 xs:mb-4 sm:mb-6 tracking-tight px-2" 
                     style={{ 
                       color: THEME_ACCENT,
                       textShadow: '0 4px 20px rgba(0,0,0,0.3), 0 0 40px rgba(212,175,55,0.3)',
                       fontFamily: '"Playfair Display", Georgia, serif'
                     }}>
-                  Radiant Beauty.<br />
+                  <span className="block xs:inline">Radiant Beauty.</span><br className="hidden xs:block" />
                   <span style={{ color: THEME_GOLD }}>Visible Results.</span>
                 </h1>
-                <p className="text-base sm:text-lg md:text-xl lg:text-2xl opacity-95 mb-6 sm:mb-8 font-light leading-relaxed" style={{ color: '#FFEED7' }}>
+                <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl opacity-95 mb-4 xs:mb-6 sm:mb-8 font-light leading-relaxed px-4" style={{ color: '#FFEED7' }}>
                   Experience luxury skincare that transforms your confidence. Advanced formulas for firming, hydration, and that coveted glass-skin glow.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <div className="flex flex-col xs:flex-row gap-2 xs:gap-3 sm:gap-4 px-4">
                   <Button
                     size="lg"
-                    className="px-6 sm:px-10 py-3 sm:py-5 text-lg sm:text-xl font-bold rounded-full shadow-2xl transition-all duration-500 hover:scale-110 hover:rotate-1 animate-glow-pulse group relative overflow-hidden w-full sm:w-auto"
+                    className="px-4 xs:px-6 sm:px-10 py-3 xs:py-3 sm:py-5 text-base xs:text-lg sm:text-xl font-bold rounded-full shadow-2xl transition-all duration-500 hover:scale-110 hover:rotate-1 animate-glow-pulse group relative overflow-hidden w-full xs:flex-1 sm:w-auto"
                     style={{ 
                       background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`,
                       color: THEME_PRIMARY,
                       border: `3px solid ${THEME_GOLD}`
                     }}
                     onClick={() => {
-                      const el = document.getElementById('transformation');
+                      const el = document.getElementById('ready-transformation');
                       el?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
-                      <Crown className="w-5 h-5 sm:w-6 sm:h-6" />
+                    <span className="relative z-10 flex items-center justify-center gap-1 xs:gap-2 sm:gap-3">
+                      <Crown className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6" />
+                      <span className="hidden xs:inline sm:hidden">Discover</span>
                       <span className="hidden sm:inline">Discover Collection</span>
-                      <span className="sm:hidden">Discover</span>
-                      <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 animate-spin" style={{ animationDuration: '3s' }} />
+                      <span className="xs:hidden">Start</span>
+                      <Sparkles className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 animate-spin" style={{ animationDuration: '3s' }} />
                     </span>
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    className="px-6 sm:px-10 py-3 sm:py-5 text-lg sm:text-xl font-bold rounded-full border-3 backdrop-blur-md transition-all duration-500 hover:scale-110 hover:shadow-2xl group w-full sm:w-auto"
+                    className="px-4 xs:px-6 sm:px-10 py-3 xs:py-3 sm:py-5 text-base xs:text-lg sm:text-xl font-bold rounded-full border-3 backdrop-blur-md transition-all duration-500 hover:scale-110 hover:shadow-2xl group w-full xs:flex-1 sm:w-auto"
                     style={{ 
                       borderColor: THEME_GOLD, 
                       color: THEME_ACCENT,
@@ -395,14 +397,15 @@ const Index = () => {
                       boxShadow: `0 10px 30px ${THEME_GOLD}20`
                     }}
                     onClick={() => {
-                      const el = document.getElementById('transformation');
+                      const el = document.getElementById('ready-transformation');
                       el?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
-                    <span className="flex items-center justify-center gap-2 sm:gap-3">
-                      <Star className="w-5 h-5 sm:w-6 sm:h-6 fill-current group-hover:animate-pulse" />
-                      See Results
-                      <Award className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform duration-300" />
+                    <span className="flex items-center justify-center gap-1 xs:gap-2 sm:gap-3">
+                      <Star className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 fill-current group-hover:animate-pulse" />
+                      <span className="hidden xs:inline">See Results</span>
+                      <span className="xs:hidden">Results</span>
+                      <Award className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform duration-300" />
                     </span>
                   </Button>
                 </div>
@@ -412,8 +415,8 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Transformation Section */}
-      <TransformationSection 
+      {/* Ready for Transformation Section */}
+      <ReadyForTransformationSection 
         scrollY={scrollY}
         onCTAClick={() => {
           const el = document.getElementById('products');
@@ -422,23 +425,23 @@ const Index = () => {
       />
 
       {/* Product Grid - Mobile Responsive */}
-      <main id="products" className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <div ref={productsHeaderAnim.ref as any} className={`mb-8 sm:mb-12 text-center transition-all duration-700 ${productsHeaderAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
-          <Badge className="mb-3 sm:mb-4 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm tracking-wider" style={{ background: `${THEME_GOLD}20`, color: THEME_PRIMARY, border: `1px solid ${THEME_GOLD}40` }}>
+      <main id="products" className="container mx-auto px-3 xs:px-4 sm:px-6 py-8 xs:py-12 sm:py-16">
+        <div ref={productsHeaderAnim.ref as any} className={`mb-6 xs:mb-8 sm:mb-12 text-center transition-all duration-700 ${productsHeaderAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
+          <Badge className="mb-2 xs:mb-3 sm:mb-4 px-2 xs:px-3 sm:px-4 py-1 xs:py-1.5 sm:py-2 text-xs sm:text-sm tracking-wider" style={{ background: `${THEME_GOLD}20`, color: THEME_PRIMARY, border: `1px solid ${THEME_GOLD}40` }}>
             ✨ SIGNATURE COLLECTION ✨
           </Badge>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 tracking-tight" style={{ 
+          <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 xs:mb-3 sm:mb-4 tracking-tight px-2" style={{ 
             color: THEME_PRIMARY,
             fontFamily: '"Playfair Display", Georgia, serif'
           }}>
             Discover Your <span style={{ color: THEME_GOLD }}>Perfect Match</span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto opacity-80" style={{ color: '#7f2039' }}>
+          <p className="text-sm xs:text-base sm:text-lg md:text-xl max-w-2xl mx-auto opacity-80 px-4" style={{ color: '#7f2039' }}>
             Curated luxury formulas for radiance, firmness, and that coveted glass-skin glow
           </p>
         </div>
 
-        <div ref={productGridRef as any} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div ref={productGridRef as any} className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-6 sm:gap-8">
           {PRODUCTS.map((p, idx) => (
             <Card 
               key={p.slug} 
@@ -596,7 +599,14 @@ const Index = () => {
         </div>
       </main>
 
-
+      {/* Real Transformation Results Section */}
+      <TransformationSection 
+        scrollY={scrollY}
+        onCTAClick={() => {
+          const el = document.getElementById('promise');
+          el?.scrollIntoView({ behavior: 'smooth' });
+        }}
+      />
 
       {/* Enhanced Beauty Promise Section */}
       <section 

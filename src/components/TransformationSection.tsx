@@ -18,7 +18,7 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
 
   return (
     <section 
-      id="transformation"
+      id="transformation-results"
       ref={beforeAfterAnim.ref as any}
       className={`py-20 relative overflow-hidden transition-all duration-1000 ${beforeAfterAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} 
       style={{ 
@@ -249,75 +249,7 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
             ))}
           </div>
 
-          {/* Enhanced CTA Section - Mobile Responsive */}
-          <div className="text-center relative">
-            <div className="max-w-5xl mx-auto p-6 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden" style={{ 
-              background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033, ${THEME_PRIMARY})`,
-              border: `3px solid ${THEME_GOLD}40`
-            }}>
-              {/* Animated Background Pattern */}
-              <div className="absolute inset-0 opacity-10">
-                {Array.from({ length: 6 }, (_, i) => (
-                  <div
-                    key={i}
-                    className="absolute rounded-full"
-                    style={{
-                      background: `radial-gradient(circle, ${THEME_GOLD}, transparent)`,
-                      width: `${30 + i * 15}px`,
-                      height: `${30 + i * 15}px`,
-                      left: `${20 + (i * 15)}%`,
-                      top: `${10 + (i * 12)}%`,
-                      animation: `float ${5 + i * 0.8}s ease-in-out infinite`,
-                      animationDelay: `${i * 0.4}s`,
-                    }}
-                  />
-                ))}
-              </div>
 
-              <div className="relative z-10">
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6" style={{ 
-                  color: THEME_ACCENT,
-                  textShadow: '0 4px 20px rgba(0,0,0,0.3)'
-                }}>
-                  Ready for Your Transformation?
-                </h3>
-                <p className="text-lg sm:text-xl mb-6 sm:mb-8 opacity-95 max-w-3xl mx-auto leading-relaxed" style={{ color: '#FFEED7' }}>
-                  <strong className="text-xl sm:text-2xl block mb-2" style={{ color: THEME_GOLD }}>Limited Time Offer!</strong>
-                  Get the same results with our exclusive starter kit.<br />
-                  <span className="text-lg sm:text-xl font-bold inline-block mt-2 px-3 sm:px-4 py-2 rounded-full" style={{ 
-                    color: THEME_PRIMARY,
-                    background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`
-                  }}>
-                    FREE shipping + 30-day money-back guarantee!
-                  </span>
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-                  <Button
-                    size="lg"
-                    className="px-6 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-bold rounded-full shadow-2xl transition-all duration-500 hover:scale-110 hover:rotate-1 animate-glow-pulse transform w-full sm:w-auto"
-                    style={{ 
-                      background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`,
-                      color: THEME_PRIMARY,
-                      border: `4px solid ${THEME_GOLD}`,
-                      boxShadow: `0 15px 40px rgba(212, 175, 55, 0.4)`
-                    }}
-                    onClick={onCTAClick}
-                  >
-                    <Sparkles className="mr-2 sm:mr-3 w-5 h-5 sm:w-6 sm:h-6" />
-                    <span className="hidden sm:inline">Start My Transformation ✨</span>
-                    <span className="sm:hidden">Start Transformation ✨</span>
-                    <Crown className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6" />
-                  </Button>
-                  
-                  <div className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg" style={{ color: THEME_ACCENT }}>
-                    <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
-                    <span className="font-semibold">Risk-free • 30-day guarantee</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
