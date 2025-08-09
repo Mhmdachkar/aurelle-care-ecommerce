@@ -142,9 +142,10 @@ export const PRODUCT_DATA = {
       reviews: '1,247'
     },
     video: {
-      src: '/videos/Screen Recording 2025-08-08 042534.mp4',
+      src: '/videos/Screen Recording 2025-08-09 031537.mp4',
       poster: '/products/product-2-booster-pro/pink.png',
-      title: 'How It Works'
+      title: 'How It Works',
+      description: 'Watch the 4 revolutionary modes in action'
     },
     clinicalResults: [
       {

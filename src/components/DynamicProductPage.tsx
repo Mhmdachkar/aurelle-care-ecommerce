@@ -241,8 +241,14 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                       <video 
                         controls 
                         preload="metadata"
-                        className="w-full h-auto max-h-[300px] sm:max-h-[400px] lg:max-h-[500px] object-cover"
+                        width="1920"
+                        height="1080"
+                        className="w-full h-auto max-h-[400px] sm:max-h-[500px] lg:max-h-[600px] object-contain bg-black/5 hover:scale-[1.02] transition-transform duration-300"
                         poster={productData.video.poster}
+                        style={{
+                          aspectRatio: '16/9',
+                          filter: 'contrast(1.1) saturate(1.1) brightness(1.02)'
+                        }}
                       >
                         <source src={productData.video.src} type="video/mp4" />
                         Your browser does not support the video tag.

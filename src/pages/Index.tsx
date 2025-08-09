@@ -397,6 +397,125 @@ const Index = () => {
         </div>
       </header>
 
+
+
+      {/* Product Grid */}
+      <main id="products" className="container mx-auto px-4 py-16">
+        <div ref={productsHeaderAnim.ref as any} className={`mb-12 text-center transition-all duration-700 ${productsHeaderAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
+          <Badge className="mb-4 px-4 py-2 text-sm tracking-wider" style={{ background: `${THEME_GOLD}20`, color: THEME_PRIMARY, border: `1px solid ${THEME_GOLD}40` }}>
+            ✨ SIGNATURE COLLECTION ✨
+          </Badge>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight" style={{ 
+            color: THEME_PRIMARY,
+            fontFamily: '"Playfair Display", Georgia, serif'
+          }}>
+            Discover Your <span style={{ color: THEME_GOLD }}>Perfect Match</span>
+          </h2>
+          <p className="text-lg sm:text-xl max-w-2xl mx-auto opacity-80" style={{ color: '#7f2039' }}>
+            Curated luxury formulas for radiance, firmness, and that coveted glass-skin glow
+          </p>
+        </div>
+
+        <div ref={productGridRef as any} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {PRODUCTS.map((p, idx) => (
+            <Card 
+              key={p.slug} 
+              className={`group overflow-hidden transition-all duration-700 hover:shadow-2xl cursor-pointer rounded-2xl hover-lift ${productVisible[idx] ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+              style={{ 
+                borderColor: `${THEME_PRIMARY}33`,
+                borderWidth: '2px',
+                transitionDelay: `${idx * 80 + 200}ms`,
+                background: hoveredCard === idx 
+                  ? `linear-gradient(135deg, ${THEME_ACCENT}15, #ffffff, ${THEME_PRIMARY}08)` 
+                  : `linear-gradient(135deg, #ffffff, ${THEME_ACCENT}05)`,
+                boxShadow: hoveredCard === idx 
+                  ? `0 20px 40px rgba(164, 25, 61, 0.2), 0 0 30px ${THEME_GOLD}22` 
+                  : '0 8px 32px rgba(164, 25, 61, 0.1)'
+              }}
+              onMouseEnter={() => setHoveredCard(idx)}
+              onMouseLeave={() => setHoveredCard(null)}
+              onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
+            >
+              <div className="relative overflow-hidden">
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  className="w-full h-72 object-cover transition-all duration-700 group-hover:scale-110"
+                />
+                {p.badge && (
+                  <Badge
+                    className="absolute top-4 left-4 px-3 py-1 text-xs font-bold shadow-lg"
+                    style={{ 
+                      background: p.badge === 'Best Seller' 
+                        ? `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)` 
+                        : `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`,
+                      color: THEME_ACCENT 
+                    }}
+                  >
+                    {p.badge}
+                  </Badge>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Hover Effects */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-full p-3 shadow-xl">
+                    <Sparkles className="w-6 h-6" style={{ color: THEME_PRIMARY }} />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="p-6 bg-gradient-to-t from-white via-transparent to-transparent">
+                <div className="mb-4">
+                  <h3 className="font-bold text-xl mb-2 group-hover:text-opacity-80 transition-all leading-tight" style={{ color: THEME_PRIMARY }}>
+                    {p.name}
+                  </h3>
+                  <div className="flex items-center gap-2 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-current animate-pulse" style={{ color: THEME_GOLD, animationDelay: `${i * 0.1}s` }} />
+                    ))}
+                    <span className="text-sm opacity-70" style={{ color: THEME_PRIMARY }}>(4.9)</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <p className="text-2xl font-bold gradient-text" style={{ color: THEME_PRIMARY }}>{p.price}</p>
+                    <span className="text-sm text-green-600 font-semibold">✨ Free shipping</span>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3">
+                  <Button
+                    className="flex-1 py-3 rounded-full font-semibold transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl group relative overflow-hidden"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
+                      color: THEME_ACCENT 
+                    }}
+                    onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      <Sparkles className="w-4 h-4" />
+                      View Details
+                    </span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-12 h-12 rounded-full border-2 transition-all duration-500 hover:scale-110 hover:rotate-12 shadow-lg hover:shadow-xl"
+                    style={{ 
+                      borderColor: THEME_PRIMARY, 
+                      color: THEME_PRIMARY,
+                      background: 'rgba(255, 255, 255, 0.9)'
+                    }}
+                    title="Add to favorites"
+                  >
+                    <Heart className="w-5 h-5 hover:fill-current transition-all duration-300" />
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </main>
+
       {/* Enhanced Before/After Results Gallery */}
       <section 
         id="before-after"
@@ -591,123 +710,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* Product Grid */}
-      <main id="products" className="container mx-auto px-4 py-16">
-        <div ref={productsHeaderAnim.ref as any} className={`mb-12 text-center transition-all duration-700 ${productsHeaderAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
-          <Badge className="mb-4 px-4 py-2 text-sm tracking-wider" style={{ background: `${THEME_GOLD}20`, color: THEME_PRIMARY, border: `1px solid ${THEME_GOLD}40` }}>
-            ✨ SIGNATURE COLLECTION ✨
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight" style={{ 
-            color: THEME_PRIMARY,
-            fontFamily: '"Playfair Display", Georgia, serif'
-          }}>
-            Discover Your <span style={{ color: THEME_GOLD }}>Perfect Match</span>
-          </h2>
-          <p className="text-lg sm:text-xl max-w-2xl mx-auto opacity-80" style={{ color: '#7f2039' }}>
-            Curated luxury formulas for radiance, firmness, and that coveted glass-skin glow
-          </p>
-        </div>
-
-        <div ref={productGridRef as any} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {PRODUCTS.map((p, idx) => (
-            <Card 
-              key={p.slug} 
-              className={`group overflow-hidden transition-all duration-700 hover:shadow-2xl cursor-pointer rounded-2xl hover-lift ${productVisible[idx] ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
-              style={{ 
-                borderColor: `${THEME_PRIMARY}33`,
-                borderWidth: '2px',
-                transitionDelay: `${idx * 80 + 200}ms`,
-                background: hoveredCard === idx 
-                  ? `linear-gradient(135deg, ${THEME_ACCENT}15, #ffffff, ${THEME_PRIMARY}08)` 
-                  : `linear-gradient(135deg, #ffffff, ${THEME_ACCENT}05)`,
-                boxShadow: hoveredCard === idx 
-                  ? `0 20px 40px rgba(164, 25, 61, 0.2), 0 0 30px ${THEME_GOLD}22` 
-                  : '0 8px 32px rgba(164, 25, 61, 0.1)'
-              }}
-              onMouseEnter={() => setHoveredCard(idx)}
-              onMouseLeave={() => setHoveredCard(null)}
-              onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
-            >
-              <div className="relative overflow-hidden">
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="w-full h-72 object-cover transition-all duration-700 group-hover:scale-110"
-                />
-                {p.badge && (
-                  <Badge
-                    className="absolute top-4 left-4 px-3 py-1 text-xs font-bold shadow-lg"
-                    style={{ 
-                      background: p.badge === 'Best Seller' 
-                        ? `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)` 
-                        : `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`,
-                      color: THEME_ACCENT 
-                    }}
-                  >
-                    {p.badge}
-                  </Badge>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Hover Effects */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <div className="bg-white/95 backdrop-blur-sm rounded-full p-3 shadow-xl">
-                    <Sparkles className="w-6 h-6" style={{ color: THEME_PRIMARY }} />
-                  </div>
-                </div>
-              </div>
-              
-              <div className="p-6 bg-gradient-to-t from-white via-transparent to-transparent">
-                <div className="mb-4">
-                  <h3 className="font-bold text-xl mb-2 group-hover:text-opacity-80 transition-all leading-tight" style={{ color: THEME_PRIMARY }}>
-                    {p.name}
-                  </h3>
-                  <div className="flex items-center gap-2 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current animate-pulse" style={{ color: THEME_GOLD, animationDelay: `${i * 0.1}s` }} />
-                    ))}
-                    <span className="text-sm opacity-70" style={{ color: THEME_PRIMARY }}>(4.9)</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <p className="text-2xl font-bold gradient-text" style={{ color: THEME_PRIMARY }}>{p.price}</p>
-                    <span className="text-sm text-green-600 font-semibold">✨ Free shipping</span>
-                  </div>
-                </div>
-                
-                <div className="flex gap-3">
-                  <Button
-                    className="flex-1 py-3 rounded-full font-semibold transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl group relative overflow-hidden"
-                    style={{ 
-                      background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
-                      color: THEME_ACCENT 
-                    }}
-                    onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      <Sparkles className="w-4 h-4" />
-                      View Details
-                    </span>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-12 h-12 rounded-full border-2 transition-all duration-500 hover:scale-110 hover:rotate-12 shadow-lg hover:shadow-xl"
-                    style={{ 
-                      borderColor: THEME_PRIMARY, 
-                      color: THEME_PRIMARY,
-                      background: 'rgba(255, 255, 255, 0.9)'
-                    }}
-                    title="Add to favorites"
-                  >
-                    <Heart className="w-5 h-5 hover:fill-current transition-all duration-300" />
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </main>
 
       {/* Enhanced Beauty Promise Section */}
       <section 
