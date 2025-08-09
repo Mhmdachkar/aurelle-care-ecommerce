@@ -308,31 +308,46 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
               ref={pricingSection.ref as any}
               className={`space-y-6 animate-fade-in-up scroll-slide-up ${pricingSection.isVisible ? 'visible' : ''}`}
             >
-              <div className="bg-gradient-to-br from-cream via-background to-rose-muted p-6 rounded-2xl border-2 border-gold/30 shadow-luxury">
+              <div className="p-6 rounded-2xl border-2 shadow-luxury" style={{
+                background: `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff, ${THEME_PRIMARY}05)`,
+                borderColor: `${THEME_GOLD}40`
+              }}>
                 <div className="space-y-4">
                   {/* Main Price Display */}
                   <div className="text-center space-y-3">
                     <div className="flex items-baseline justify-center space-x-2 sm:space-x-4">
-                      <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text animate-pulse-glow tracking-tight">
+                      <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight" style={{
+                        color: THEME_PRIMARY,
+                        background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
+                        backgroundClip: 'text',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent'
+                      }}>
                         {productData.price.current}
                       </span>
-                      <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white px-2 sm:px-3 py-1 sm:py-2 text-sm sm:text-lg font-bold animate-pulse transform rotate-12">
+                      <Badge className="px-2 sm:px-3 py-1 sm:py-2 text-sm sm:text-lg font-bold animate-pulse transform rotate-12" style={{
+                        background: 'linear-gradient(135deg, #16a34a, #15803d)',
+                        color: 'white'
+                      }}>
                         50% OFF
                       </Badge>
                     </div>
                     
                     {/* Original Prices */}
                     <div className="flex items-center justify-center space-x-2 sm:space-x-4 flex-wrap gap-1 sm:gap-0">
-                      <span className="text-base sm:text-xl text-muted-foreground line-through opacity-75 font-medium">
+                      <span className="text-base sm:text-xl line-through opacity-75 font-medium" style={{ color: `${THEME_PRIMARY}60` }}>
                         {productData.price.original}
                       </span>
-                      <Badge className="bg-gradient-rose text-white px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold animate-pulse-glow transform hover:scale-110 transition-transform shadow-luxury">
+                      <Badge className="px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold transform hover:scale-110 transition-transform shadow-luxury" style={{
+                        background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
+                        color: THEME_ACCENT
+                      }}>
                         Save 50%
                       </Badge>
                     </div>
                     
                     {/* Official Badge */}
-                    <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center justify-center gap-2 text-sm" style={{ color: `${THEME_PRIMARY}70` }}>
                       <ShieldCheck className="h-4 w-4" /> Official — {productData.madeIn}
                     </div>
                   </div>
@@ -347,8 +362,8 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                 className={`space-y-4 animate-fade-in-up scroll-slide-up ${variantSection.isVisible ? 'visible' : ''}`}
               >
                 <div className="flex items-center space-x-3">
-                  <h3 className="text-xl font-bold text-primary tracking-wide">Style</h3>
-                  <div className="h-px bg-gradient-to-r from-gold to-rose-300 flex-1"></div>
+                  <h3 className="text-xl font-bold tracking-wide" style={{ color: THEME_PRIMARY }}>Style</h3>
+                  <div className="h-px flex-1" style={{ background: `linear-gradient(to right, ${THEME_GOLD}, ${THEME_PRIMARY}40)` }}></div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {productData.variants.map((variant, index) => (
@@ -356,12 +371,26 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                       key={variant.name}
                       variant={selectedVariant === variant.name ? "default" : "outline"}
                       onClick={() => setSelectedVariant(variant.name)}
-                      className={`p-4 h-auto text-left transition-all duration-300 hover:scale-105 hover:shadow-lg ${
-                        selectedVariant === variant.name 
-                          ? "bg-gradient-rose text-white shadow-luxury border-rose-400 ring-2 ring-rose-300/50" 
-                          : "border-2 border-rose-200 text-primary hover:border-rose-300 hover:bg-gradient-to-br hover:from-rose-50 hover:to-gold-light/20"
-                      } scroll-scale ${variantSection.isVisible ? 'visible' : ''}`}
-                      style={{animationDelay: `${index * 0.1}s`}}
+                      className="p-4 h-auto text-left transition-all duration-300 hover:scale-105 hover:shadow-lg scroll-scale"
+                      style={{
+                        animationDelay: `${index * 0.1}s`,
+                        ...(selectedVariant === variant.name 
+                          ? {
+                              background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
+                              color: THEME_ACCENT,
+                              border: `2px solid ${THEME_GOLD}`,
+                              boxShadow: `0 10px 30px ${THEME_PRIMARY}30, 0 0 20px ${THEME_GOLD}30`
+                            }
+                          : {
+                              border: `2px solid ${THEME_PRIMARY}30`,
+                              color: THEME_PRIMARY,
+                              background: `linear-gradient(135deg, #ffffff, ${THEME_ACCENT}08)`,
+                              ':hover': {
+                                borderColor: THEME_GOLD,
+                                background: `linear-gradient(135deg, ${THEME_ACCENT}15, #ffffff)`
+                              }
+                            })
+                      }}
                     >
                       <div className="space-y-1">
                         <div className="font-semibold text-base">{variant.name}</div>
@@ -375,26 +404,40 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
 
             {/* Quantity & Add to Cart */}
             <div className="space-y-5 animate-fade-in-up">
-              <div className="bg-gradient-to-r from-cream via-background to-rose-muted p-4 rounded-xl border border-gold/20">
+              <div className="p-4 rounded-xl border-2 shadow-lg" style={{ 
+                background: `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff, ${THEME_PRIMARY}05)`,
+                borderColor: `${THEME_GOLD}40`
+              }}>
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-bold text-primary tracking-wide">Quantity</h3>
-                  <div className="flex items-center bg-white border-2 border-gold rounded-xl shadow-lg">
+                  <h3 className="text-lg font-bold tracking-wide" style={{ color: THEME_PRIMARY }}>Quantity</h3>
+                  <div className="flex items-center bg-white rounded-xl shadow-lg" style={{ border: `2px solid ${THEME_GOLD}` }}>
                     <Button 
                       variant="ghost" 
                       size="sm"
                       onClick={() => setQty(Math.max(1, qty - 1))}
-                      className="px-4 py-2 text-lg font-bold hover:bg-gold hover:text-white transition-all duration-300 rounded-l-xl"
+                      className="px-4 py-2 text-lg font-bold transition-all duration-300 rounded-l-xl"
+                      style={{ 
+                        color: THEME_PRIMARY,
+                        '&:hover': { background: THEME_GOLD, color: 'white' }
+                      }}
                     >
                       −
                     </Button>
-                    <div className="px-6 py-2 text-lg font-bold text-primary bg-gradient-to-br from-cream to-gold-light min-w-[50px] text-center">
+                    <div className="px-6 py-2 text-lg font-bold min-w-[50px] text-center" style={{ 
+                      color: THEME_PRIMARY,
+                      background: `linear-gradient(135deg, ${THEME_ACCENT}20, ${THEME_GOLD}10)`
+                    }}>
                       {qty}
                     </div>
                     <Button 
                       variant="ghost" 
                       size="sm"
                       onClick={() => setQty(qty + 1)}
-                      className="px-4 py-2 text-lg font-bold hover:bg-gold hover:text-white transition-all duration-300 rounded-r-xl"
+                      className="px-4 py-2 text-lg font-bold transition-all duration-300 rounded-r-xl"
+                      style={{ 
+                        color: THEME_PRIMARY,
+                        '&:hover': { background: THEME_GOLD, color: 'white' }
+                      }}
                     >
                       +
                     </Button>
@@ -402,24 +445,20 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                 </div>
               </div>
               
-              {/* Add to Cart Buttons */}
+              {/* Add to Cart Button */}
               <div className="space-y-3">
                 <Button 
                   onClick={handleAddToCart}
-                  className="w-full py-4 text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-rose text-white border-2 border-rose-400"
+                  className="w-full py-4 text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  style={{
+                    background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
+                    color: THEME_ACCENT,
+                    border: `2px solid ${THEME_GOLD}40`
+                  }}
                   size="lg"
                 >
                   <span className="mr-2">🛍️</span>
                   Add to Cart — {productData.price.current}
-                </Button>
-                
-                <Button 
-                  variant="outline"
-                  className="w-full py-4 text-lg font-bold rounded-xl border-2 border-gold hover:bg-gradient-to-r hover:from-gold hover:to-gold-dark hover:text-white transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                  size="lg"
-                >
-                  <span className="mr-2">⚡</span>
-                  Buy Now
                 </Button>
               </div>
             </div>
@@ -443,23 +482,25 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                   className={`animate-fade-in-up scroll-slide-right ${clinicalSection.isVisible ? 'visible' : ''}`}
                   style={{ animationDelay: '0.5s' }}
                 >
-                  <Card className="overflow-hidden hover-lift luxury-border bg-gradient-to-br from-amber-50 via-background to-rose-muted h-full">
+                  <Card className="overflow-hidden hover-lift h-full border-2" style={{
+                    background: `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff, ${THEME_PRIMARY}05)`,
+                    borderColor: `${THEME_GOLD}40`
+                  }}>
                     <div className="p-4 space-y-4 h-full flex flex-col">
                       {/* Header */}
                       <div className="text-center space-y-2">
                         <div className="flex items-center justify-center space-x-2">
-                          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gold to-amber-600 flex items-center justify-center">
+                          <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{
+                            background: `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`
+                          }}>
                             <span className="text-white text-xs font-bold">📊</span>
                           </div>
-                          <h3 className="text-lg font-bold gradient-text">Clinical Results</h3>
-                          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gold to-amber-600 flex items-center justify-center">
-                            <span className="text-white text-xs font-bold">🧪</span>
-                          </div>
+                          <h3 className="text-lg font-bold" style={{ color: THEME_PRIMARY }}>Clinical Results</h3>
                         </div>
                         <p className="text-sm font-semibold" style={{ color: THEME_PRIMARY }}>
                           Scientifically Proven Results
                         </p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-xs" style={{ color: `${THEME_PRIMARY}60` }}>
                           Clinical study excerpt - Results may vary
                         </p>
                       </div>
