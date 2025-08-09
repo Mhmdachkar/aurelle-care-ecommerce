@@ -192,7 +192,7 @@ const Index = () => {
         }}
       />
 
-      {/* Enhanced Navigation Bar with Scroll Effects */}
+      {/* Enhanced Navigation Bar with Scroll Effects - Mobile Responsive */}
       <nav 
         className={`fixed top-0 left-0 right-0 z-20 backdrop-blur-md border-b border-white/20 transition-all duration-500 ${
           scrollY > 50 ? 'shadow-xl' : ''
@@ -202,25 +202,25 @@ const Index = () => {
           transform: `translateY(${scrollY > 100 ? '0' : '0'}px)`
         }}
       >
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3 transform transition-all duration-300 hover:scale-105">
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-3 transform transition-all duration-300 hover:scale-105">
             <div 
-              className="w-10 h-10 rounded-full flex items-center justify-center animate-pulse"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center animate-pulse"
               style={{ 
                 background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
                 boxShadow: scrollY > 50 ? `0 0 20px ${THEME_GOLD}40` : 'none'
               }}
             >
-              <Sparkles className="w-5 h-5 animate-spin" style={{ color: THEME_ACCENT, animationDuration: '4s' }} />
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" style={{ color: THEME_ACCENT, animationDuration: '4s' }} />
             </div>
             <div>
-              <h2 className="font-bold text-lg tracking-wide transition-all duration-300 hover:text-opacity-80" style={{ color: THEME_PRIMARY }}>AURELLE</h2>
-              <p className="text-xs opacity-70" style={{ color: THEME_PRIMARY }}>LUXURY BEAUTY</p>
+              <h2 className="font-bold text-base sm:text-lg tracking-wide transition-all duration-300 hover:text-opacity-80" style={{ color: THEME_PRIMARY }}>AURELLE</h2>
+              <p className="text-xs opacity-70 hidden sm:block" style={{ color: THEME_PRIMARY }}>LUXURY BEAUTY</p>
             </div>
           </div>
           
           {/* Section Progress Indicator */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2">
             {['hero', 'transformation', 'products', 'promise', 'newsletter'].map((section, idx) => (
               <div
                 key={section}
@@ -235,22 +235,23 @@ const Index = () => {
             ))}
           </div>
           
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" className="text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10" style={{ color: THEME_PRIMARY }}>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Button variant="ghost" className="hidden md:flex text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10 px-2 sm:px-3 py-1 sm:py-2" style={{ color: THEME_PRIMARY }}>
               Beauty Guide
             </Button>
-            <Button variant="ghost" className="text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10" style={{ color: THEME_PRIMARY }}>
+            <Button variant="ghost" className="hidden md:flex text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10 px-2 sm:px-3 py-1 sm:py-2" style={{ color: THEME_PRIMARY }}>
               Reviews
             </Button>
             <Button 
-              className="px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 animate-glow-pulse" 
+              className="px-3 sm:px-6 py-1.5 sm:py-2 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 animate-glow-pulse text-sm sm:text-base" 
               style={{ 
                 background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
                 color: THEME_ACCENT
               }}
             >
-              <Crown className="w-4 h-4 mr-2" />
-              Account
+              <Crown className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Account</span>
+              <span className="sm:hidden">•••</span>
             </Button>
           </div>
         </div>
@@ -260,10 +261,10 @@ const Index = () => {
       <header 
         id="hero"
         ref={heroAnim.ref as any} 
-        className={`relative w-full overflow-hidden mt-20 ${heroAnim.isVisible ? 'visible' : ''}`}
+        className={`relative w-full overflow-hidden mt-16 sm:mt-20 ${heroAnim.isVisible ? 'visible' : ''}`}
       >
         <div 
-          className="relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[32/9] animate-fade-in-up"
+          className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] lg:aspect-[32/9] animate-fade-in-up"
           style={{
             transform: `translateY(${scrollY * 0.5}px)`,
           }}
@@ -286,11 +287,11 @@ const Index = () => {
             }}
           />
           
-          {/* Animated Beauty Icons */}
-          <div className="absolute top-8 right-8 opacity-40">
-            <div className="flex flex-col gap-4">
+          {/* Animated Beauty Icons - Mobile Responsive */}
+          <div className="absolute top-4 right-4 sm:top-8 sm:right-8 opacity-40">
+            <div className="flex flex-col gap-2 sm:gap-4">
               <Sparkles 
-                className="w-8 h-8 animate-pulse transition-all duration-300 hover:scale-125" 
+                className="w-5 h-5 sm:w-8 sm:h-8 animate-pulse transition-all duration-300 hover:scale-125" 
                 style={{ 
                   color: THEME_ACCENT,
                   filter: `drop-shadow(0 0 10px ${THEME_GOLD}60)`,
@@ -298,7 +299,7 @@ const Index = () => {
                 }} 
               />
               <Heart 
-                className="w-6 h-6 transition-all duration-300 hover:scale-125" 
+                className="w-4 h-4 sm:w-6 sm:h-6 transition-all duration-300 hover:scale-125" 
                 style={{ 
                   color: THEME_ACCENT, 
                   animationDelay: '1s',
@@ -306,7 +307,7 @@ const Index = () => {
                 }} 
               />
               <Zap 
-                className="w-7 h-7 transition-all duration-300 hover:scale-125" 
+                className="w-5 h-5 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125" 
                 style={{ 
                   color: THEME_GOLD, 
                   animationDelay: '2s',
@@ -333,13 +334,13 @@ const Index = () => {
               />
             ))}
           </div>
-          {/* Enhanced Headline */}
+          {/* Enhanced Headline - Mobile Responsive */}
           <div className="absolute inset-0 flex items-center">
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 sm:px-6">
               <div className={`max-w-2xl transition-all duration-1000 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-                <div className="mb-4">
+                <div className="mb-3 sm:mb-4">
                   <Badge 
-                    className="mb-4 px-4 py-2 text-sm font-medium tracking-wide shadow-lg backdrop-blur-sm" 
+                    className="mb-3 sm:mb-4 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium tracking-wide shadow-lg backdrop-blur-sm" 
                     style={{ 
                       background: `${THEME_ACCENT}ee`,
                       color: THEME_PRIMARY,
@@ -349,7 +350,7 @@ const Index = () => {
                     ✨ LUXURY BEAUTY COLLECTION ✨
                   </Badge>
                 </div>
-                <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mb-6 tracking-tight" 
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6 tracking-tight" 
                     style={{ 
                       color: THEME_ACCENT,
                       textShadow: '0 4px 20px rgba(0,0,0,0.3), 0 0 40px rgba(212,175,55,0.3)',
@@ -358,13 +359,13 @@ const Index = () => {
                   Radiant Beauty.<br />
                   <span style={{ color: THEME_GOLD }}>Visible Results.</span>
                 </h1>
-                <p className="text-lg sm:text-xl lg:text-2xl opacity-95 mb-8 font-light leading-relaxed" style={{ color: '#FFEED7' }}>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl opacity-95 mb-6 sm:mb-8 font-light leading-relaxed" style={{ color: '#FFEED7' }}>
                   Experience luxury skincare that transforms your confidence. Advanced formulas for firming, hydration, and that coveted glass-skin glow.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Button
                     size="lg"
-                    className="px-10 py-5 text-xl font-bold rounded-full shadow-2xl transition-all duration-500 hover:scale-110 hover:rotate-1 animate-glow-pulse group relative overflow-hidden"
+                    className="px-6 sm:px-10 py-3 sm:py-5 text-lg sm:text-xl font-bold rounded-full shadow-2xl transition-all duration-500 hover:scale-110 hover:rotate-1 animate-glow-pulse group relative overflow-hidden w-full sm:w-auto"
                     style={{ 
                       background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`,
                       color: THEME_PRIMARY,
@@ -376,16 +377,17 @@ const Index = () => {
                     }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    <span className="relative z-10 flex items-center gap-3">
-                      <Crown className="w-6 h-6" />
-                      Discover Collection
-                      <Sparkles className="w-6 h-6 animate-spin" style={{ animationDuration: '3s' }} />
+                    <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
+                      <Crown className="w-5 h-5 sm:w-6 sm:h-6" />
+                      <span className="hidden sm:inline">Discover Collection</span>
+                      <span className="sm:hidden">Discover</span>
+                      <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 animate-spin" style={{ animationDuration: '3s' }} />
                     </span>
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    className="px-10 py-5 text-xl font-bold rounded-full border-3 backdrop-blur-md transition-all duration-500 hover:scale-110 hover:shadow-2xl group"
+                    className="px-6 sm:px-10 py-3 sm:py-5 text-lg sm:text-xl font-bold rounded-full border-3 backdrop-blur-md transition-all duration-500 hover:scale-110 hover:shadow-2xl group w-full sm:w-auto"
                     style={{ 
                       borderColor: THEME_GOLD, 
                       color: THEME_ACCENT,
@@ -397,10 +399,10 @@ const Index = () => {
                       el?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
-                    <span className="flex items-center gap-3">
-                      <Star className="w-6 h-6 fill-current group-hover:animate-pulse" />
+                    <span className="flex items-center justify-center gap-2 sm:gap-3">
+                      <Star className="w-5 h-5 sm:w-6 sm:h-6 fill-current group-hover:animate-pulse" />
                       See Results
-                      <Award className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
+                      <Award className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform duration-300" />
                     </span>
                   </Button>
                 </div>
@@ -419,24 +421,24 @@ const Index = () => {
         }}
       />
 
-      {/* Product Grid */}
-      <main id="products" className="container mx-auto px-4 py-16">
-        <div ref={productsHeaderAnim.ref as any} className={`mb-12 text-center transition-all duration-700 ${productsHeaderAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
-          <Badge className="mb-4 px-4 py-2 text-sm tracking-wider" style={{ background: `${THEME_GOLD}20`, color: THEME_PRIMARY, border: `1px solid ${THEME_GOLD}40` }}>
+      {/* Product Grid - Mobile Responsive */}
+      <main id="products" className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div ref={productsHeaderAnim.ref as any} className={`mb-8 sm:mb-12 text-center transition-all duration-700 ${productsHeaderAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
+          <Badge className="mb-3 sm:mb-4 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm tracking-wider" style={{ background: `${THEME_GOLD}20`, color: THEME_PRIMARY, border: `1px solid ${THEME_GOLD}40` }}>
             ✨ SIGNATURE COLLECTION ✨
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight" style={{ 
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 tracking-tight" style={{ 
             color: THEME_PRIMARY,
             fontFamily: '"Playfair Display", Georgia, serif'
           }}>
             Discover Your <span style={{ color: THEME_GOLD }}>Perfect Match</span>
           </h2>
-          <p className="text-lg sm:text-xl max-w-2xl mx-auto opacity-80" style={{ color: '#7f2039' }}>
+          <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto opacity-80" style={{ color: '#7f2039' }}>
             Curated luxury formulas for radiance, firmness, and that coveted glass-skin glow
           </p>
         </div>
 
-        <div ref={productGridRef as any} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div ref={productGridRef as any} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {PRODUCTS.map((p, idx) => (
             <Card 
               key={p.slug} 
@@ -460,11 +462,11 @@ const Index = () => {
                 <img
                   src={p.image}
                   alt={p.name}
-                  className="w-full h-80 object-cover transition-all duration-1000 group-hover:scale-115 group-hover:rotate-1"
+                  className="w-full h-64 sm:h-72 lg:h-80 object-cover transition-all duration-1000 group-hover:scale-115 group-hover:rotate-1"
                 />
                 {p.badge && (
                   <Badge
-                    className="absolute top-6 left-6 px-4 py-2 text-sm font-bold shadow-2xl animate-pulse border-2 border-white/30"
+                    className="absolute top-4 sm:top-6 left-4 sm:left-6 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-bold shadow-2xl animate-pulse border-2 border-white/30"
                     style={{ 
                       background: p.badge === 'Best Seller' 
                         ? `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)` 
@@ -501,50 +503,50 @@ const Index = () => {
                 />
               </div>
               
-              <div className="p-8 bg-gradient-to-t from-white via-white/95 to-transparent relative">
+              <div className="p-4 sm:p-6 lg:p-8 bg-gradient-to-t from-white via-white/95 to-transparent relative">
                 {/* Subtle Background Pattern */}
                 <div className="absolute inset-0 opacity-5" style={{ 
                   backgroundImage: `radial-gradient(circle at 2px 2px, ${THEME_GOLD} 1px, transparent 0)`,
                   backgroundSize: '20px 20px'
                 }} />
                 
-                <div className="relative z-10 mb-6">
-                  <h3 className="font-bold text-xl mb-3 group-hover:text-opacity-80 transition-all leading-tight" style={{ color: THEME_PRIMARY }}>
+                <div className="relative z-10 mb-4 sm:mb-6">
+                  <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3 group-hover:text-opacity-80 transition-all leading-tight" style={{ color: THEME_PRIMARY }}>
                     {p.name}
                   </h3>
                   
-                  {/* Enhanced Rating */}
-                  <div className="flex items-center gap-3 mb-4">
+                  {/* Enhanced Rating - Mobile Responsive */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 fill-current animate-pulse" style={{ 
+                        <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-current animate-pulse" style={{ 
                           color: THEME_GOLD, 
                           animationDelay: `${i * 0.15}s`,
                           filter: `drop-shadow(0 2px 4px ${THEME_GOLD}40)`
                         }} />
                       ))}
                     </div>
-                    <span className="text-sm font-semibold" style={{ color: THEME_PRIMARY }}>(4.9) • 2,847 reviews</span>
+                    <span className="text-xs sm:text-sm font-semibold" style={{ color: THEME_PRIMARY }}>(4.9) • 2,847 reviews</span>
                   </div>
                   
-                  {/* Enhanced Pricing */}
-                  <div className="flex justify-between items-center mb-4">
-                    <p className="text-3xl font-bold" style={{ 
+                  {/* Enhanced Pricing - Mobile Responsive */}
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-4 mb-3 sm:mb-4">
+                    <p className="text-2xl sm:text-3xl font-bold" style={{ 
                       color: THEME_PRIMARY,
                       background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
                       backgroundClip: 'text',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent'
                     }}>{p.price}</p>
-                    <div className="text-right">
-                      <span className="inline-block text-sm text-green-600 font-bold px-3 py-1 rounded-full" style={{ background: 'rgba(34, 197, 94, 0.1)' }}>
+                    <div className="text-left sm:text-right">
+                      <span className="inline-block text-xs sm:text-sm text-green-600 font-bold px-2 sm:px-3 py-1 rounded-full" style={{ background: 'rgba(34, 197, 94, 0.1)' }}>
                         ✨ Free shipping
                       </span>
                     </div>
                   </div>
 
-                  {/* Trust Indicators */}
-                  <div className="flex items-center gap-4 mb-4 text-xs opacity-75" style={{ color: THEME_PRIMARY }}>
+                  {/* Trust Indicators - Mobile Responsive */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 mb-3 sm:mb-4 text-xs opacity-75" style={{ color: THEME_PRIMARY }}>
                     <span className="flex items-center gap-1">
                       <ShieldCheck className="w-3 h-3" />
                       30-day guarantee
@@ -556,10 +558,10 @@ const Index = () => {
                   </div>
                 </div>
                 
-                {/* Enhanced Buttons */}
-                <div className="flex gap-4 relative z-10">
+                {/* Enhanced Buttons - Mobile Responsive */}
+                <div className="flex gap-3 sm:gap-4 relative z-10">
                   <Button
-                    className="flex-1 py-4 rounded-full font-bold text-lg transition-all duration-700 hover:scale-105 shadow-lg hover:shadow-2xl group relative overflow-hidden"
+                    className="flex-1 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-lg transition-all duration-700 hover:scale-105 shadow-lg hover:shadow-2xl group relative overflow-hidden"
                     style={{ 
                       background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
                       color: THEME_ACCENT,
@@ -568,15 +570,16 @@ const Index = () => {
                     onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1200" />
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      <Sparkles className="w-5 h-5 animate-pulse" />
-                      View Details
-                      <Crown className="w-4 h-4" />
+                    <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2">
+                      <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
+                      <span className="hidden sm:inline">View Details</span>
+                      <span className="sm:hidden">Details</span>
+                      <Crown className="w-3 h-3 sm:w-4 sm:h-4" />
                     </span>
                   </Button>
                   <Button
                     variant="outline"
-                    className="w-16 h-16 rounded-full border-3 transition-all duration-700 hover:scale-110 hover:rotate-12 shadow-lg hover:shadow-2xl group"
+                    className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-3 transition-all duration-700 hover:scale-110 hover:rotate-12 shadow-lg hover:shadow-2xl group"
                     style={{ 
                       borderColor: THEME_GOLD, 
                       color: THEME_PRIMARY,
@@ -584,7 +587,7 @@ const Index = () => {
                     }}
                     title="Add to favorites"
                   >
-                    <Heart className="w-6 h-6 group-hover:fill-current transition-all duration-500 group-hover:animate-pulse" style={{ color: THEME_PRIMARY }} />
+                    <Heart className="w-5 h-5 sm:w-6 sm:h-6 group-hover:fill-current transition-all duration-500 group-hover:animate-pulse" style={{ color: THEME_PRIMARY }} />
                   </Button>
                 </div>
               </div>

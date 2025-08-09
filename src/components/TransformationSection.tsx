@@ -46,10 +46,10 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
         />
       </div>
 
-      <div className="container mx-auto px-4">
-        {/* Enhanced Header */}
-        <div className={`text-center mb-16 transition-all duration-700 ${beforeAfterAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
-          <Badge className="mb-6 px-8 py-4 text-lg font-bold tracking-wider animate-pulse shadow-2xl" style={{ 
+      <div className="container mx-auto px-4 sm:px-6">
+        {/* Enhanced Header - Mobile Responsive */}
+        <div className={`text-center mb-12 sm:mb-16 transition-all duration-700 ${beforeAfterAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
+          <Badge className="mb-4 sm:mb-6 px-4 sm:px-8 py-2 sm:py-4 text-sm sm:text-lg font-bold tracking-wider animate-pulse shadow-2xl" style={{ 
             background: `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`, 
             color: '#ffffff',
             borderRadius: '50px',
@@ -58,7 +58,7 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
           }}>
             🔥 REAL TRANSFORMATIONS • REAL RESULTS 🔥
           </Badge>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight" style={{ 
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight" style={{ 
             color: THEME_PRIMARY,
             fontFamily: '"Playfair Display", Georgia, serif',
             textShadow: '0 4px 20px rgba(164, 25, 61, 0.2)'
@@ -71,15 +71,15 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
               WebkitTextFillColor: 'transparent'
             }}>Magic</span> Happen
           </h2>
-          <p className="text-xl sm:text-2xl mb-12 max-w-4xl mx-auto font-medium leading-relaxed" style={{ color: '#7f2039' }}>
-            <strong className="text-2xl" style={{ color: THEME_PRIMARY }}>Join 50,000+ customers who transformed their skin in just 4 weeks.</strong><br />
-            <span className="text-lg opacity-90 block mt-3">Your radiant skin journey starts with one click below.</span>
+          <p className="text-lg sm:text-xl md:text-2xl mb-8 sm:mb-12 max-w-4xl mx-auto font-medium leading-relaxed" style={{ color: '#7f2039' }}>
+            <strong className="text-xl sm:text-2xl" style={{ color: THEME_PRIMARY }}>Join 50,000+ customers who transformed their skin in just 4 weeks.</strong><br />
+            <span className="text-base sm:text-lg opacity-90 block mt-2 sm:mt-3">Your radiant skin journey starts with one click below.</span>
           </p>
         </div>
 
-        {/* Enhanced Transformation Cards Grid */}
+        {/* Enhanced Transformation Cards Grid - Mobile Responsive */}
         <div className="max-w-7xl mx-auto">
-          <div ref={beforeAfterGridRef as any} className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div ref={beforeAfterGridRef as any} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
             {[
               { 
                 beforeImg: '/products/before-after/before-1.png',
@@ -127,9 +127,9 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
                        boxShadow: `0 20px 60px rgba(164, 25, 61, 0.15), 0 0 40px ${THEME_GOLD}15`
                      }}>
                   
-                  {/* Improvement Badge */}
-                  <div className="absolute top-4 left-4 z-20">
-                    <Badge className="px-4 py-2 text-sm font-bold animate-pulse shadow-xl" style={{ 
+                  {/* Improvement Badge - Mobile Responsive */}
+                  <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-20">
+                    <Badge className="px-2 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm font-bold animate-pulse shadow-xl" style={{ 
                       background: `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`, 
                       color: '#ffffff',
                       borderRadius: '20px',
@@ -148,8 +148,8 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
                         alt="Before transformation"
                         className="w-full h-full object-cover transition-all duration-700"
                       />
-                      <div className="absolute bottom-4 left-4">
-                        <Badge className="px-3 py-2 text-sm font-bold backdrop-blur-sm" style={{ 
+                      <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4">
+                        <Badge className="px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm font-bold backdrop-blur-sm" style={{ 
                           background: 'rgba(0,0,0,0.8)', 
                           color: '#ffffff',
                           borderRadius: '15px'
@@ -172,8 +172,8 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
                         alt="After transformation"
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute bottom-4 right-4">
-                        <Badge className="px-3 py-2 text-sm font-bold animate-pulse shadow-xl" style={{ 
+                      <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4">
+                        <Badge className="px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm font-bold animate-pulse shadow-xl" style={{ 
                           background: `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`, 
                           color: '#ffffff',
                           borderRadius: '15px'
@@ -196,34 +196,34 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
                     </div>
                   </div>
 
-                  {/* Enhanced Content Section */}
-                  <div className="p-6 bg-gradient-to-t from-white via-white to-transparent">
-                    <div className="text-center space-y-4">
-                      <h4 className="font-bold text-xl mb-3" style={{ color: THEME_PRIMARY }}>
+                  {/* Enhanced Content Section - Mobile Responsive */}
+                  <div className="p-4 sm:p-6 bg-gradient-to-t from-white via-white to-transparent">
+                    <div className="text-center space-y-3 sm:space-y-4">
+                      <h4 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3" style={{ color: THEME_PRIMARY }}>
                         {result.concern}
                       </h4>
                       
-                      {/* Quote */}
+                      {/* Quote - Mobile Responsive */}
                       <div className="relative">
-                        <div className="absolute -top-2 -left-2 text-3xl opacity-30" style={{ color: THEME_GOLD }}>
+                        <div className="absolute -top-1 sm:-top-2 -left-1 sm:-left-2 text-2xl sm:text-3xl opacity-30" style={{ color: THEME_GOLD }}>
                           "
                         </div>
-                        <p className="text-sm italic mb-4 px-4 leading-relaxed" style={{ color: '#7f2039' }}>
+                        <p className="text-sm sm:text-sm italic mb-3 sm:mb-4 px-3 sm:px-4 leading-relaxed" style={{ color: '#7f2039' }}>
                           {result.testimonial}
                         </p>
-                        <div className="absolute -bottom-2 -right-2 text-3xl opacity-30" style={{ color: THEME_GOLD }}>
+                        <div className="absolute -bottom-1 sm:-bottom-2 -right-1 sm:-right-2 text-2xl sm:text-3xl opacity-30" style={{ color: THEME_GOLD }}>
                           "
                         </div>
                       </div>
                       
-                      {/* Customer Info */}
-                      <div className="flex items-center justify-center gap-3 pt-2">
+                      {/* Customer Info - Mobile Responsive */}
+                      <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 pt-1 sm:pt-2">
                         <span className="text-sm font-semibold" style={{ color: THEME_PRIMARY }}>
                           — {result.name}, {result.age}
                         </span>
                         <div className="flex">
                           {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-current animate-pulse" style={{ 
+                            <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-current animate-pulse" style={{ 
                               color: THEME_GOLD,
                               animationDelay: `${i * 0.1}s`
                             }} />
@@ -249,9 +249,9 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
             ))}
           </div>
 
-          {/* Enhanced CTA Section */}
+          {/* Enhanced CTA Section - Mobile Responsive */}
           <div className="text-center relative">
-            <div className="max-w-5xl mx-auto p-10 rounded-3xl shadow-2xl relative overflow-hidden" style={{ 
+            <div className="max-w-5xl mx-auto p-6 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden" style={{ 
               background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033, ${THEME_PRIMARY})`,
               border: `3px solid ${THEME_GOLD}40`
             }}>
@@ -263,8 +263,8 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
                     className="absolute rounded-full"
                     style={{
                       background: `radial-gradient(circle, ${THEME_GOLD}, transparent)`,
-                      width: `${40 + i * 20}px`,
-                      height: `${40 + i * 20}px`,
+                      width: `${30 + i * 15}px`,
+                      height: `${30 + i * 15}px`,
                       left: `${20 + (i * 15)}%`,
                       top: `${10 + (i * 12)}%`,
                       animation: `float ${5 + i * 0.8}s ease-in-out infinite`,
@@ -275,16 +275,16 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
               </div>
 
               <div className="relative z-10">
-                <h3 className="text-3xl sm:text-4xl font-bold mb-6" style={{ 
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6" style={{ 
                   color: THEME_ACCENT,
                   textShadow: '0 4px 20px rgba(0,0,0,0.3)'
                 }}>
                   Ready for Your Transformation?
                 </h3>
-                <p className="text-xl mb-8 opacity-95 max-w-3xl mx-auto leading-relaxed" style={{ color: '#FFEED7' }}>
-                  <strong className="text-2xl block mb-2" style={{ color: THEME_GOLD }}>Limited Time Offer!</strong>
+                <p className="text-lg sm:text-xl mb-6 sm:mb-8 opacity-95 max-w-3xl mx-auto leading-relaxed" style={{ color: '#FFEED7' }}>
+                  <strong className="text-xl sm:text-2xl block mb-2" style={{ color: THEME_GOLD }}>Limited Time Offer!</strong>
                   Get the same results with our exclusive starter kit.<br />
-                  <span className="text-xl font-bold inline-block mt-2 px-4 py-2 rounded-full" style={{ 
+                  <span className="text-lg sm:text-xl font-bold inline-block mt-2 px-3 sm:px-4 py-2 rounded-full" style={{ 
                     color: THEME_PRIMARY,
                     background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`
                   }}>
@@ -292,10 +292,10 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
                   </span>
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
                   <Button
                     size="lg"
-                    className="px-10 py-5 text-xl font-bold rounded-full shadow-2xl transition-all duration-500 hover:scale-110 hover:rotate-1 animate-glow-pulse transform"
+                    className="px-6 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-bold rounded-full shadow-2xl transition-all duration-500 hover:scale-110 hover:rotate-1 animate-glow-pulse transform w-full sm:w-auto"
                     style={{ 
                       background: `linear-gradient(135deg, ${THEME_ACCENT}, #FFE5A3)`,
                       color: THEME_PRIMARY,
@@ -304,13 +304,14 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
                     }}
                     onClick={onCTAClick}
                   >
-                    <Sparkles className="mr-3 w-6 h-6" />
-                    Start My Transformation ✨
-                    <Crown className="ml-3 w-6 h-6" />
+                    <Sparkles className="mr-2 sm:mr-3 w-5 h-5 sm:w-6 sm:h-6" />
+                    <span className="hidden sm:inline">Start My Transformation ✨</span>
+                    <span className="sm:hidden">Start Transformation ✨</span>
+                    <Crown className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6" />
                   </Button>
                   
-                  <div className="flex items-center gap-3 text-lg" style={{ color: THEME_ACCENT }}>
-                    <ShieldCheck className="w-6 h-6" />
+                  <div className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg" style={{ color: THEME_ACCENT }}>
+                    <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
                     <span className="font-semibold">Risk-free • 30-day guarantee</span>
                   </div>
                 </div>
