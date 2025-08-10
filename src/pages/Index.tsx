@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Sparkles, Heart, Award, ShieldCheck, Truck, RotateCcw, Zap, Crown, Gift } from 'lucide-react';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
+import { useMetaPixel } from '@/hooks/useMetaPixel';
 
 const THEME_PRIMARY = '#A4193D'; // deep rose
 const THEME_ACCENT = '#FFDFB9'; // peach
@@ -35,6 +36,7 @@ const PRODUCTS: Array<{
 const Index = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { testMetaPixel } = useMetaPixel();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [scrollY, setScrollY] = useState(0);
@@ -242,6 +244,14 @@ const Index = () => {
             </Button>
             <Button variant="ghost" className="hidden lg:flex text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10 px-2 sm:px-3 py-1 sm:py-2" style={{ color: THEME_PRIMARY }}>
               Reviews
+            </Button>
+            <Button 
+              onClick={testMetaPixel}
+              variant="ghost" 
+              className="hidden lg:flex text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10 px-2 sm:px-3 py-1 sm:py-2" 
+              style={{ color: THEME_GOLD }}
+            >
+              Debug
             </Button>
             <Button 
               className="px-2 xs:px-3 sm:px-6 py-1 xs:py-1.5 sm:py-2 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 animate-glow-pulse text-xs xs:text-sm sm:text-base" 

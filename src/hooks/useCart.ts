@@ -75,13 +75,11 @@ export const useCart = () => {
     if (isSubscribedRef.current) return;
     
     const updateCart = () => {
-      // Only update if cart count actually changed
-      if (cartCount !== globalCartCount) {
-        console.log('📦 Updating cart state:', globalCartCount);
-        setCartItems([...globalCartItems]);
-        setCartCount(globalCartCount);
-        setUpdateTrigger(prev => prev + 1);
-      }
+      // Always update cart items and count
+      console.log('📦 Updating cart state:', globalCartCount);
+      setCartItems([...globalCartItems]);
+      setCartCount(globalCartCount);
+      setUpdateTrigger(prev => prev + 1);
     };
 
     cartListeners.push(updateCart);

@@ -368,6 +368,12 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
             </div>
 
             {/* Variant Selection (if available) */}
+            {console.log('🎨 Variant debug:', {
+              hasVariants: !!productData.variants,
+              variantCount: productData.variants?.length || 0,
+              variants: productData.variants,
+              productName: productData.name
+            })}
             {productData.variants && productData.variants.length > 0 ? (
               <div 
                 className="space-y-4 animate-fade-in-up p-6 rounded-2xl border-2 shadow-lg"

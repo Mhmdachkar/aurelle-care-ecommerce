@@ -104,6 +104,17 @@ export const useMetaPixel = () => {
     }
   }, []);
 
+  const testMetaPixel = useCallback(() => {
+    console.log('🧪 Testing Meta Pixel Status...');
+    console.log('🔍 Window object:', typeof window !== 'undefined' ? 'Available' : 'Not available');
+    console.log('🔍 fbq function:', window?.fbq ? 'Available' : 'Not available');
+    console.log('🔍 Pixel ID from env:', import.meta.env.VITE_META_PIXEL_ID);
+    
+    if (window?.fbq) {
+      trackCustomEvent('TestEvent', { test: true, timestamp: new Date().toISOString() });
+    }
+  }, [trackCustomEvent]);
+
   return {
     trackEvent,
     trackPageView,
@@ -114,5 +125,6 @@ export const useMetaPixel = () => {
     trackLead,
     trackCompleteRegistration,
     trackCustomEvent,
+    testMetaPixel,
   };
 }; 
