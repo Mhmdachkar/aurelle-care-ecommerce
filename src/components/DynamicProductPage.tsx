@@ -100,7 +100,6 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
   const productGallery = useScrollAnimation({ threshold: 0.2 });
   const productDetails = useScrollAnimation({ threshold: 0.1 });
   const pricingSection = useScrollAnimation({ threshold: 0.3 });
-  const variantSection = useScrollAnimation({ threshold: 0.2 });
   const featuresSection = useScrollAnimation({ threshold: 0.1 });
   const videoSection = useScrollAnimation({ threshold: 0.2 });
   const clinicalSection = useScrollAnimation({ threshold: 0.4 });
@@ -371,13 +370,16 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
             {/* Variant Selection (if available) */}
             {productData.variants && productData.variants.length > 0 ? (
               <div 
-                ref={variantSection.ref as any}
-                className="space-y-4 animate-fade-in-up scroll-slide-up opacity-100 p-6 rounded-2xl border-2 shadow-lg"
+                className="space-y-4 animate-fade-in-up p-6 rounded-2xl border-2 shadow-lg"
                 style={{ 
                   background: `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff, ${THEME_PRIMARY}05)`,
                   borderColor: `${THEME_GOLD}40`
                 }}
               >
+                {/* Debug info */}
+                <div className="text-xs text-gray-500 mb-2">
+                  Debug: Found {productData.variants.length} variants
+                </div>
                 <div className="flex items-center space-x-3">
                   <h3 className="text-xl font-bold tracking-wide" style={{ color: THEME_PRIMARY }}>Style</h3>
                   <div className="h-px flex-1" style={{ background: `linear-gradient(to right, ${THEME_GOLD}, ${THEME_PRIMARY}40)` }}></div>
