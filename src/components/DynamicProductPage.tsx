@@ -376,10 +376,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                   borderColor: `${THEME_GOLD}40`
                 }}
               >
-                {/* Debug info */}
-                <div className="text-xs text-gray-500 mb-2">
-                  Debug: Found {productData.variants.length} variants
-                </div>
+
                 <div className="flex items-center space-x-3">
                   <h3 className="text-xl font-bold tracking-wide" style={{ color: THEME_PRIMARY }}>Style</h3>
                   <div className="h-px flex-1" style={{ background: `linear-gradient(to right, ${THEME_GOLD}, ${THEME_PRIMARY}40)` }}></div>
