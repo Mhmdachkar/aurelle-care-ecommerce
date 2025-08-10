@@ -79,6 +79,11 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
   const { user } = useAuth();
   const { trackViewContent } = useMetaPixel();
 
+  // Debug: Log product data and variants
+  console.log('Product Data:', productData);
+  console.log('Has variants:', productData.variants && productData.variants.length > 0);
+  console.log('Variants:', productData.variants);
+
   const [selectedVariant, setSelectedVariant] = useState(productData.variants?.[0]?.name || '');
   const [selectedImage, setSelectedImage] = useState(0);
   const [qty, setQty] = useState(1);
@@ -367,10 +372,14 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
             </div>
 
             {/* Variant Selection (if available) */}
-            {productData.variants && productData.variants.length > 0 && (
+            {productData.variants && productData.variants.length > 0 ? (
               <div 
                 ref={variantSection.ref as any}
-                className={`space-y-4 animate-fade-in-up scroll-slide-up ${variantSection.isVisible ? 'visible' : ''}`}
+                className="space-y-4 animate-fade-in-up scroll-slide-up opacity-100 p-6 rounded-2xl border-2 shadow-lg"
+                style={{ 
+                  background: `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff, ${THEME_PRIMARY}05)`,
+                  borderColor: `${THEME_GOLD}40`
+                }}
               >
                 <div className="flex items-center space-x-3">
                   <h3 className="text-xl font-bold tracking-wide" style={{ color: THEME_PRIMARY }}>Style</h3>
@@ -395,11 +404,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                           : {
                               border: `2px solid ${THEME_PRIMARY}30`,
                               color: THEME_PRIMARY,
-                              background: `linear-gradient(135deg, #ffffff, ${THEME_ACCENT}08)`,
-                              ':hover': {
-                                borderColor: THEME_GOLD,
-                                background: `linear-gradient(135deg, ${THEME_ACCENT}15, #ffffff)`
-                              }
+                              background: `linear-gradient(135deg, #ffffff, ${THEME_ACCENT}08)`
                             })
                       }}
                     >
@@ -411,7 +416,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                   ))}
                 </div>
               </div>
-            )}
+            ) : null}
 
             {/* Quantity & Add to Cart */}
             <div className="space-y-5 animate-fade-in-up">
@@ -429,7 +434,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                       className="px-4 py-2 text-lg font-bold transition-all duration-300 rounded-l-xl"
                       style={{ 
                         color: THEME_PRIMARY,
-                        '&:hover': { background: THEME_GOLD, color: 'white' }
+                        // Hover styles handled by CSS classes
                       }}
                     >
                       −
@@ -447,7 +452,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                       className="px-4 py-2 text-lg font-bold transition-all duration-300 rounded-r-xl"
                       style={{ 
                         color: THEME_PRIMARY,
-                        '&:hover': { background: THEME_GOLD, color: 'white' }
+                        // Hover styles handled by CSS classes
                       }}
                     >
                       +
