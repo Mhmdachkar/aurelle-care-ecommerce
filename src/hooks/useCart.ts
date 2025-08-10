@@ -124,7 +124,7 @@ export const useCart = () => {
 
   // Generate unique ID for guest cart items
   const generateGuestId = () => {
-    return 'guest_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    return crypto.randomUUID();
   };
 
   // Update global cart state
@@ -250,11 +250,13 @@ export const useCart = () => {
         } else {
           // Add new item
           console.log('➕ Adding new item to user cart');
+          // Remove id from itemData to let database generate UUID
+          const { id, ...insertData } = itemData;
           await supabase
             .from('cart_items')
             .insert({
               user_id: user.id,
-              ...itemData
+              ...insertData
             });
         }
       }
@@ -328,8 +330,9 @@ export const useCart = () => {
       }, 100);
       
       // Track Meta Pixel AddToCart event for guest users
+      const priceValue = parseFloat(item.price.replace(/[^0-9.]/g, ''));
       trackAddToCart(
-        parseFloat(item.price) * item.quantity,
+        priceValue * item.quantity,
         item.currency,
         `${item.product_name}_${item.variant}`,
         item.quantity
@@ -385,7 +388,7 @@ export const useCart = () => {
         });
     } else {
       // Add new item
-      const tempId = 'temp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+      const tempId = crypto.randomUUID();
       const newItem = {
         id: tempId,
         user_id: user?.id,
@@ -404,7 +407,12 @@ export const useCart = () => {
         .from('cart_items')
         .insert({
           user_id: user.id,
-          ...item
+          product_name: item.product_name,
+          variant: item.variant,
+          quantity: item.quantity,
+          price: item.price,
+          currency: item.currency,
+          image_url: item.image_url
         })
         .select()
         .single()
@@ -430,8 +438,9 @@ export const useCart = () => {
     }
     
     // Track Meta Pixel AddToCart event for logged-in users
+    const priceValue = parseFloat(item.price.replace(/[^0-9.]/g, ''));
     trackAddToCart(
-      parseFloat(item.price) * item.quantity,
+      priceValue * item.quantity,
       item.currency,
       `${item.product_name}_${item.variant}`,
       item.quantity
