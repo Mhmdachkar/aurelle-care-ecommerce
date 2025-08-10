@@ -469,7 +469,11 @@ const Index = () => {
               }}
               onMouseEnter={() => setHoveredCard(idx)}
               onMouseLeave={() => setHoveredCard(null)}
-              onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
+              onClick={() => {
+                navigate({ pathname: '/', search: `?product=${p.slug}` });
+                // Scroll to top when viewing product
+                setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+              }}
             >
               <div className="relative overflow-hidden rounded-t-3xl">
                 <img
@@ -580,7 +584,11 @@ const Index = () => {
                       color: THEME_ACCENT,
                       border: `2px solid ${THEME_GOLD}40`
                     }}
-                    onClick={() => navigate({ pathname: '/', search: `?product=${p.slug}` })}
+                    onClick={() => {
+                navigate({ pathname: '/', search: `?product=${p.slug}` });
+                // Scroll to top when viewing product
+                setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+              }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1200" />
                     <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2">

@@ -390,7 +390,8 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                 className="space-y-4 animate-fade-in-up p-6 rounded-2xl border-2 shadow-lg"
                 style={{ 
                   background: `linear-gradient(135deg, ${THEME_ACCENT}08, #ffffff, ${THEME_PRIMARY}05)`,
-                  borderColor: `${THEME_GOLD}40`
+                  borderColor: `${THEME_GOLD}40`,
+                  minHeight: '120px' // Force minimum height to make it visible
                 }}
               >
 
@@ -400,11 +401,10 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {productData.variants.map((variant, index) => (
-                    <Button
+                    <button
                       key={variant.name}
-                      variant={selectedVariant === variant.name ? "default" : "outline"}
                       onClick={() => setSelectedVariant(variant.name)}
-                      className="p-4 h-auto text-left transition-all duration-300 hover:scale-105 hover:shadow-lg scroll-scale"
+                      className="p-4 rounded-lg border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg text-left"
                       style={{
                         animationDelay: `${index * 0.1}s`,
                         ...(selectedVariant === variant.name 
@@ -425,7 +425,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                         <div className="font-semibold text-base">{variant.name}</div>
                         <div className="text-xs opacity-75">{variant.description}</div>
                       </div>
-                    </Button>
+                    </button>
                   ))}
                 </div>
               </div>
