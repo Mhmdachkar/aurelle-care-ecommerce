@@ -96,6 +96,23 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
     }
   }, [selectedVariant, productData.variants]);
 
+  // Debug variant data
+  useEffect(() => {
+    console.log('🎨 Variant debug:', {
+      hasVariants: !!productData.variants,
+      variantCount: productData.variants?.length || 0,
+      variants: productData.variants,
+      productName: productData.name
+    });
+    
+    if (productData.variants && productData.variants.length > 0) {
+      console.log('🔀 Mapping variants:', productData.variants);
+      productData.variants.forEach((variant, index) => {
+        console.log('🎨 Variant available:', variant.name, variant.description, index);
+      });
+    }
+  }, [productData.variants, productData.name]);
+
   // Animation hooks
   const productGallery = useScrollAnimation({ threshold: 0.2 });
   const productDetails = useScrollAnimation({ threshold: 0.1 });
@@ -368,12 +385,6 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
             </div>
 
             {/* Variant Selection (if available) */}
-            {console.log('🎨 Variant debug:', {
-              hasVariants: !!productData.variants,
-              variantCount: productData.variants?.length || 0,
-              variants: productData.variants,
-              productName: productData.name
-            })}
             {productData.variants && productData.variants.length > 0 ? (
               <div 
                 className="space-y-4 animate-fade-in-up p-6 rounded-2xl border-2 shadow-lg"
