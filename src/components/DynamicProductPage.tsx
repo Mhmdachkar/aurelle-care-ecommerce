@@ -79,10 +79,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
   const { user } = useAuth();
   const { trackViewContent } = useMetaPixel();
 
-  // Debug: Log product data and variants
-  console.log('Product Data:', productData);
-  console.log('Has variants:', productData.variants && productData.variants.length > 0);
-  console.log('Variants:', productData.variants);
+
 
   const [selectedVariant, setSelectedVariant] = useState(productData.variants?.[0]?.name || '');
   const [selectedImage, setSelectedImage] = useState(0);
