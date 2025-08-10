@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-const PIXEL_ID = '757479653472403'; // Your Meta Pixel ID
+const PIXEL_ID = import.meta.env.VITE_META_PIXEL_ID || '757479653472403';
 
 export const useMetaPixel = () => {
   const trackEvent = useCallback((eventName: string, parameters?: any) => {

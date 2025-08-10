@@ -1,5 +1,5 @@
 // Meta Pixel tracking utilities
-const PIXEL_ID = '757479653472403';
+const PIXEL_ID = import.meta.env.VITE_META_PIXEL_ID || '757479653472403';
 
 export interface MetaPixelEvent {
   eventName: string;
