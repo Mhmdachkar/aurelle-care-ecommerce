@@ -612,7 +612,7 @@ const Index = () => {
       <section 
         id="promise"
         ref={promiseAnim.ref as any}
-        className={`py-20 relative overflow-hidden transition-all duration-1000 ${promiseAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
+        className={`py-10 xs:py-14 sm:py-20 relative overflow-hidden transition-all duration-1000 ${promiseAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
         style={{
           transform: `translateY(${scrollY * 0.08}px)`
         }}

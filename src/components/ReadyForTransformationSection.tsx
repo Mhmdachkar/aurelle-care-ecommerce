@@ -19,7 +19,7 @@ export default function ReadyForTransformationSection({ scrollY, onCTAClick }: R
     <section 
       id="ready-transformation"
       ref={sectionAnim.ref as any}
-      className={`py-16 sm:py-20 relative overflow-hidden transition-all duration-1000 ${sectionAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} 
+      className={`py-10 xs:py-14 sm:py-20 relative overflow-hidden transition-all duration-1000 ${sectionAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} 
       style={{ 
         background: `linear-gradient(135deg, ${THEME_ACCENT}12, #ffffff, ${THEME_PRIMARY}08)`,
         transform: `translateY(${scrollY * 0.08}px)`

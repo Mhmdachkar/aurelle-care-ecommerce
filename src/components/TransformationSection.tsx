@@ -20,7 +20,7 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
     <section 
       id="transformation-results"
       ref={beforeAfterAnim.ref as any}
-      className={`py-20 relative overflow-hidden transition-all duration-1000 ${beforeAfterAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} 
+      className={`py-10 xs:py-14 sm:py-20 relative overflow-hidden transition-all duration-1000 ${beforeAfterAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} 
       style={{ 
         background: `linear-gradient(135deg, ${THEME_ACCENT}12, #ffffff, ${THEME_PRIMARY}08)`,
         transform: `translateY(${scrollY * 0.08}px)`
@@ -48,7 +48,7 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
 
       <div className="container mx-auto px-4 sm:px-6">
         {/* Enhanced Header - Mobile Responsive */}
-        <div className={`text-center mb-12 sm:mb-16 transition-all duration-700 ${beforeAfterAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
+        <div className={`text-center mb-8 xs:mb-10 sm:mb-16 transition-all duration-700 ${beforeAfterAnim.isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
           <Badge className="mb-4 sm:mb-6 px-4 sm:px-8 py-2 sm:py-4 text-sm sm:text-lg font-bold tracking-wider animate-pulse shadow-2xl" style={{ 
             background: `linear-gradient(135deg, ${THEME_GOLD}, #B8941F)`, 
             color: '#ffffff',
@@ -58,7 +58,7 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
           }}>
             🔥 REAL TRANSFORMATIONS • REAL RESULTS 🔥
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight" style={{ 
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 xs:mb-6 sm:mb-8 leading-tight" style={{ 
             color: THEME_PRIMARY,
             fontFamily: '"Playfair Display", Georgia, serif',
             textShadow: '0 4px 20px rgba(164, 25, 61, 0.2)'
@@ -71,7 +71,7 @@ export default function TransformationSection({ scrollY, onCTAClick }: Transform
               WebkitTextFillColor: 'transparent'
             }}>Magic</span> Happen
           </h2>
-          <p className="text-lg sm:text-xl md:text-2xl mb-8 sm:mb-12 max-w-4xl mx-auto font-medium leading-relaxed" style={{ color: '#7f2039' }}>
+          <p className="text-base xs:text-lg sm:text-xl md:text-2xl mb-6 xs:mb-8 sm:mb-12 max-w-4xl mx-auto font-medium leading-relaxed px-4" style={{ color: '#7f2039' }}>
             <strong className="text-xl sm:text-2xl" style={{ color: THEME_PRIMARY }}>Join 50,000+ customers who transformed their skin in just 4 weeks.</strong><br />
             <span className="text-base sm:text-lg opacity-90 block mt-2 sm:mt-3">Your radiant skin journey starts with one click below.</span>
           </p>
