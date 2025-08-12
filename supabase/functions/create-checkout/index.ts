@@ -157,9 +157,18 @@ serve(async (req) => {
     }));
     console.log('Line items created:', lineItems.length);
 
+    // Generate a unique order number with random component to avoid collisions
+    const generateUniqueOrderNumber = () => {
+      const date = new Date().toISOString().slice(0, 10).replace(/-/g, ''); // YYYYMMDD
+      const time = Date.now().toString().slice(-6); // Last 6 digits of timestamp
+      const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0'); // 3 random digits
+      return `AU-${date}-${time}${random}`;
+    };
+
     // Store order in database first (pending status) so we can reference it in metadata
     console.log('Creating order in database...');
     const orderData: any = {
+      order_number: generateUniqueOrderNumber(),
       total_amount: totalAmount,
       currency: currency,
       status: 'pending',

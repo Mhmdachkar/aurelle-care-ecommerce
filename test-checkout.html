@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Checkout</title>
+</head>
+<body>
+    <button onclick="testCheckout()">Test Checkout</button>
+    <button onclick="testMultiple()">Test Multiple Orders</button>
+    <div id="result"></div>
+
+    <script>
+        async function testCheckout() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const response = await fetch('https://orawqdebazuhqpkzufxy.supabase.co/functions/v1/create-checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yYXdxZGViYXp1aHFwa3p1Znh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjM0MTI5MTYsImV4cCI6MjAzODk4ODkxNn0.EJ3YAq-7UFFh01T4Vt8EQQCTkpvv6lzVOlfYdz6lJew',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cartItems: [{
+                            product_name: 'Test Product',
+                            variant: 'Single Package',
+                            quantity: 1,
+                            price: '14.799,00 TL',
+                            currency: 'TRY',
+                            image_url: '/test.jpg'
+                        }],
+                        currency: 'TRY',
+                        successUrl: 'http://localhost:8080/success',
+                        cancelUrl: 'http://localhost:8080',
+                        isGuest: true
+                    })
+                });
+
+                const data = await response.json();
+                console.log('Response:', data);
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<div style="color: green;">✅ Success! SessionId: ${data.sessionId}</div>`;
+                } else {
+                    resultDiv.innerHTML = `<div style="color: red;">❌ Error: ${data.error}</div>`;
+                }
+            } catch (error) {
+                console.error('Test error:', error);
+                resultDiv.innerHTML = `<div style="color: red;">❌ Network Error: ${error.message}</div>`;
+            }
+        }
+
+        async function testMultiple() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing multiple orders...';
+            
+            const promises = [];
+            for (let i = 0; i < 3; i++) {
+                promises.push(createOrder(i + 1));
+            }
+            
+            try {
+                const results = await Promise.all(promises);
+                const successCount = results.filter(r => r.success).length;
+                resultDiv.innerHTML = `<div style="color: green;">✅ Created ${successCount}/3 orders successfully!</div>`;
+            } catch (error) {
+                resultDiv.innerHTML = `<div style="color: red;">❌ Multiple test failed: ${error.message}</div>`;
+            }
+        }
+
+        async function createOrder(orderNum) {
+            try {
+                const response = await fetch('https://orawqdebazuhqpkzufxy.supabase.co/functions/v1/create-checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yYXdxZGViYXp1aHFwa3p1Znh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjM0MTI5MTYsImV4cCI6MjAzODk4ODkxNn0.EJ3YAq-7UFFh01T4Vt8EQQCTkpvv6lzVOlfYdz6lJew',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cartItems: [{
+                            product_name: `Test Product ${orderNum}`,
+                            variant: 'Single Package',
+                            quantity: 1,
+                            price: '14.799,00 TL',
+                            currency: 'TRY',
+                            image_url: '/test.jpg'
+                        }],
+                        currency: 'TRY',
+                        successUrl: 'http://localhost:8080/success',
+                        cancelUrl: 'http://localhost:8080',
+                        isGuest: true
+                    })
+                });
+
+                const data = await response.json();
+                console.log(`Order ${orderNum} response:`, data);
+                
+                return { success: response.ok, orderNum, data };
+            } catch (error) {
+                console.error(`Order ${orderNum} error:`, error);
+                return { success: false, orderNum, error: error.message };
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supabase Connection Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .loading { background-color: #cce7ff; color: #004085; border: 1px solid #99d6ff; }
+        button { padding: 10px 20px; margin: 10px 5px; cursor: pointer; }
+        pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Supabase Connection Test</h1>
+    <div id="results"></div>
+    
+    <button onclick="testConnection()">Run Connection Test</button>
+    <button onclick="testTracking()">Test Visitor Tracking</button>
+    <button onclick="clearResults()">Clear Results</button>
+
+    <script type="module">
+        // Note: You'll need to set these manually since we can't access .env files in browser
+        const SUPABASE_URL = 'https://orawqdebazuhqpkzufxy.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yYXdxZGViYXp1aHFwa3p1Znh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE4NDQwNzEsImV4cCI6MjA2NzQyMDA3MX0.inPG4j47vN8438er8urENCFT62Nm4-RmlTk8xEAjEoE'; // Replace with your actual anon key
+        
+        window.SUPABASE_URL = SUPABASE_URL;
+        window.SUPABASE_ANON_KEY = SUPABASE_ANON_KEY;
+        
+        function addResult(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.innerHTML = message;
+            results.appendChild(div);
+        }
+        
+        window.addResult = addResult;
+        
+        window.clearResults = function() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        window.testConnection = async function() {
+            addResult('🔄 Starting connection test...', 'loading');
+            
+            // Check if environment is configured
+            if (!SUPABASE_ANON_KEY || SUPABASE_ANON_KEY === 'YOUR_ANON_KEY_HERE') {
+                addResult('❌ Please update SUPABASE_ANON_KEY in this HTML file', 'error');
+                return;
+            }
+            
+            try {
+                // Test health check endpoint
+                addResult('🔄 Testing health check endpoint...', 'loading');
+                const healthResponse = await fetch(`${SUPABASE_URL}/functions/v1/db-health-check`, {
+                    headers: {
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (healthResponse.ok) {
+                    const healthData = await healthResponse.json();
+                    addResult(`✅ Health check successful - Status: ${healthData.status}`, 'success');
+                    addResult(`📊 Database: ${healthData.checks.database ? '✅' : '❌'} | Auth: ${healthData.checks.auth ? '✅' : '❌'} | Functions: ${healthData.checks.edge_functions ? '✅' : '❌'}`, 'success');
+                } else {
+                    const errorText = await healthResponse.text();
+                    addResult(`❌ Health check failed: ${healthResponse.status} - ${errorText}`, 'error');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Connection test failed: ${error.message}`, 'error');
+            }
+        }
+        
+        window.testTracking = async function() {
+            addResult('🔄 Testing visitor tracking...', 'loading');
+            
+            if (!SUPABASE_ANON_KEY || SUPABASE_ANON_KEY === 'YOUR_ANON_KEY_HERE') {
+                addResult('❌ Please update SUPABASE_ANON_KEY in this HTML file', 'error');
+                return;
+            }
+            
+            try {
+                const sessionId = crypto.randomUUID();
+                const trackResponse = await fetch(`${SUPABASE_URL}/functions/v1/track-visitor`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sessionId,
+                        pageUrl: window.location.href,
+                        pageTitle: document.title,
+                        userAgent: navigator.userAgent,
+                        referrer: document.referrer
+                    })
+                });
+                
+                if (trackResponse.ok) {
+                    const trackData = await trackResponse.json();
+                    addResult('✅ Visitor tracking successful!', 'success');
+                    addResult(`📝 Session ID: ${sessionId}`, 'success');
+                    addResult(`🔍 Session created: ${trackData.sessionCreated}, Visit logged: ${trackData.visitCreated}`, 'success');
+                    if (trackData.debug) {
+                        addResult(`🖥️ Device: ${trackData.debug.deviceInfo.device} | Browser: ${trackData.debug.deviceInfo.browser} | OS: ${trackData.debug.deviceInfo.os}`, 'success');
+                    }
+                } else {
+                    const errorText = await trackResponse.text();
+                    addResult(`❌ Visitor tracking failed: ${trackResponse.status} - ${errorText}`, 'error');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Tracking test failed: ${error.message}`, 'error');
+            }
+        }
+        
+        // Auto-run basic connection test
+        addResult('🎯 Ready to test Supabase connection', 'loading');
+        addResult('⚠️ Please update SUPABASE_ANON_KEY in this file before testing', 'warning');
+    </script>
+</body>
+</html>
