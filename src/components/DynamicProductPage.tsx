@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -123,6 +123,27 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
   const { ref: statsRef, visibleItems: statsVisible } = useStaggeredAnimation(2, 200);
 
   const safeImg = (src?: string) => src || '/placeholder.svg';
+
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Autoplay/pause video when the video section enters/leaves view
+  useEffect(() => {
+    if (!productData.video) return;
+    const el = videoRef.current;
+    if (!el) return;
+    if (videoSection.isVisible) {
+      const tryPlay = async () => {
+        try {
+          await el.play();
+        } catch {
+          // Ignore autoplay errors
+        }
+      };
+      tryPlay();
+    } else {
+      el.pause();
+    }
+  }, [videoSection.isVisible, productData.video]);
 
   useEffect(() => {
     const trackViewContentWithDelay = () => {
@@ -268,8 +289,12 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
                     
                     <div className="relative rounded-xl overflow-hidden border-2 border-gold/30 shadow-luxury">
                       <video 
+                        ref={videoRef}
                         controls 
                         preload="metadata"
+                        muted
+                        playsInline
+                        autoPlay={videoSection.isVisible}
                         width="1920"
                         height="1080"
                         className="w-full h-auto max-h-[400px] sm:max-h-[500px] lg:max-h-[600px] object-contain bg-black/5 hover:scale-[1.02] transition-transform duration-300"

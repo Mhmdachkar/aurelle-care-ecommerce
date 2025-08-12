@@ -22,7 +22,7 @@ const PRODUCTS: Array<{
   image: string;
   badge?: string;
 }> = [
-  { slug: 'champagne-beaute-lift', name: 'Champagne Beaute Lift', price: '$22.99', image: '/products/product-1-champagne-beaute/rose-variant.png', badge: 'Best Seller' },
+  { slug: 'champagne-beaute-lift', name: 'Champagne Beaute Lift', price: '$22.99', image: '/products/product-1/product1_rose.webp', badge: 'Best Seller' },
   { slug: 'booster-pro', name: 'AGE-R Booster Pro', price: '14.799,00 TL', image: '/products/product-2-booster-pro/pink.png', badge: 'New' },
   { slug: 'vanilla-velvet-balm', name: 'Vanilla Velvet Balm', price: '$26.50', image: '/products/product-1-champagne-beaute/almond-variant.png' },
   { slug: 'truffle-glow-serum', name: 'Truffle Glow Serum', price: '$39.00', image: '/products/before-after/after-1.png', badge: 'New' },
@@ -31,6 +31,7 @@ const PRODUCTS: Array<{
   { slug: 'pink-pepper-tonic', name: 'Pink Pepper Tonic', price: '$21.99', image: '/products/homepage-cards/card-3.png' },
   { slug: 'grape-callus-essence', name: 'Grape Callus Essence', price: '$27.50', image: '/products/homepage-cards/card-4.png' },
   { slug: 'silk-body-butter', name: 'Silk Body Butter', price: '$24.99', image: '/products/homepage-cards/card-5.png' },
+  { slug: 'pdrn-pink-collagen-capsule-cream', name: 'PDRN Pink Collagen Capsule Cream', price: '$20.00', image: '/products/product-3-template/product-3.jpg', badge: 'New' },
 ];
 
 const Index = () => {
