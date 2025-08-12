@@ -112,10 +112,33 @@ serve(async (req) => {
       throw new Error('Invalid cart items provided');
     }
 
+    // Helper function to parse price strings like "$22.99" or "14.799,00 TL" to a numeric value
+    const parsePriceToNumber = (rawPrice: string | number): number => {
+      if (typeof rawPrice === 'number') return rawPrice;
+      if (!rawPrice) return 0;
+      const trimmed = String(rawPrice).trim();
+      // If it contains a comma as decimal separator (e.g., 14.799,00), convert to standard format
+      const hasCommaDecimal = /\d,\d{1,2}$/.test(trimmed) || (trimmed.includes(',') && trimmed.split(',').pop()?.length === 2);
+      let normalized = trimmed
+        .replace(/[^0-9,.-]/g, ''); // keep digits and separators
+      if (hasCommaDecimal) {
+        // Remove thousand separators (.) and convert comma to dot
+        normalized = normalized.replace(/\./g, '').replace(',', '.');
+      } else {
+        // Remove thousand separators (,) if any remain
+        const parts = normalized.split('.');
+        if (parts.length > 2) normalized = normalized.replace(/,/g, '');
+      }
+      const numeric = parseFloat(normalized);
+      return Number.isFinite(numeric) ? numeric : 0;
+    };
+
     // Calculate total amount
     console.log('Calculating total amount...');
     const totalAmount = cartItems.reduce((total: number, item: any) => {
-      return total + (parseFloat(item.price) * item.quantity);
+      const itemPrice = parsePriceToNumber(item.price);
+      console.log(`Item: ${item.product_name}, Price: ${item.price} -> Parsed: ${itemPrice}`);
+      return total + (itemPrice * item.quantity);
     }, 0);
     console.log('Total amount:', totalAmount);
 
@@ -128,7 +151,7 @@ serve(async (req) => {
           name: `${item.product_name} - ${item.variant}`,
           images: item.image_url ? [item.image_url.startsWith('http') ? item.image_url : `${successUrl?.split('/').slice(0, 3).join('/')}${item.image_url}`] : [],
         },
-        unit_amount: Math.round(parseFloat(item.price) * 100), // Convert to cents
+        unit_amount: Math.round(parsePriceToNumber(item.price) * 100), // Convert to cents
       },
       quantity: item.quantity,
     }));
@@ -165,15 +188,18 @@ serve(async (req) => {
 
     // Store order items
     console.log('Creating order items...');
-    const orderItems = cartItems.map((item: any) => ({
-      order_id: order.id,
-      product_name: item.product_name,
-      variant: item.variant,
-      quantity: item.quantity,
-      unit_price: parseFloat(item.price),
-      total_price: parseFloat(item.price) * item.quantity,
-      image_url: item.image_url,
-    }));
+    const orderItems = cartItems.map((item: any) => {
+      const unitPrice = parsePriceToNumber(item.price);
+      return {
+        order_id: order.id,
+        product_name: item.product_name,
+        variant: item.variant,
+        quantity: item.quantity,
+        unit_price: unitPrice,
+        total_price: unitPrice * item.quantity,
+        image_url: item.image_url,
+      };
+    });
 
     const { error: itemsError } = await supabaseAdmin
       .from('order_items')
