@@ -142,19 +142,53 @@ serve(async (req) => {
     }, 0);
     console.log('Total amount:', totalAmount);
 
+    // Resolve absolute image URLs safely for Stripe (requires absolute HTTPS URLs)
+    const getBaseOrigin = (): string | null => {
+      const headerOrigin = req.headers.get('origin');
+      if (headerOrigin && /^https?:\/\//.test(headerOrigin)) return headerOrigin;
+      const referer = req.headers.get('referer');
+      if (referer) {
+        try { return new URL(referer).origin; } catch (_) {}
+      }
+      if (successUrl) {
+        try { return new URL(successUrl).origin; } catch (_) {}
+      }
+      if (cancelUrl) {
+        try { return new URL(cancelUrl).origin; } catch (_) {}
+      }
+      return null;
+    };
+
+    const toAbsoluteUrl = (maybeUrl: string | null | undefined): string | null => {
+      if (!maybeUrl) return null;
+      const trimmed = String(maybeUrl).trim();
+      if (/^https?:\/\//.test(trimmed)) return encodeURI(trimmed);
+      const origin = getBaseOrigin();
+      if (!origin) return null;
+      const normalizedPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+      return encodeURI(`${origin}${normalizedPath}`);
+    };
+
     // Create line items for Stripe
     console.log('Creating Stripe line items...');
-    const lineItems = cartItems.map((item: any) => ({
-      price_data: {
-        currency: currency.toLowerCase(),
-        product_data: {
-          name: `${item.product_name} - ${item.variant}`,
-          images: item.image_url ? [item.image_url.startsWith('http') ? item.image_url : `${successUrl?.split('/').slice(0, 3).join('/')}${item.image_url}`] : [],
+    const lineItems = cartItems.map((item: any) => {
+      const absoluteImage = toAbsoluteUrl(item.image_url);
+      const images = absoluteImage ? [absoluteImage] : [];
+      if (!absoluteImage && item.image_url) {
+        console.warn('Skipping non-absolute image URL for Stripe:', item.image_url);
+      }
+      return {
+        price_data: {
+          currency: String(currency || 'USD').toLowerCase(),
+          product_data: {
+            name: `${item.product_name} - ${item.variant}`,
+            images,
+          },
+          unit_amount: Math.round(parsePriceToNumber(item.price) * 100), // Convert to cents
         },
-        unit_amount: Math.round(parsePriceToNumber(item.price) * 100), // Convert to cents
-      },
-      quantity: item.quantity,
-    }));
+        quantity: item.quantity,
+      };
+    });
     console.log('Line items created:', lineItems.length);
 
     // Generate a unique order number with random component to avoid collisions
@@ -226,8 +260,14 @@ serve(async (req) => {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: successUrl || `${req.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: cancelUrl || `${req.headers.get('origin')}/`,
+      success_url: successUrl || (() => {
+        const origin = getBaseOrigin();
+        return `${origin ?? 'https://example.com'}/success?session_id={CHECKOUT_SESSION_ID}`;
+      })(),
+      cancel_url: cancelUrl || (() => {
+        const origin = getBaseOrigin();
+        return `${origin ?? 'https://example.com'}/`;
+      })(),
       metadata: {
         order_id: order.id,
         currency: currency,
