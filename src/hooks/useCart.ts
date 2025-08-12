@@ -133,6 +133,43 @@ export const useCart = () => {
     notifyCartChange();
   };
 
+  // Convert price strings like "$22.99" or "14.799,00 TL" to a numeric value
+  const parsePriceToNumber = (rawPrice: string): number => {
+    if (!rawPrice) return 0;
+    const trimmed = String(rawPrice).trim();
+    // If it contains a comma as decimal separator (e.g., 14.799,00), convert to standard format
+    const hasCommaDecimal = /\d,\d{1,2}$/.test(trimmed) || (trimmed.includes(',') && trimmed.split(',').pop()?.length === 2);
+    let normalized = trimmed
+      .replace(/[^0-9,.-]/g, ''); // keep digits and separators
+    if (hasCommaDecimal) {
+      // Remove thousand separators (.) and convert comma to dot
+      normalized = normalized.replace(/\./g, '').replace(',', '.');
+    } else {
+      // Remove thousand separators (,) if any remain
+      const parts = normalized.split('.');
+      if (parts.length > 2) normalized = normalized.replace(/,/g, '');
+    }
+    const numeric = parseFloat(normalized);
+    return Number.isFinite(numeric) ? numeric : 0;
+  };
+
+  // Map database row (supporting both legacy string price and numeric unit_price schemas)
+  const mapDbRowToCartItem = (row: any): CartItem => {
+    const unitPrice: number | null = typeof row.unit_price === 'number' ? row.unit_price : null;
+    const displayPrice = typeof row.price === 'string'
+      ? row.price
+      : (unitPrice !== null ? unitPrice.toFixed(2) : '0');
+    return {
+      id: row.id,
+      product_name: row.product_name,
+      variant: row.variant,
+      quantity: row.quantity,
+      price: displayPrice,
+      currency: row.currency || 'USD',
+      image_url: row.image_url || '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png'
+    };
+  };
+
   // Real-time cart synchronization
   const syncCartFromDatabase = useCallback(async () => {
     if (!user || isUpdatingRef.current) return;
@@ -145,10 +182,7 @@ export const useCart = () => {
 
       if (error) throw error;
 
-      const mappedItems = (data || []).map(item => ({
-        ...item,
-        image_url: item.image_url || '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png'
-      }));
+      const mappedItems = (data || []).map(item => mapDbRowToCartItem(item));
       
       updateGlobalCart(mappedItems);
     } catch (error) {
@@ -195,10 +229,7 @@ export const useCart = () => {
       }
 
       // Map the data to ensure image_url is present, fallback to Rose image if missing
-      const mappedItems = (data || []).map(item => ({
-        ...item,
-        image_url: item.image_url || '/lovable-uploads/8961e353-4116-4582-81c4-6c6a8b789935.png'
-      }));
+      const mappedItems = (data || []).map(item => mapDbRowToCartItem(item));
       updateGlobalCart(mappedItems);
     } catch (error) {
       toast({
@@ -249,13 +280,40 @@ export const useCart = () => {
           // Add new item
           console.log('➕ Adding new item to user cart');
           // Remove id from itemData to let database generate UUID
-          const { id, ...insertData } = itemData;
-          await supabase
+          // Note: remove temporary id when inserting
+          // Try insert using legacy string price schema first
+          let migrateError: any = null;
+          const { error: migErr1 } = await supabase
             .from('cart_items')
             .insert({
               user_id: user.id,
-              ...insertData
-            });
+              product_name: guestItem.product_name,
+              variant: guestItem.variant,
+              quantity: guestItem.quantity,
+              price: guestItem.price,
+              currency: guestItem.currency,
+              image_url: guestItem.image_url
+            } as any);
+          migrateError = migErr1;
+
+          // Fallback to numeric schema if first insert fails
+          if (migrateError) {
+            const unitPrice = parsePriceToNumber(guestItem.price);
+            const { error: migErr2 } = await supabase
+              .from('cart_items')
+              .insert({
+                user_id: user.id,
+                product_name: guestItem.product_name,
+                variant: guestItem.variant,
+                quantity: guestItem.quantity,
+                unit_price: unitPrice,
+                total_price: unitPrice * guestItem.quantity,
+                currency: guestItem.currency,
+                image_url: guestItem.image_url
+              } as any);
+            migrateError = migErr2;
+          }
+          if (migrateError) throw migrateError;
         }
       }
 
@@ -411,23 +469,51 @@ export const useCart = () => {
           price: item.price,
           currency: item.currency,
           image_url: item.image_url
-        })
+        } as any)
         .select()
         .single()
-        .then(({ data, error }) => {
+        .then(async ({ data, error }) => {
           if (error) {
-            console.error('Database insert error:', error);
-            const revertedItems = globalCartItems.filter(cartItem => cartItem.id !== tempId);
-            updateGlobalCart(revertedItems);
-            toast({
-              title: "Error",
-              description: "Failed to add item to cart",
-              variant: "destructive"
-            });
+            console.error('Database insert error (string price schema):', error);
+            // Fallback: try numeric schema (unit_price / total_price)
+            const unitPrice = parsePriceToNumber(item.price);
+            const retryInsert: any = {
+              user_id: user.id,
+              product_name: item.product_name,
+              variant: item.variant,
+              quantity: item.quantity,
+              unit_price: unitPrice,
+              total_price: unitPrice * item.quantity,
+              currency: item.currency,
+              image_url: item.image_url
+            };
+            const { data: data2, error: err2 } = await supabase
+              .from('cart_items')
+              .insert(retryInsert)
+              .select()
+              .single();
+
+            if (err2) {
+              console.error('Database insert error (numeric schema fallback):', err2);
+              const revertedItems = globalCartItems.filter(cartItem => cartItem.id !== tempId);
+              updateGlobalCart(revertedItems);
+              toast({
+                title: "Error",
+                description: "Failed to add item to cart",
+                variant: "destructive"
+              });
+            } else {
+              const mapped = mapDbRowToCartItem(data2);
+              const updatedItems = globalCartItems.map(cartItem => 
+                cartItem.id === tempId ? mapped : cartItem
+              );
+              updateGlobalCart(updatedItems);
+            }
           } else {
             // Replace temp item with real one
+            const mapped = mapDbRowToCartItem(data);
             const updatedItems = globalCartItems.map(cartItem => 
-              cartItem.id === tempId ? data : cartItem
+              cartItem.id === tempId ? mapped : cartItem
             );
             updateGlobalCart(updatedItems);
           }

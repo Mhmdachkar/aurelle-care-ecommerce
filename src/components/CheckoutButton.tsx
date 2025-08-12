@@ -5,6 +5,7 @@ import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
 import { supabase } from '@/integrations/supabase/client';
+import { parseCurrencyToNumber } from '@/lib/utils';
 import { toast } from '@/hooks/use-toast';
 
 interface CheckoutButtonProps {
@@ -40,9 +41,7 @@ export const CheckoutButton = ({
 
     try {
       // Calculate total value for Meta Pixel tracking
-      const totalValue = cartItems.reduce((total, item) => 
-        total + (parseFloat(item.price) * item.quantity), 0
-      );
+      const totalValue = cartItems.reduce((total, item) => total + (parseCurrencyToNumber(item.price) * item.quantity), 0);
       const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
       // Track Meta Pixel InitiateCheckout event
@@ -98,7 +97,7 @@ export const CheckoutButton = ({
   };
 
   const getTotalAmount = () => {
-    return cartItems.reduce((total, item) => total + (parseFloat(item.price) * item.quantity), 0);
+    return cartItems.reduce((total, item) => total + (parseCurrencyToNumber(item.price) * item.quantity), 0);
   };
 
   const getCurrencySymbol = (curr: string) => {
