@@ -175,17 +175,17 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
       <div className="bg-gradient-luxury py-0 animate-fade-in-up">
         <div className="container mx-auto px-4">
           {/* Top Navigation */}
-          <div className="flex justify-between items-center mb-4 py-2">
-            <div className="flex items-center gap-3">
-              <ProfileButton />
-              <div>
-                <ShoppingCart />
+            <div className="flex justify-between items-center mb-4 py-2">
+              <div className="flex items-center gap-3">
+                <ProfileButton />
+                <div>
+                  <ShoppingCart />
+                </div>
+              </div>
+              <div className="text-xs text-primary-foreground/80">
+                {user && `Welcome, ${user.email?.split('@')[0]}!`}
               </div>
             </div>
-            <div className="text-xs text-primary-foreground/80">
-              {user && `Welcome, ${user.email?.split('@')[0]}!`}
-            </div>
-          </div>
           
           {/* Brand Section */}
           <div className="text-center">

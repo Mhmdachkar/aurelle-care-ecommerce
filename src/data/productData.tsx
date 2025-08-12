@@ -812,6 +812,169 @@ export const PRODUCT_DATA = {
     ],
     madeIn: 'Made in Korea',
     officialBadge: '55g'
+  },
+
+  'intensive-vitamin-c-capsule-cream': {
+    id: 'intensive-vitamin-c-capsule-cream',
+    name: 'Intensive Vitamin C Capsule Cream',
+    description:
+      'Dual-texture Vitamin C capsule cream with adjustable capsule-to-gel ratio. Brightens, evens skin tone, targets blemishes, and boosts radiance while remaining gentle on skin. 55g.',
+    price: {
+      current: '1.599,00 TL',
+      original: '3.199,00 TL',
+      currency: 'TL'
+    },
+    images: [
+      // Variant images (order must match the variants array below)
+      { src: '/products/product-4-template/product-4.jpg', alt: 'Only', fallback: '/placeholder.svg' },
+      { src: '/products/product-4-template/product-4-1.webp', alt: 'Two Set', fallback: '/placeholder.svg' },
+      { src: '/products/product-4-template/product-4-4.webp', alt: 'Gold & Pink Capsule Cream Set (Pack of 2)', fallback: '/placeholder.svg' },
+      { src: '/products/product-4-template/product4-2.webp', alt: 'Gold & Red Capsule Cream Set (Pack of 2)', fallback: '/placeholder.svg' },
+      // Additional gallery
+      { src: '/products/product-4-template/product-4-3.jpg', alt: 'Vitamin C Texture', fallback: '/placeholder.svg' }
+    ],
+    variants: [
+      { name: 'Only', description: 'Single package' },
+      { name: 'Two Set', description: 'Value set of two' },
+      { name: 'Gold & Pink Set', description: 'Gold & Pink Capsule Cream Set (Pack of 2)' },
+      { name: 'Gold & Red Set', description: 'Gold & Red Capsule Cream Set (Pack of 2)' }
+    ],
+    features: [
+      { icon: Sparkles, label: 'Brightening & Radiance' },
+      { icon: ActivitySquare, label: 'Anti-Aging Care' },
+      { icon: ShieldCheck, label: 'Low Irritation Tested' },
+      { icon: Zap, label: 'Even Skin Tone' }
+    ],
+    stats: {
+      recommendations: '7.4K',
+      browsing: '1.3K',
+      reviews: '1,562'
+    },
+    video: {
+      src: '/videos/WhatsApp Video 2025-08-13 at 02.23.29_eecd18ca.mp4',
+      poster: '/products/product-4-template/product-4.jpg',
+      title: 'Vitamin C Capsule Cream in Action'
+    },
+    accordionSections: [
+      {
+        id: 'overview',
+        title: 'Overview',
+        icon: '🔬',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <p>Deep Vitamin C Capsule Cream is a revolutionary skincare solution developed to even out skin tone and reduce the appearance of blemishes. It delivers a bright, radiant, and balanced appearance.</p>
+            <p>This customizable cream combines a Vitamin C capsule with a clear gel. The capsule contains 50% Sea Buckthorn extract, 5% Niacinamide, and Pure Vitamin C—encapsulated to stay fresh and potent.</p>
+            <p>Thanks to the proprietary technology, Vitamin C is delivered efficiently and powerfully with minimal irritation.</p>
+            <p className="font-semibold">55g • pH 5.8–7.8 • No artificial colors • Sustainable packaging</p>
+          </div>
+        )
+      },
+      {
+        id: 'skin-types-concerns',
+        title: 'Skin Types & Concerns',
+        icon: '🌿',
+        content: (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-rose-600">Suitable for All Skin Types:</p>
+              <ul className="list-disc pl-5 text-gray-700">
+                <li>Combination</li>
+                <li>Dry</li>
+                <li>Normal</li>
+                <li>Oily</li>
+                <li>Sensitive</li>
+              </ul>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-rose-600">For Skin Concerns:</p>
+              <ul className="list-disc pl-5 text-gray-700">
+                <li>Anti-aging</li>
+                <li>Acne / Blemishes</li>
+                <li>Dullness</li>
+                <li>Uneven skin tone</li>
+              </ul>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: 'main-components',
+        title: 'Main Components',
+        icon: '🧪',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <ul className="list-disc pl-5">
+              <li><strong>50% Sea Buckthorn Extract:</strong> Rich in antioxidants; nourishes and moisturizes.</li>
+              <li><strong>5% Niacinamide:</strong> Improves texture, reduces pores, brightens skin tone.</li>
+              <li><strong>Ascorbic Acid (Pure Vitamin C):</strong> Powerful antioxidant; evens tone and boosts elasticity.</li>
+              <li><strong>Vitamins E, Q, P:</strong> Support moisture and regeneration for a youthful complexion.</li>
+              <li><strong>Ferulic Acid:</strong> Stabilizes Vitamin C and enhances effectiveness; added antioxidant protection.</li>
+            </ul>
+          </div>
+        )
+      },
+      {
+        id: 'study-results',
+        title: 'Study Results',
+        icon: '📊',
+        content: (
+          <div className="flex flex-col gap-2 text-gray-700">
+            <p><strong>Instant</strong> 34.8% increase in skin radiance</p>
+            <p><strong>24h</strong> 32.6% increase in skin radiance</p>
+            <p><strong>Hydration:</strong> 13.4% superficial moisturizing; 4.1% increase in skin hydration</p>
+            <p><strong>Barrier:</strong> 7.5% improvement in skin barrier</p>
+            <p><strong>Tone:</strong> 12.9% improvement in uneven tone; 18.2% improvement in tone evenness</p>
+            <p className="text-sm italic">Dermatologist approved. Low irritation test completed. Results may vary.</p>
+          </div>
+        )
+      },
+      {
+        id: 'how-to-use',
+        title: 'How to Use',
+        icon: '📋',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <p>Mix the vitamin capsule and transparent gel in proportions suitable for your skin type.</p>
+            <ul className="list-disc pl-5">
+              <li>For a lighter feel: increase the gel ratio</li>
+              <li>For more intense moisture and elasticity: increase the capsule ratio</li>
+            </ul>
+            <p>Gently apply to face and neck morning and evening after your serum. Always apply sunscreen after morning use.</p>
+          </div>
+        )
+      }
+    ],
+    clinicalResults: [
+      {
+        mode: 'Radiance',
+        icon: '✨',
+        color: 'from-amber-50 to-yellow-50',
+        results: [
+          { label: 'Instant radiance', value: '34.8%', type: 'increase' as const },
+          { label: 'Radiance after 24h', value: '32.6%', type: 'increase' as const }
+        ]
+      },
+      {
+        mode: 'Hydration',
+        icon: '💧',
+        color: 'from-blue-50 to-cyan-50',
+        results: [
+          { label: 'Superficial moisturizing', value: '13.4%', type: 'increase' as const },
+          { label: 'Skin hydration', value: '4.1%', type: 'increase' as const }
+        ]
+      },
+      {
+        mode: 'Tone',
+        icon: '🌈',
+        color: 'from-purple-50 to-pink-50',
+        results: [
+          { label: 'Uneven tone', value: '12.9%', type: 'improvement' as any },
+          { label: 'Tone evenness', value: '18.2%', type: 'increase' as const }
+        ]
+      }
+    ],
+    madeIn: 'Made in Korea',
+    officialBadge: '55g'
   }
 };
 

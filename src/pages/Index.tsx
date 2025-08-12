@@ -9,7 +9,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Sparkles, Heart, Award, ShieldCheck, Truck, RotateCcw, Zap, Crown, Gift } from 'lucide-react';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
-import { useMetaPixel } from '@/hooks/useMetaPixel';
+import { useAuth } from '@/hooks/useAuth';
+import { ProfileButton } from '@/components/ProfileButton';
+import { ShoppingCart } from '@/components/ShoppingCart';
 
 const THEME_PRIMARY = '#A4193D'; // deep rose
 const THEME_ACCENT = '#FFDFB9'; // peach
@@ -32,12 +34,13 @@ const PRODUCTS: Array<{
   { slug: 'grape-callus-essence', name: 'Grape Callus Essence', price: '$27.50', image: '/products/homepage-cards/card-4.png' },
   { slug: 'silk-body-butter', name: 'Silk Body Butter', price: '$24.99', image: '/products/homepage-cards/card-5.png' },
   { slug: 'pdrn-pink-collagen-capsule-cream', name: 'PDRN Pink Collagen Capsule Cream', price: '$20.00', image: '/products/product-3-template/product-3.jpg', badge: 'New' },
+  { slug: 'intensive-vitamin-c-capsule-cream', name: 'Intensive Vitamin C Capsule Cream', price: '1.599,00 TL', image: '/products/product-4-template/product-4.jpg', badge: 'New' },
 ];
 
 const Index = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { testMetaPixel } = useMetaPixel();
+  const { user } = useAuth();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [scrollY, setScrollY] = useState(0);
@@ -246,25 +249,10 @@ const Index = () => {
             <Button variant="ghost" className="hidden lg:flex text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10 px-2 sm:px-3 py-1 sm:py-2" style={{ color: THEME_PRIMARY }}>
               Reviews
             </Button>
-            <Button 
-              onClick={testMetaPixel}
-              variant="ghost" 
-              className="hidden lg:flex text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 hover:bg-white/10 px-2 sm:px-3 py-1 sm:py-2" 
-              style={{ color: THEME_GOLD }}
-            >
-              Debug
-            </Button>
-            <Button 
-              className="px-2 xs:px-3 sm:px-6 py-1 xs:py-1.5 sm:py-2 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 animate-glow-pulse text-xs xs:text-sm sm:text-base" 
-              style={{ 
-                background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
-                color: THEME_ACCENT
-              }}
-            >
-              <Crown className="w-3 h-3 xs:w-3 xs:h-3 sm:w-4 sm:h-4 mr-1 xs:mr-1 sm:mr-2" />
-              <span className="hidden xs:inline">Account</span>
-              <span className="xs:hidden">•</span>
-            </Button>
+            <div className="hidden sm:flex items-center gap-2">
+              <ShoppingCart />
+              <ProfileButton />
+            </div>
           </div>
         </div>
       </nav>
