@@ -827,11 +827,14 @@ export const PRODUCT_DATA = {
     images: [
       // Variant images (order must match the variants array below)
       { src: '/products/product-4-template/product-4.jpg', alt: 'Only', fallback: '/placeholder.svg' },
-      { src: '/products/product-4-template/product-4-1.webp', alt: 'Two Set', fallback: '/placeholder.svg' },
-      { src: '/products/product-4-template/product-4-4.webp', alt: 'Gold & Pink Capsule Cream Set (Pack of 2)', fallback: '/placeholder.svg' },
-      { src: '/products/product-4-template/product4-2.webp', alt: 'Gold & Red Capsule Cream Set (Pack of 2)', fallback: '/placeholder.svg' },
+      { src: '/products/product-4-template/Screenshot 2025-08-13 024511.png', alt: 'Two Set', fallback: '/placeholder.svg' },
+      { src: '/products/product-4-template/Screenshot 2025-08-13 024536.png', alt: 'Gold & Pink Capsule Cream Set (Pack of 2)', fallback: '/placeholder.svg' },
+      { src: '/products/product-4-template/Screenshot 2025-08-13 024549.png', alt: 'Gold & Red Capsule Cream Set (Pack of 2)', fallback: '/placeholder.svg' },
       // Additional gallery
-      { src: '/products/product-4-template/product-4-3.jpg', alt: 'Vitamin C Texture', fallback: '/placeholder.svg' }
+      { src: '/products/product-4-template/product-4-1.webp', alt: 'Vitamin C Texture', fallback: '/placeholder.svg' },
+      { src: '/products/product-4-template/product-4-4.webp', alt: 'Packaging', fallback: '/placeholder.svg' },
+      { src: '/products/product-4-template/product4-2.webp', alt: 'Details', fallback: '/placeholder.svg' },
+      { src: '/products/product-4-template/product-4-3.jpg', alt: 'Lifestyle', fallback: '/placeholder.svg' }
     ],
     variants: [
       { name: 'Only', description: 'Single package' },

@@ -1,0 +1,3 @@
+[33mde88bde[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m feat(product-4): add Intensive Vitamin C Capsule Cream with variants, images, video; add to homepage grid (uses product-4.jpg as placeholder)
+[33m94e1dd9[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix(checkout): unique order number generation with timestamp+random to prevent duplicates
+[33m2a48bd2[m fix(checkout): robust price parsing for international formats in create-checkout Edge Function
