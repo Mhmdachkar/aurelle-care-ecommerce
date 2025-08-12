@@ -820,9 +820,9 @@ export const PRODUCT_DATA = {
     description:
       'Dual-texture Vitamin C capsule cream with adjustable capsule-to-gel ratio. Brightens, evens skin tone, targets blemishes, and boosts radiance while remaining gentle on skin. 55g.',
     price: {
-      current: '1.599,00 TL',
-      original: '3.199,00 TL',
-      currency: 'TL'
+      current: '$20.00',
+      original: '$40.00',
+      currency: 'USD'
     },
     images: [
       // Variant images (order must match the variants array below)
