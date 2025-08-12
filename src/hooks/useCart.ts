@@ -153,12 +153,12 @@ export const useCart = () => {
     return Number.isFinite(numeric) ? numeric : 0;
   };
 
-  // Map database row (supporting both legacy string price and numeric unit_price schemas)
+  // Map database row (supporting both legacy string price and numeric price schemas)
   const mapDbRowToCartItem = (row: any): CartItem => {
-    const unitPrice: number | null = typeof row.unit_price === 'number' ? row.unit_price : null;
-    const displayPrice = typeof row.price === 'string'
-      ? row.price
-      : (unitPrice !== null ? unitPrice.toFixed(2) : '0');
+    // If price is stored as a number, format it as a currency string for display
+    const displayPrice = typeof row.price === 'number'
+      ? `$${row.price.toFixed(2)}`
+      : row.price;
     return {
       id: row.id,
       product_name: row.product_name,
@@ -290,29 +290,13 @@ export const useCart = () => {
               product_name: guestItem.product_name,
               variant: guestItem.variant,
               quantity: guestItem.quantity,
-              price: guestItem.price,
+              price: parsePriceToNumber(guestItem.price),
               currency: guestItem.currency,
               image_url: guestItem.image_url
             } as any);
           migrateError = migErr1;
 
-          // Fallback to numeric schema if first insert fails
-          if (migrateError) {
-            const unitPrice = parsePriceToNumber(guestItem.price);
-            const { error: migErr2 } = await supabase
-              .from('cart_items')
-              .insert({
-                user_id: user.id,
-                product_name: guestItem.product_name,
-                variant: guestItem.variant,
-                quantity: guestItem.quantity,
-                unit_price: unitPrice,
-                total_price: unitPrice * guestItem.quantity,
-                currency: guestItem.currency,
-                image_url: guestItem.image_url
-              } as any);
-            migrateError = migErr2;
-          }
+
           if (migrateError) throw migrateError;
         }
       }
@@ -466,7 +450,7 @@ export const useCart = () => {
           product_name: item.product_name,
           variant: item.variant,
           quantity: item.quantity,
-          price: item.price,
+          price: parsePriceToNumber(item.price),
           currency: item.currency,
           image_url: item.image_url
         } as any)
@@ -474,41 +458,15 @@ export const useCart = () => {
         .single()
         .then(async ({ data, error }) => {
           if (error) {
-            console.error('Database insert error (string price schema):', error);
-            // Fallback: try numeric schema (unit_price / total_price)
-            const unitPrice = parsePriceToNumber(item.price);
-            const retryInsert: any = {
-              user_id: user.id,
-              product_name: item.product_name,
-              variant: item.variant,
-              quantity: item.quantity,
-              unit_price: unitPrice,
-              total_price: unitPrice * item.quantity,
-              currency: item.currency,
-              image_url: item.image_url
-            };
-            const { data: data2, error: err2 } = await supabase
-              .from('cart_items')
-              .insert(retryInsert)
-              .select()
-              .single();
-
-            if (err2) {
-              console.error('Database insert error (numeric schema fallback):', err2);
-              const revertedItems = globalCartItems.filter(cartItem => cartItem.id !== tempId);
-              updateGlobalCart(revertedItems);
-              toast({
-                title: "Error",
-                description: "Failed to add item to cart",
-                variant: "destructive"
-              });
-            } else {
-              const mapped = mapDbRowToCartItem(data2);
-              const updatedItems = globalCartItems.map(cartItem => 
-                cartItem.id === tempId ? mapped : cartItem
-              );
-              updateGlobalCart(updatedItems);
-            }
+            console.error('Database insert error:', error);
+            // Rollback optimistic update
+            const revertedItems = globalCartItems.filter(cartItem => cartItem.id !== tempId);
+            updateGlobalCart(revertedItems);
+            toast({
+              title: "Error",
+              description: "Failed to add item to cart",
+              variant: "destructive"
+            });
           } else {
             // Replace temp item with real one
             const mapped = mapDbRowToCartItem(data);
