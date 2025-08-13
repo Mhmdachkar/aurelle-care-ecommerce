@@ -997,7 +997,10 @@ export const PRODUCT_DATA = {
       { src: '/products/product-5-template/Screenshot 2025-08-13 134648.png', alt: 'Gold & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
       { src: '/products/product-5-template/Screenshot 2025-08-13 134701.png', alt: 'Pink & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
       // Additional gallery
-      { src: '/products/product-5-template/product-5-4.jpg', alt: 'TXA Texture / Lifestyle', fallback: '/placeholder.svg' }
+      { src: '/products/product-5-template/product-5-4.jpg', alt: 'TXA Texture / Lifestyle', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/product-5-1.webp', alt: 'TXA Capsule Close-up', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/product-5-3.jpg', alt: 'Packaging Detail', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/prooduct-5-2.webp', alt: 'Set Arrangement', fallback: '/placeholder.svg' }
     ],
     variants: [
       { name: 'Single Package', description: 'One TXA Niacinamide Capsule Cream' },
