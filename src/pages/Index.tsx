@@ -103,7 +103,9 @@ const Index = () => {
 
   if (isViewingProduct) {
     // Use dynamic product page with product data
+    console.log('🔍 Looking for product:', productSlug, 'Available products:', Object.keys(PRODUCT_DATA));
     const productData = PRODUCT_DATA[productSlug as ProductId];
+    console.log('📦 Product data found:', !!productData, productData?.name);
     
     if (!productData) {
       // Fallback for unknown products
