@@ -993,9 +993,9 @@ export const PRODUCT_DATA = {
     images: [
       // Variant images (order must match the variants array below)
       { src: '/products/product-5-template/product-5.jpg', alt: 'Single Package', fallback: '/placeholder.svg' },
-      { src: '/products/product-5-template/product-5-1.webp', alt: 'Double Pack', fallback: '/placeholder.svg' },
-      { src: '/products/product-5-template/product-5-3.jpg', alt: 'Gold & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
-      { src: '/products/product-5-template/prooduct-5-2.webp', alt: 'Pink & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/Screenshot 2025-08-13 134630.png', alt: 'Double Pack', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/Screenshot 2025-08-13 134648.png', alt: 'Gold & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/Screenshot 2025-08-13 134701.png', alt: 'Pink & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
       // Additional gallery
       { src: '/products/product-5-template/product-5-4.jpg', alt: 'TXA Texture / Lifestyle', fallback: '/placeholder.svg' }
     ],
