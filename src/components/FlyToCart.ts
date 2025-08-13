@@ -33,7 +33,6 @@ export function animateFlyToCart(options: FlyToCartOptions): void {
 		container.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15), 0 0 18px rgba(212,175,55,0.2)';
 		container.style.overflow = 'hidden';
 		container.style.transform = 'scale(1)';
-		container.style.transition = `transform ${durationMs}ms cubic-bezier(0.22, 1, 0.36, 1), opacity ${durationMs}ms ease`;
 
 		const img = document.createElement('img');
 		img.src = imageUrl || '';
@@ -65,15 +64,32 @@ export function animateFlyToCart(options: FlyToCartOptions): void {
 		const endX = targetRect.left + targetRect.width / 2 - (startLeft + boxSize / 2);
 		const endY = targetRect.top + targetRect.height / 2 - (startTop + boxSize / 2);
 
-		// kick off on next frame for transition to apply
-		requestAnimationFrame(() => {
-			container.style.transform = `translate(${endX}px, ${endY}px) scale(0.2)`;
-			container.style.opacity = '0.15';
-		});
+		// curved path using Web Animations API; fallback to simple transform if not available
+		const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		if (!prefersReduced && typeof (container as any).animate === 'function') {
+			const controlX = endX * 0.4; // curve horizontally towards 40% of the distance
+			const lift = Math.min(240, Math.max(140, Math.abs(endY) * 0.5)); // arc height
+			const midY = endY - (endY < 0 ? lift : lift); // always arc upwards visually
 
-		window.setTimeout(() => {
-			container.remove();
-		}, durationMs + 50);
+			(container as any).animate([
+				{ transform: 'translate(0px, 0px) scale(1)', opacity: 1, offset: 0 },
+				{ transform: `translate(${controlX}px, ${midY}px) scale(0.6)`, opacity: 0.6, offset: 0.6 },
+				{ transform: `translate(${endX}px, ${endY}px) scale(0.2)`, opacity: 0.15, offset: 1 }
+			], {
+				duration: durationMs,
+				easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+				fill: 'forwards'
+			});
+			window.setTimeout(() => container.remove(), durationMs + 60);
+		} else {
+			// fallback straight path
+			container.style.transition = `transform ${durationMs}ms cubic-bezier(0.22, 1, 0.36, 1), opacity ${durationMs}ms ease`;
+			requestAnimationFrame(() => {
+				container.style.transform = `translate(${endX}px, ${endY}px) scale(0.2)`;
+				container.style.opacity = '0.15';
+			});
+			window.setTimeout(() => container.remove(), durationMs + 50);
+		}
 	} catch {
 		// no-op on animation failures
 	}

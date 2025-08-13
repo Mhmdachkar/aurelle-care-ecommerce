@@ -160,13 +160,13 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
 
   const handleAddToCart = async () => {
     const currentImage = productData.images[selectedImage]?.src || productData.images[0]?.src;
-    // Polished fly-to-cart animation using a dedicated helper
+    // Polished fly-to-cart animation starting from Add to Cart button
     animateFlyToCart({
-      sourceEl: mainImageRef.current,
+      sourceEl: (document.getElementById('add-to-cart-button') as HTMLElement) || mainImageRef.current,
       targetEl: document.getElementById('global-cart-button'),
       imageUrl: currentImage,
       label: '1x',
-      durationMs: 1400
+      durationMs: 1800
     });
 
     await addToCart({
@@ -512,6 +512,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
               <div className="space-y-3">
                 <Button 
                   onClick={handleAddToCart}
+                  id="add-to-cart-button"
                   className="w-full py-4 text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   style={{
                     background: `linear-gradient(135deg, ${THEME_PRIMARY}, #722033)`,
