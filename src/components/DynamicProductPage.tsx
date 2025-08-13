@@ -84,6 +84,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
   const [selectedVariant, setSelectedVariant] = useState(productData.variants?.[0]?.name || '');
   const [selectedImage, setSelectedImage] = useState(0);
   const [qty, setQty] = useState(1);
+  const mainImageRef = useRef<HTMLImageElement | null>(null);
 
   // Update main image when variant changes for products with variant-specific images
   useEffect(() => {
@@ -158,7 +159,35 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
 
   const handleAddToCart = async () => {
     const currentImage = productData.images[selectedImage]?.src || productData.images[0]?.src;
-    
+    // Fly-to-cart animation
+    try {
+      const sourceImg = mainImageRef.current;
+      const cartBtn = document.getElementById('global-cart-button');
+      if (sourceImg && cartBtn) {
+        const sourceRect = sourceImg.getBoundingClientRect();
+        const targetRect = cartBtn.getBoundingClientRect();
+        const clone = sourceImg.cloneNode(true) as HTMLImageElement;
+        clone.style.position = 'fixed';
+        clone.style.left = `${sourceRect.left}px`;
+        clone.style.top = `${sourceRect.top}px`;
+        clone.style.width = `${sourceRect.width}px`;
+        clone.style.height = `${sourceRect.height}px`;
+        clone.style.objectFit = 'contain';
+        clone.style.zIndex = '9999';
+        clone.style.transition = 'transform 600ms cubic-bezier(0.22, 1, 0.36, 1), opacity 600ms ease';
+        document.body.appendChild(clone);
+        const translateX = targetRect.left + targetRect.width / 2 - (sourceRect.left + sourceRect.width / 2);
+        const translateY = targetRect.top + targetRect.height / 2 - (sourceRect.top + sourceRect.height / 2);
+        requestAnimationFrame(() => {
+          clone.style.transform = `translate(${translateX}px, ${translateY}px) scale(0.2)`;
+          clone.style.opacity = '0.2';
+        });
+        setTimeout(() => {
+          clone.remove();
+        }, 650);
+      }
+    } catch {}
+
     await addToCart({
       product_name: productData.name,
       variant: selectedVariant || 'Default',
@@ -216,6 +245,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
             {/* Main Product Image */}
             <Card className="overflow-hidden hover-lift luxury-border bg-gradient-to-br from-cream via-background to-rose-muted">
               <img
+                ref={mainImageRef}
                 src={safeImg(productData.images[selectedImage]?.src)}
                 onError={(e) => ((e.target as HTMLImageElement).src = productData.images[selectedImage]?.fallback || '/placeholder.svg')}
                 alt={productData.images[selectedImage]?.alt || productData.name}

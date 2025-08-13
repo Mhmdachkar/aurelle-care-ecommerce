@@ -31,6 +31,7 @@ export const ShoppingCart = ({ isOpen, onOpenChange }: ShoppingCartProps) => {
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetTrigger asChild>
         <Button 
+          id="global-cart-button"
           variant="outline" 
           className="relative h-12 w-12 bg-cream hover:bg-gold hover:text-primary border-gold transition-luxury hover:shadow-gold"
         >

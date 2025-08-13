@@ -990,6 +990,77 @@ export const PRODUCT_DATA = {
       original: '$78.00',
       currency: 'USD'
     },
+
+  'skin-txa-niacinamide-pro': {
+    id: 'skin-txa-niacinamide-pro',
+    name: 'Skin TXA Niacinamide Pro',
+    description: 'Advanced TXA + Niacinamide capsule cream for luminous, even-toned skin with minimal irritation.',
+    price: {
+      current: '$39.00',
+      original: '$78.00',
+      currency: 'USD'
+    },
+    images: [
+      // Variant images (order must match variants)
+      { src: '/products/product-6-template/product-6.jpg', alt: 'Single Package', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-1.jpg', alt: 'Double Pack', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-2.webp', alt: 'Gold & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-3.webp', alt: 'Pink & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
+      // Additional gallery
+      { src: '/products/product-6-template/product-6-4.webp', alt: 'Texture / Lifestyle 1', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-5.jpg', alt: 'Texture / Lifestyle 2', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-6.webp', alt: 'Packaging Detail', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-7.webp', alt: 'Set Arrangement', fallback: '/placeholder.svg' }
+    ],
+    variants: [
+      { name: 'Single Package', description: 'One TXA Niacinamide Pro' },
+      { name: 'Double Pack', description: 'Two-pack value set' },
+      { name: 'Gold & Rose Set', description: 'Gold & Rose Capsule Cream Pack (Set of 2)' },
+      { name: 'Pink & Rose Set', description: 'Pink & Rose Capsule Cream Pack (Set of 2)' }
+    ],
+    features: [
+      { icon: ShieldCheck, label: 'Gentle • Low irritation' },
+      { icon: Sparkles, label: 'Brightens & Evens Tone' },
+      { icon: ActivitySquare, label: 'Targets Spots & Scars' },
+      { icon: Zap, label: 'Refines Texture' }
+    ],
+    stats: {
+      recommendations: '4.3K',
+      browsing: '980',
+      reviews: '902'
+    },
+    video: {
+      src: '/videos/WhatsApp Video 2025-08-13 at 14.51.10_461b3c9f.mp4',
+      poster: '/products/product-6-template/product-6.jpg',
+      title: 'Skin TXA Niacinamide — Real Results'
+    },
+    accordionSections: [
+      {
+        id: 'overview',
+        title: 'Overview',
+        icon: '✨',
+        content: (
+          <div className="space-y-3 text-gray-700">
+            <p>Refines uneven skin tone and texture for a clearer, brighter complexion. Customizable capsule-to-gel ratio.</p>
+            <p>Formulated with TXA + Niacinamide for effective yet gentle performance.</p>
+          </div>
+        )
+      },
+      {
+        id: 'usage',
+        title: 'How to Use',
+        icon: '📋',
+        content: (
+          <div className="space-y-3 text-gray-700">
+            <p>Mix capsule and gel per your skin needs. Increase gel for lighter feel; capsule for more moisture and elasticity.</p>
+            <p>Apply AM/PM on face and neck after serums.</p>
+          </div>
+        )
+      }
+    ],
+    madeIn: 'Made in Korea',
+    officialBadge: '55g'
+  },
     images: [
       // Variant images (order must match the variants array below)
       { src: '/products/product-5-template/product-5.jpg', alt: 'Single Package', fallback: '/placeholder.svg' },

@@ -36,6 +36,7 @@ const PRODUCTS: Array<{
   { slug: 'pdrn-pink-collagen-capsule-cream', name: 'PDRN Pink Collagen Capsule Cream', price: '$20.00', image: '/products/product-3-template/product-3.jpg', badge: 'New' },
   { slug: 'intensive-vitamin-c-capsule-cream', name: 'Intensive Vitamin C Capsule Cream', price: '1.599,00 TL', image: '/products/product-4-template/product-4.jpg', badge: 'New' },
   { slug: 'txa-niacinamide-capsule-cream', name: 'TXA Niacinamide Capsule Cream', price: '$39.00', image: '/products/product-5-template/product-5.jpg', badge: 'New' },
+  { slug: 'skin-txa-niacinamide-pro', name: 'Skin TXA Niacinamide Pro', price: '$39.00', image: '/products/product-6-template/product-6.jpg', badge: 'New' },
 ];
 
 const Index = () => {
