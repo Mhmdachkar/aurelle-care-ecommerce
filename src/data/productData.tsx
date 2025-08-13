@@ -1299,6 +1299,183 @@ export const PRODUCT_DATA = {
     ],
     madeIn: 'Made in Korea',
     officialBadge: '75ml'
+  },
+
+  'collagen-night-care-mask': {
+    id: 'collagen-night-care-mask',
+    name: 'Collagen Night Care Mask',
+    description: 'Innovative peel-off night mask that supports and maintains skin elasticity overnight. Provides 8-hour triple care for elasticity, moisture, and radiance, and peels off in one piece without irritation.',
+    price: {
+      current: '1.799,00 TL',
+      original: '3.599,00 TL',
+      currency: 'TL'
+    },
+    images: [
+      // Variant images (order must match variants)
+      { src: '/products/product-6-template/product-6.jpg', alt: 'Single Package', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-1.jpg', alt: 'Double Pack', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-2.webp', alt: 'Gold & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-3.webp', alt: 'Pink & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
+      // Additional gallery
+      { src: '/products/product-6-template/product-6-4.webp', alt: 'Texture / Lifestyle 1', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-5.jpg', alt: 'Texture / Lifestyle 2', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-6.webp', alt: 'Packaging Detail', fallback: '/placeholder.svg' },
+      { src: '/products/product-6-template/product-6-7.webp', alt: 'Set Arrangement', fallback: '/placeholder.svg' }
+    ],
+    variants: [
+      { name: 'Single Package', description: 'One Collagen Night Care Mask' },
+      { name: 'Double Pack', description: 'Two-pack value set' },
+      { name: 'Gold & Rose Set', description: 'Gold & Rose Set (Pack of 2)' },
+      { name: 'Pink & Rose Set', description: 'Pink & Rose Set (Pack of 2)' }
+    ],
+    features: [
+      { icon: ShieldCheck, label: 'Dermatologist Approved' },
+      { icon: Sparkles, label: 'Radiance & Brightening' },
+      { icon: ActivitySquare, label: 'Elasticity Support' },
+      { icon: Zap, label: 'Moisture Lock (8h)' }
+    ],
+    stats: {
+      recommendations: '4.3K',
+      browsing: '980',
+      reviews: '902'
+    },
+    video: {
+      src: '/videos/WhatsApp Video 2025-08-13 at 14.51.10_461b3c9f.mp4',
+      poster: '/products/product-6-template/product-6.jpg',
+      title: 'Collagen Night Care — Real Results'
+    },
+    accordionSections: [
+      {
+        id: 'overview',
+        title: 'Overview',
+        icon: '✨',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <p>Medicube Collagen Night Wrapping Mask is a peel-off night mask designed to support and maintain skin elasticity overnight.</p>
+            <p>Provides elasticity, moisture, and radiance with its 8-hour triple care. Peels off in one piece, leaving skin fresh and vibrant.</p>
+            <p>Formulated with advanced Korean skincare technology to visibly firm, smooth, and brighten skin with regular use.</p>
+            <div className="text-sm">
+              <ul className="list-disc pl-5">
+                <li>Dermatologist approved • Low irritation</li>
+                <li>No artificial colours or fragrances</li>
+                <li>Sustainable packaging</li>
+              </ul>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: 'skin-types',
+        title: 'Suitable for All Skin Types',
+        icon: '🧴',
+        content: (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-rose-600">Skin Types</p>
+              <ul className="list-disc pl-5">
+                <li>Combination</li>
+                <li>Dry</li>
+                <li>Normal</li>
+                <li>Oily</li>
+                <li>Sensitive</li>
+              </ul>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-rose-600">Skin Concerns</p>
+              <ul className="list-disc pl-5">
+                <li>Dryness</li>
+                <li>Dullness</li>
+                <li>Fine lines</li>
+                <li>Sagging</li>
+              </ul>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: 'clinical-results',
+        title: 'Clinical Results',
+        icon: '📊',
+        content: (
+          <div className="flex flex-col gap-2 text-gray-700">
+            <p><strong>After 2 weeks of use:</strong></p>
+            <ul className="list-disc pl-5">
+              <li>31.4% increase in skin elasticity</li>
+              <li>4.5% reduction in transepidermal water loss</li>
+              <li>24.8% increase in 24-hour moisture retention</li>
+              <li>23.4% increase in surface moisture content</li>
+              <li>2.9% increase in deep moisture content</li>
+            </ul>
+            <p className="text-sm italic">These are clinical test results. Individual results may vary.</p>
+          </div>
+        )
+      },
+      {
+        id: 'main-contents',
+        title: 'Main Contents',
+        icon: '🧪',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <ul className="list-disc pl-5">
+              <li><strong>Hyaluronic Acid:</strong> Intense moisture, softens fine lines</li>
+              <li><strong>Niacinamide (Vitamin B3):</strong> Improves texture, evens tone, adds radiance</li>
+              <li><strong>Glycerin:</strong> Moisturizes and supports skin barrier</li>
+              <li><strong>Tocopherol (Vitamin E):</strong> Antioxidant, improves texture</li>
+              <li><strong>Ceramide NP:</strong> Prevents moisture loss, protects from environmental damage</li>
+              <li><strong>Collagen Extract:</strong> Elasticity and moisture; targets signs of aging</li>
+              <li><strong>Adenosine:</strong> Reduces appearance of fine lines</li>
+              <li><strong>Butylene Glycol:</strong> Keeps skin moist, boosts absorption</li>
+            </ul>
+          </div>
+        )
+      },
+      {
+        id: 'usage',
+        title: 'Instructions for Use',
+        icon: '📋',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <ol className="list-decimal pl-5">
+              <li>After cleansing, apply toner and moisturizer.</li>
+              <li>Apply mask evenly (avoid eyebrows, hairline, eyes, lips).</li>
+              <li>Let dry ~15 minutes and sleep.</li>
+              <li>In the morning, peel off from edges or rinse with lukewarm water.</li>
+            </ol>
+          </div>
+        )
+      },
+      {
+        id: 'faq',
+        title: 'Frequently Asked Questions',
+        icon: '❓',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <div>
+              <p className="font-semibold">When should I apply this product?</p>
+              <p>Use as the last step of your nightly routine.</p>
+            </div>
+            <div>
+              <p className="font-semibold">Do I need to rinse after it dries?</p>
+              <p>No, peel off from the edges; optionally rinse if desired.</p>
+            </div>
+            <div>
+              <p className="font-semibold">Does the mask prevent skin from breathing?</p>
+              <p>No, special film technology adapts to the skin without discomfort.</p>
+            </div>
+            <div>
+              <p className="font-semibold">How do I know when it's dry?</p>
+              <p>It should feel dry and non-sticky when touched.</p>
+            </div>
+            <div>
+              <p className="font-semibold">Can I use it every day?</p>
+              <p>Recommended 3–4 times a week. Daily use is fine in dry weather or winter.</p>
+            </div>
+          </div>
+        )
+      }
+    ],
+    madeIn: 'Made in Korea',
+    officialBadge: '75ml'
   }
 };
 
