@@ -991,8 +991,8 @@ export const PRODUCT_DATA = {
       currency: 'USD'
     },
 
-  'skin-txa-niacinamide-pro': {
-    id: 'skin-txa-niacinamide-pro',
+  'collagen-night-care-mask': {
+    id: 'collagen-night-care-mask',
     name: 'Collagen Night Care Mask',
     description: 'Innovative peel-off night mask that supports and maintains skin elasticity overnight. Provides 8-hour triple care for elasticity, moisture, and radiance, and peels off in one piece without irritation.',
     price: {
