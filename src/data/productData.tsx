@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sparkles, ActivitySquare, Cpu, Zap, ShieldCheck } from 'lucide-react';
 
-// Product data configurations
+// Product data configurations - Updated for Collagen Night Care Mask
 export const PRODUCT_DATA = {
   'champagne-beaute-lift': {
     id: 'champagne-beaute-lift',
@@ -990,6 +990,139 @@ export const PRODUCT_DATA = {
       original: '$78.00',
       currency: 'USD'
     },
+    images: [
+      // Variant images (order must match the variants array below)
+      { src: '/products/product-5-template/product-5.jpg', alt: 'Single Package', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/Screenshot 2025-08-13 134630.png', alt: 'Double Pack', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/Screenshot 2025-08-13 134648.png', alt: 'Gold & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/Screenshot 2025-08-13 134701.png', alt: 'Pink & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
+      // Additional gallery
+      { src: '/products/product-5-template/product-5-4.jpg', alt: 'TXA Texture / Lifestyle', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/product-5-1.webp', alt: 'TXA Capsule Close-up', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/product-5-3.jpg', alt: 'Packaging Detail', fallback: '/placeholder.svg' },
+      { src: '/products/product-5-template/prooduct-5-2.webp', alt: 'Set Arrangement', fallback: '/placeholder.svg' }
+    ],
+    variants: [
+      { name: 'Single Package', description: 'One TXA Niacinamide Capsule Cream' },
+      { name: 'Double Pack', description: 'Two-pack value set' },
+      { name: 'Gold & Rose Set', description: 'Gold & Rose Capsule Cream Pack (Set of 2)' },
+      { name: 'Pink & Rose Set', description: 'Pink & Rose Capsule Cream Pack (Set of 2)' }
+    ],
+    features: [
+      { icon: ShieldCheck, label: 'Gentle • 0.00% Irritation in tests' },
+      { icon: Sparkles, label: 'Brightens & Evens Tone' },
+      { icon: ActivitySquare, label: 'Helps Blemishes & Acne Scars' },
+      { icon: Zap, label: 'Refines Texture & Pores' }
+    ],
+    stats: {
+      recommendations: '6.1K',
+      browsing: '1.2K',
+      reviews: '1,342'
+    },
+    video: {
+      src: '/videos/skin TXA NIACINAMIDE CAPSULE CREAM .mp4',
+      poster: '/products/product-5-template/product-5.jpg',
+      title: 'TXA Niacinamide in Action'
+    },
+    accordionSections: [
+      {
+        id: 'overview',
+        title: 'Overview',
+        icon: '✨',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <p><strong>Pop! and Erase!</strong> Refines uneven skin tone and texture for a visibly clearer, more radiant complexion.</p>
+            <p>Lightweight, customizable capsule cream with TXA, designed to improve uneven skin tone with minimal irritation.</p>
+            <p className="text-sm italic">Clinically tested by Cutis Biomedical Research Center & Global Institute of Dermatological Sciences.</p>
+          </div>
+        )
+      },
+      {
+        id: 'skin-types-concerns',
+        title: 'Skin Types & Concerns',
+        icon: '🧴',
+        content: (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-rose-600">Suitable for All Skin Types:</p>
+              <ul className="list-disc pl-5 text-gray-700">
+                <li>Combination</li>
+                <li>Dry</li>
+                <li>Normal</li>
+                <li>Oily</li>
+                <li>Sensitive</li>
+              </ul>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-rose-600">Targeted Concerns:</p>
+              <ul className="list-disc pl-5 text-gray-700">
+                <li>Blemishes</li>
+                <li>Irregular tone & texture</li>
+                <li>Acne scars / spots</li>
+                <li>Pores</li>
+              </ul>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: 'main-components',
+        title: 'Main Components',
+        icon: '🧪',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <ul className="list-disc pl-5">
+              <li><strong>99% Pure Tranexamic Acid (TXA):</strong> Visibly reduces tone irregularities and acne scars.</li>
+              <li><strong>5% Niacinamide:</strong> Revitalizes dullness; smoother, softer, fresher skin.</li>
+              <li><strong>Alpha-Arbutin & Glutathione:</strong> Boosts moisture and clarity for a healthy glow.</li>
+            </ul>
+          </div>
+        )
+      },
+      {
+        id: 'what-is-txa',
+        title: 'What is TXA?',
+        icon: '🧬',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <p><strong>Tranexamic Acid (TXA)</strong> is a low-irritation ingredient used to treat blemishes, acne scars, and hyperpigmentation.</p>
+            <p>With <strong>99% purity</strong>, it absorbs quickly and delivers benefits without residue.</p>
+            <p className="text-sm italic">The above is based solely on raw material characteristics.</p>
+          </div>
+        )
+      },
+      {
+        id: 'study-results',
+        title: 'Study Results',
+        icon: '📊',
+        content: (
+          <div className="flex flex-col gap-2 text-gray-700">
+            <p>Skin radiance <strong>+46%</strong> after a single use</p>
+            <p>Skin moisture <strong>+41%</strong> after a single use</p>
+            <p>Skin tone balance <strong>+5.4%</strong> after a single use</p>
+            <p className="text-sm italic">Clinical test: Global Institute of Dermatological Sciences. Results may vary.</p>
+          </div>
+        )
+      },
+      {
+        id: 'usage',
+        title: 'How to Use',
+        icon: '📋',
+        content: (
+          <div className="flex flex-col gap-3 text-gray-700">
+            <p>Mix the red TXA capsule and red gel in the ratio appropriate for your skin type.</p>
+            <ul className="list-disc pl-5">
+              <li>For a lighter feel: increase the gel ratio</li>
+              <li>For more moisture and elasticity: increase the capsule ratio</li>
+            </ul>
+            <p>Apply to face and neck morning and evening after serums.</p>
+          </div>
+        )
+      }
+    ],
+    madeIn: 'Made in Korea',
+    officialBadge: '55g'
+  },
 
   'collagen-night-care-mask': {
     id: 'collagen-night-care-mask',
@@ -1166,139 +1299,6 @@ export const PRODUCT_DATA = {
     ],
     madeIn: 'Made in Korea',
     officialBadge: '75ml'
-  },
-    images: [
-      // Variant images (order must match the variants array below)
-      { src: '/products/product-5-template/product-5.jpg', alt: 'Single Package', fallback: '/placeholder.svg' },
-      { src: '/products/product-5-template/Screenshot 2025-08-13 134630.png', alt: 'Double Pack', fallback: '/placeholder.svg' },
-      { src: '/products/product-5-template/Screenshot 2025-08-13 134648.png', alt: 'Gold & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
-      { src: '/products/product-5-template/Screenshot 2025-08-13 134701.png', alt: 'Pink & Rose Capsule Cream Pack (Set of 2)', fallback: '/placeholder.svg' },
-      // Additional gallery
-      { src: '/products/product-5-template/product-5-4.jpg', alt: 'TXA Texture / Lifestyle', fallback: '/placeholder.svg' },
-      { src: '/products/product-5-template/product-5-1.webp', alt: 'TXA Capsule Close-up', fallback: '/placeholder.svg' },
-      { src: '/products/product-5-template/product-5-3.jpg', alt: 'Packaging Detail', fallback: '/placeholder.svg' },
-      { src: '/products/product-5-template/prooduct-5-2.webp', alt: 'Set Arrangement', fallback: '/placeholder.svg' }
-    ],
-    variants: [
-      { name: 'Single Package', description: 'One TXA Niacinamide Capsule Cream' },
-      { name: 'Double Pack', description: 'Two-pack value set' },
-      { name: 'Gold & Rose Set', description: 'Gold & Rose Capsule Cream Pack (Set of 2)' },
-      { name: 'Pink & Rose Set', description: 'Pink & Rose Capsule Cream Pack (Set of 2)' }
-    ],
-    features: [
-      { icon: ShieldCheck, label: 'Gentle • 0.00% Irritation in tests' },
-      { icon: Sparkles, label: 'Brightens & Evens Tone' },
-      { icon: ActivitySquare, label: 'Helps Blemishes & Acne Scars' },
-      { icon: Zap, label: 'Refines Texture & Pores' }
-    ],
-    stats: {
-      recommendations: '6.1K',
-      browsing: '1.2K',
-      reviews: '1,342'
-    },
-    video: {
-      src: '/videos/skin TXA NIACINAMIDE CAPSULE CREAM .mp4',
-      poster: '/products/product-5-template/product-5.jpg',
-      title: 'TXA Niacinamide in Action'
-    },
-    accordionSections: [
-      {
-        id: 'overview',
-        title: 'Overview',
-        icon: '✨',
-        content: (
-          <div className="flex flex-col gap-3 text-gray-700">
-            <p><strong>Pop! and Erase!</strong> Refines uneven skin tone and texture for a visibly clearer, more radiant complexion.</p>
-            <p>Lightweight, customizable capsule cream with TXA, designed to improve uneven skin tone with minimal irritation.</p>
-            <p className="text-sm italic">Clinically tested by Cutis Biomedical Research Center & Global Institute of Dermatological Sciences.</p>
-          </div>
-        )
-      },
-      {
-        id: 'skin-types-concerns',
-        title: 'Skin Types & Concerns',
-        icon: '🧴',
-        content: (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <p className="font-semibold text-rose-600">Suitable for All Skin Types:</p>
-              <ul className="list-disc pl-5 text-gray-700">
-                <li>Combination</li>
-                <li>Dry</li>
-                <li>Normal</li>
-                <li>Oily</li>
-                <li>Sensitive</li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-2">
-              <p className="font-semibold text-rose-600">Targeted Concerns:</p>
-              <ul className="list-disc pl-5 text-gray-700">
-                <li>Blemishes</li>
-                <li>Irregular tone & texture</li>
-                <li>Acne scars / spots</li>
-                <li>Pores</li>
-              </ul>
-            </div>
-          </div>
-        )
-      },
-      {
-        id: 'main-components',
-        title: 'Main Components',
-        icon: '🧪',
-        content: (
-          <div className="flex flex-col gap-3 text-gray-700">
-            <ul className="list-disc pl-5">
-              <li><strong>99% Pure Tranexamic Acid (TXA):</strong> Visibly reduces tone irregularities and acne scars.</li>
-              <li><strong>5% Niacinamide:</strong> Revitalizes dullness; smoother, softer, fresher skin.</li>
-              <li><strong>Alpha-Arbutin & Glutathione:</strong> Boosts moisture and clarity for a healthy glow.</li>
-            </ul>
-          </div>
-        )
-      },
-      {
-        id: 'what-is-txa',
-        title: 'What is TXA?',
-        icon: '🧬',
-        content: (
-          <div className="flex flex-col gap-3 text-gray-700">
-            <p><strong>Tranexamic Acid (TXA)</strong> is a low-irritation ingredient used to treat blemishes, acne scars, and hyperpigmentation.</p>
-            <p>With <strong>99% purity</strong>, it absorbs quickly and delivers benefits without residue.</p>
-            <p className="text-sm italic">The above is based solely on raw material characteristics.</p>
-          </div>
-        )
-      },
-      {
-        id: 'study-results',
-        title: 'Study Results',
-        icon: '📊',
-        content: (
-          <div className="flex flex-col gap-2 text-gray-700">
-            <p>Skin radiance <strong>+46%</strong> after a single use</p>
-            <p>Skin moisture <strong>+41%</strong> after a single use</p>
-            <p>Skin tone balance <strong>+5.4%</strong> after a single use</p>
-            <p className="text-sm italic">Clinical test: Global Institute of Dermatological Sciences. Results may vary.</p>
-          </div>
-        )
-      },
-      {
-        id: 'usage',
-        title: 'How to Use',
-        icon: '📋',
-        content: (
-          <div className="flex flex-col gap-3 text-gray-700">
-            <p>Mix the red TXA capsule and red gel in the ratio appropriate for your skin type.</p>
-            <ul className="list-disc pl-5">
-              <li>For a lighter feel: increase the gel ratio</li>
-              <li>For more moisture and elasticity: increase the capsule ratio</li>
-            </ul>
-            <p>Apply to face and neck morning and evening after serums.</p>
-          </div>
-        )
-      }
-    ],
-    madeIn: 'Made in Korea',
-    officialBadge: '55g'
   }
 };
 
