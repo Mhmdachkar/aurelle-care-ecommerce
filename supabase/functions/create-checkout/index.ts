@@ -172,17 +172,24 @@ serve(async (req) => {
     // Create line items for Stripe
     console.log('Creating Stripe line items...');
     const lineItems = cartItems.map((item: any) => {
-      const absoluteImage = toAbsoluteUrl(item.image_url);
-      const images = absoluteImage ? [absoluteImage] : [];
-      if (!absoluteImage && item.image_url) {
-        console.warn('Skipping non-absolute image URL for Stripe:', item.image_url);
+      let images: string[] = [];
+      try {
+        const absoluteImage = toAbsoluteUrl(item.image_url);
+        if (absoluteImage) {
+          // Validate URL format before using it
+          new URL(absoluteImage); // This will throw if invalid
+          images = [absoluteImage];
+        }
+      } catch (urlError) {
+        console.warn('Skipping invalid image URL for Stripe:', item.image_url, urlError.message);
       }
+      
       return {
         price_data: {
           currency: String(currency || 'USD').toLowerCase(),
           product_data: {
             name: `${item.product_name} - ${item.variant}`,
-            images,
+            images, // Will be empty array if URL construction/validation failed
           },
           unit_amount: Math.round(parsePriceToNumber(item.price) * 100), // Convert to cents
         },
