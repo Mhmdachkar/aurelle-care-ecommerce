@@ -10,6 +10,7 @@ import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
+import { animateFlyToCart } from '@/components/FlyToCart';
 
 // Consistent theme colors with homepage
 const THEME_PRIMARY = '#A4193D'; // deep rose
@@ -159,34 +160,14 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
 
   const handleAddToCart = async () => {
     const currentImage = productData.images[selectedImage]?.src || productData.images[0]?.src;
-    // Fly-to-cart animation
-    try {
-      const sourceImg = mainImageRef.current;
-      const cartBtn = document.getElementById('global-cart-button');
-      if (sourceImg && cartBtn) {
-        const sourceRect = sourceImg.getBoundingClientRect();
-        const targetRect = cartBtn.getBoundingClientRect();
-        const clone = sourceImg.cloneNode(true) as HTMLImageElement;
-        clone.style.position = 'fixed';
-        clone.style.left = `${sourceRect.left}px`;
-        clone.style.top = `${sourceRect.top}px`;
-        clone.style.width = `${sourceRect.width}px`;
-        clone.style.height = `${sourceRect.height}px`;
-        clone.style.objectFit = 'contain';
-        clone.style.zIndex = '9999';
-        clone.style.transition = 'transform 600ms cubic-bezier(0.22, 1, 0.36, 1), opacity 600ms ease';
-        document.body.appendChild(clone);
-        const translateX = targetRect.left + targetRect.width / 2 - (sourceRect.left + sourceRect.width / 2);
-        const translateY = targetRect.top + targetRect.height / 2 - (sourceRect.top + sourceRect.height / 2);
-        requestAnimationFrame(() => {
-          clone.style.transform = `translate(${translateX}px, ${translateY}px) scale(0.2)`;
-          clone.style.opacity = '0.2';
-        });
-        setTimeout(() => {
-          clone.remove();
-        }, 650);
-      }
-    } catch {}
+    // Polished fly-to-cart animation using a dedicated helper
+    animateFlyToCart({
+      sourceEl: mainImageRef.current,
+      targetEl: document.getElementById('global-cart-button'),
+      imageUrl: currentImage,
+      label: '1x',
+      durationMs: 650
+    });
 
     await addToCart({
       product_name: productData.name,
