@@ -166,7 +166,7 @@ export default function DynamicProductPage({ productData }: DynamicProductPagePr
       targetEl: document.getElementById('global-cart-button'),
       imageUrl: currentImage,
       label: '1x',
-      durationMs: 1800
+      durationMs: 3000
     });
 
     await addToCart({
